@@ -1,0 +1,421 @@
+
+
+@import url(https://pro.fontawesome.com/releases/v5.11.2/css/all.css);
+:root {
+  --user-button-circle: rgba(0,0,0,0.025);
+  --user-button-cardborder: rgba(255,255,255,0.25);
+  --user-button-text:#323133;
+  --user-button-shadow:rgba(0,0,0,0.1);
+}
+
+.pretext {
+  text-align: center;
+}
+.pretext h1 {
+  color: #fff;
+  font-size: 62px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  background: linear-gradient(to right, #095fab 10%, #25abe8 50%, #57d75b 60%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 1.5s linear infinite;
+  display: inline-block;
+}
+
+@keyframes textclip {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.temp #user-button {
+  z-index: 1000;
+  bottom: 1rem !important;
+  right: 1rem !important;
+  color: var(--user-button-text);
+  transition: 1s 0s ease-out;
+  -webkit-animation: slide 3s ease-out forwards;
+          animation: slide 3s ease-out forwards;
+}
+@-webkit-keyframes slide {
+  0%, 50% {
+    opacity: 0;
+    display: block !important;
+  }
+  100% {
+    opacity: 1;
+    display: block !important;
+  }
+}
+@keyframes slide {
+  0%, 50% {
+    opacity: 0;
+    display: block !important;
+  }
+  100% {
+    opacity: 1;
+    display: block !important;
+  }
+}
+.temp #user-button .u-card {
+  border-radius: 100%;
+  box-shadow: 0 0 1rem -0.25rem var(--user-button-shadow), inset 0 0 1rem -0.75rem var(--user-button-shadow);
+}
+.temp #user-button .u-main {
+  cursor: pointer;
+  --user-button-background:var(--user-button-main, #EC87C0);
+}
+.temp #user-button .u-main img {
+  height: 100%;
+  width: 100%;
+}
+.temp #user-button .u-main iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4rem;
+  height: 4rem;
+  opacity: 1;
+  transition: 0s 4s;
+}
+.temp #user-button .u-icons {
+  position: relative;
+  z-index: 950;
+  transform: translate(-50%, -50%);
+  background: var(--user-button-circle);
+  box-shadow: 0 0 0 0.125rem var(--user-button-cardborder);
+  border-radius: 100%;
+  transition: 0.25s;
+  opacity: 1 !important;
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  /*&:before {
+     z-index:-1;
+     position:absolute;
+     top:0; right:0; bottom:0; left:0;
+     content:'';
+
+     backdrop-filter: blur(10px);
+  }*/
+}
+.temp #user-button .u-icons a {
+  color: inherit;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  text-decoration: none;
+}
+.temp #user-button .u-icons a div {
+  padding: 0.5rem;
+  transition: 0s;
+}
+.temp #user-button .u-icons a[href="https://twitter.com/Osorpenke"] {
+  position: relative;
+}
+.temp #user-button .u-icons a[href="https://twitter.com/Osorpenke"]:before {
+  content: "Middle Click";
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  white-space: pre;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s ease-in;
+  background: #fffc;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+}
+.temp #user-button .u-icons a[href="https://twitter.com/Osorpenke"].show:before {
+  opacity: 1;
+  transition: 0.25s ease-out;
+}
+.temp #user-button .u-icons a[href="https://twitter.com/Osorpenke"] div {
+  color: #1da1f2;
+}
+.temp #user-button .u-icons a[href="https://codepen.io/z-"] div {
+  background: black;
+  color: white;
+}
+.temp #user-button .u-icons a.u-random div {
+  position: relative;
+  top: -1px;
+  -webkit-animation: diespin 2s linear infinite;
+          animation: diespin 2s linear infinite;
+}
+@-webkit-keyframes diespin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes diespin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.temp #user-button .u-icons a.u-random:not(:hover) div {
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+}
+.temp #user-button .u-icons > * {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: var(--singlecolour);
+  border-radius: 100%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: 0.25s -0.05s;
+}
+.temp #user-button .u-icons > *:before {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.temp #user-button .u-icons > *:hover, .temp #user-button .u-icons > *:focus-within {
+  background: var(--hcolour);
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(1):nth-child(1), .temp #user-button .u-icons > *:first-child:nth-last-child(1) ~ *:nth-child(1) {
+  left: 25%;
+  top: 25%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(2):nth-child(1), .temp #user-button .u-icons > *:first-child:nth-last-child(2) ~ *:nth-child(1) {
+  left: 37.5%;
+  top: 18.75%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(2):nth-child(2), .temp #user-button .u-icons > *:first-child:nth-last-child(2) ~ *:nth-child(2) {
+  left: 18.75%;
+  top: 37.5%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(3):nth-child(1), .temp #user-button .u-icons > *:first-child:nth-last-child(3) ~ *:nth-child(1) {
+  left: 50%;
+  top: 15.625%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(3):nth-child(2), .temp #user-button .u-icons > *:first-child:nth-last-child(3) ~ *:nth-child(2) {
+  left: 25%;
+  top: 25%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(3):nth-child(3), .temp #user-button .u-icons > *:first-child:nth-last-child(3) ~ *:nth-child(3) {
+  left: 15.625%;
+  top: 50%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(4):nth-child(1), .temp #user-button .u-icons > *:first-child:nth-last-child(4) ~ *:nth-child(1) {
+  left: 62.5%;
+  top: 18.75%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(4):nth-child(2), .temp #user-button .u-icons > *:first-child:nth-last-child(4) ~ *:nth-child(2) {
+  left: 37.5%;
+  top: 18.75%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(4):nth-child(3), .temp #user-button .u-icons > *:first-child:nth-last-child(4) ~ *:nth-child(3) {
+  left: 18.75%;
+  top: 37.5%;
+}
+.temp #user-button .u-icons > *:first-child:nth-last-child(4):nth-child(4), .temp #user-button .u-icons > *:first-child:nth-last-child(4) ~ *:nth-child(4) {
+  left: 18.75%;
+  top: 62.5%;
+}
+.temp #user-button:hover .u-icons, .temp #user-button:focus-within .u-icons {
+  width: 300% !important;
+  height: 300% !important;
+}
+
+.temp {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  height: 450px;
+  font-family: "Roboto", sans-serif;
+  transition: 0.25s;
+    margin-bottom: 100px;
+}
+.temp.dark {
+  background: #232223;
+  color: white;
+}
+@media (prefers-color-scheme: dark) {
+  .temp:not(.light) {
+    background: #232223;
+    color: white;
+  }
+}
+.temp .credit {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: inherit;
+}
+.temp .options {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  overflow: hidden;
+  min-width: 600px;
+  max-width: 1300px;
+  width: calc(100% - 100px);
+  height: 400px;
+}
+@media screen and (max-width: 718px) {
+  .temp .options {
+    min-width: 520px;
+  }
+  .temp .options .option:nth-child(5) {
+    display: none;
+  }
+}
+@media screen and (max-width: 638px) {
+  .temp .options {
+    min-width: 440px;
+  }
+  .temp .options .option:nth-child(4) {
+    display: none;
+  }
+}
+@media screen and (max-width: 558px) {
+  .temp .options {
+    min-width: 360px;
+  }
+  .temp .options .option:nth-child(3) {
+    display: none;
+  }
+}
+@media screen and (max-width: 478px) {
+  .temp .options {
+    min-width: 280px;
+  }
+  .temp .options .option:nth-child(2) {
+    display: none;
+  }
+}
+.temp .options .option {
+  position: relative;
+  overflow: hidden;
+  min-width: 60px;
+  margin: 10px;
+  background: var(--optionBackground, var(--defaultBackground, #E6E9ED));
+  background-size: auto 120%;
+  background-position: center;
+  cursor: pointer;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+.temp .options .option:nth-child(1) {
+  --defaultBackground:#ED5565;
+}
+.temp .options .option:nth-child(2) {
+  --defaultBackground:#FC6E51;
+}
+.temp .options .option:nth-child(3) {
+  --defaultBackground:#FFCE54;
+}
+.temp .options .option:nth-child(4) {
+  --defaultBackground:#2ECC71;
+}
+.temp .options .option:nth-child(5) {
+  --defaultBackground:#5D9CEC;
+}
+.temp .options .option:nth-child(6) {
+  --defaultBackground:#AC92EC;
+}
+.temp .options .option.active {
+  flex-grow: 10000;
+  transform: scale(1);
+  
+  margin: 0px;
+  border-radius: 40px;
+  background-size: 1300px;
+  /*&:active {
+     transform:scale(0.9);
+  }*/
+}
+.temp .options .option.active .shadowI {
+  box-shadow: inset 0 -120px 120px -120px black, inset 0 -120px 120px -100px black;
+}
+.temp .options .option.active .company {
+  bottom: 20px;
+  left: 20px;
+}
+.temp .options .option.active .company .info > div {
+  left: 0px;
+  opacity: 1;
+}
+.temp .options .option:not(.active) {
+  flex-grow: 1;
+  border-radius: 30px;
+}
+.temp .options .option:not(.active) .shadowI {
+  bottom: -40px;
+  box-shadow: inset 0 -120px 0px -120px black, inset 0 -120px 0px -100px black;
+}
+.temp .options .option:not(.active) .company {
+  bottom: 10px;
+  left: 10px;
+}
+.temp .options .option:not(.active) .company .info > div {
+  left: 20px;
+  opacity: 0;
+}
+.temp .options .option .shadowI {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 120px;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+.temp .options .option .company {
+  display: flex;
+  position: absolute;
+  right: 0px;
+  height: 40px;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95);
+}
+.temp .options .option .company .icon {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-width: 40px;
+  max-width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: white;
+  color: var(--defaultBackground);
+}
+.temp .options .option .company .info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  color: white;
+  white-space: pre;
+}
+.temp .options .option .company .info > div {
+  position: relative;
+  transition: 0.5s cubic-bezier(0.05, 0.61, 0.41, 0.95), opacity 0.5s ease-out;
+}
+.temp .options .option .company .info .main {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.temp .options .option .company .info .sub {
+  transition-delay: 0.1s;
+}

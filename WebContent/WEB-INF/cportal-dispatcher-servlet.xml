@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:lang="http://www.springframework.org/schema/lang" 
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:ws="http://www.springframework.org/schema/web-services"
+	xmlns:task="http://www.springframework.org/schema/task"	
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/web-services-1.5.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx    http://www.springframework.org/schema/tx/spring-tx-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.2.xsd
+	">
+	
+	<!-- 기본 설정 import -->
+	<import resource="classpath*:/META-INF/spring/cportal_main_config.xml" />
+	<import resource="classpath*:/META-INF/spring/security-content.xml" />
+	
+	
+	<import resource="classpath*:/META-INF/spring/db-context.xml" />	
+	
+	<bean id="transactionManager" 
+	      class="org.springframework.orm.jpa.JpaTransactionManager">
+	    <property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- Property Holder -->
+	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>file:${catalina.home}/conf/cportal/cportal.properties</value>
+				<value>file:${catalina.home}/conf/cportal/jdbc.properties</value>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- ================================================================================ -->
+	<!-- component scan                                                                    -->
+	<!-- ================================================================================ -->	
+	<context:annotation-config />
+	<context:component-scan base-package="com.castis.cportal"/>
+	<context:component-scan base-package="com.castis.cportal.util">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<mvc:annotation-driven />
+	
+			<!-- 트랜잭션 관리자 활성화 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+	
+	
+		<!-- Spring3 이상, jackson 라이브러리 2 이상일 때는 MappingJackson2JsonView 로 설정. -->
+	<bean id="jsonMapper" class="com.fasterxml.jackson.databind.ObjectMapper" />
+	<bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView">
+		<property name="objectMapper" ref="jsonMapper" />
+	</bean>
+	
+	
+	<!-- ViewResolvers -->
+	<bean id="beanNameViewResolver"
+		class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="0" />
+	
+	<bean id="viewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/view/" />
+		<property name="suffix" value=".jsp" />
+		<property name="order" value="1" />
+        <property name="contentType" value="text/html; charset=UTF=8" />
+	</bean>
+
+	<bean id="conversionService"
+		class="org.springframework.context.support.ConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean class="com.castis.cportal.util.StringToEnumConverterFactory" />
+			</list>
+		</property>
+	</bean>
+	<bean id="webBindingInitializer"
+		class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+		<property name="conversionService" ref="conversionService" />
+	</bean>
+
+	<bean id="applicationContextProvider" class="com.castis.commonLib.util.ApplicationContextProvider"></bean>
+
+
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+
+		
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+					<property name="supportedMediaTypes">
+						<list>
+							<value>text/plain;charset=UTF-8</value><!--String객체로 ResponseBody 되어 있을때 사용. 기본 값이며 client의 Accept 값에 의해 자체 변경된다. -->
+	               			 <value>application/json;charset=UTF-8</value>
+	               			 <value>application/xml;charset=UTF-8</value>
+						</list>
+					</property>
+					<property name="writeAcceptCharset" value="false"/><!-- Response할 때 html에 charset을 적용할 것인지 여부-->
+				</bean>
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter"/>
+				<bean class="org.springframework.http.converter.xml.XmlAwareFormHttpMessageConverter"/>				
+				<bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/><!--xml형태를 convert 한다.-->
+			</list>
+		</property>
+	</bean>
+	
+ 	<bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver" />
+
+
+<!-- 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="52428800"/>    50MB
+        <property name="maxInMemorySize" value="1048576"/>    1MB
+	</bean> -->
+
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**"/>
+			<bean id="requestInterceptor" class="com.castis.cportal.common.RequestInterceptor"></bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
+	
+	
+</beans>

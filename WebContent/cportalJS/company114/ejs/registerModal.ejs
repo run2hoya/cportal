@@ -1,0 +1,156 @@
+<div class="modal fade" id="twoFactorAuthModal" tabindex="-1" aria-labelledby="twoFactorAuthTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg two-factor-auth">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-5 px-sm-5 mx-50">
+                <h1 class="text-center mb-1" id="twoFactorAuthTitle">이용 할 상품을 선택 해주세요</h1>
+                <p class="text-center mb-3">
+                    <span class="text-warning">신규 사업부</span>인 경우 2주간 일반 사업부 등록을 지원해 드립니다.
+                    <br />
+                    신청시 신규 사업부에 꼭 체크 해주세요
+                </p>
+
+                <div class="custom-options-checkable">
+                    <input class="custom-option-item-check" type="radio" name="twoFactorAuthRadio" id="twoFactorAuthApps" value="apps-auth" checked />
+                    <label for="twoFactorAuthApps" class="custom-option-item d-flex align-items-center flex-column flex-sm-row px-3 py-2 mb-2">
+                        <span><i data-feather="award" class="font-large-2 me-sm-2 mb-2 mb-sm-0"></i></span>
+                        <span>
+                                            <span class="custom-option-item-title h3">프리미어 사업부</span>
+                                            <span class="d-block mt-75">
+                                                타사업부와는 차별화 된 사업부!! 사업부 홍보에 최적화된 서비스를 이용해 보세요. <br>text / 이미지 이용 가능합니다.
+                                            </span>
+                                        </span>
+                    </label>
+
+                    <input class="custom-option-item-check" type="radio" name="twoFactorAuthRadio" value="sms-auth" id="twoFactorAuthSms" />
+                    <label for="twoFactorAuthSms" class="custom-option-item d-flex align-items-center flex-column flex-sm-row px-3 py-2">
+                        <span><i data-feather="grid" class="font-large-2 me-sm-2 mb-2 mb-sm-0"></i></span>
+                        <span>
+                                            <span class="custom-option-item-title h3">일반 사업부</span>
+                                            <span class="d-block mt-75">사업부에 관한 정보를 홍보하세요! text만 이용 가능합니다.</span>
+                                        </span>
+                    </label>
+                </div>
+
+                <button id="nextStepAuth" class="btn btn-primary float-end mt-3">
+                    <span class="me-50">Continue</span>
+                    <i data-feather="chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / two factor auth modal -->
+
+<!-- add new address modal -->
+<div class="modal fade" id="twoFactorAuthAppsModal" tabindex="-1" aria-labelledby="twoFactorAuthAppsTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body pb-5 px-sm-4 mx-50">
+                <h1 class="address-title text-center mb-1" id="addNewAddressTitle">사업부 등록 신청</h1>
+                <p class="address-subtitle text-center mb-2 pb-75">문의사항은 <span class="text-warning">run2hoya@castis.com</span>으로 문의 부탁드립니다.</p>
+
+                <form id="addNewAddressForm" class="row gy-1 gx-2" onsubmit="return false">
+                    <div class="col-12">
+                        <div class="row custom-options-checkable">
+                            <div class="col-md-6 mb-md-0 mb-2">
+                                <input class="custom-option-item-check" id="homeAddressRadio" type="radio" name="companyType" value="PREMIER" checked />
+                                <label for="homeAddressRadio" class="custom-option-item px-2 py-1">
+                                                    <span class="d-flex align-items-center mb-50">
+                                                        <i data-feather="award" class="font-medium-4 me-50"></i>
+                                                        <span class="custom-option-item-title h4 fw-bolder mb-0">프리미어 사업부</span>
+                                                    </span>
+                                    <span class="d-block">100,000 cas / month</span>
+                                </label>
+                            </div>
+                            <div class="col-md-6 mb-md-0 mb-2">
+                                <input class="custom-option-item-check" id="officeAddressRadio" type="radio" name="companyType" value="NORMAL" />
+                                <label for="officeAddressRadio" class="custom-option-item px-2 py-1">
+                                                    <span class="d-flex align-items-center mb-50">
+                                                        <i data-feather="grid" class="font-medium-4 me-50"></i>
+                                                        <span class="custom-option-item-title h4 fw-bolder mb-0">일반 사업부</span>
+                                                    </span>
+                                    <span class="d-block">50,000 cas / month</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyName">사업부 명</label>
+                        <input type="text" id="companyName" name="companyName" class="form-control" placeholder="사업부 명" data-msg="사업부 명을 입력해 주세요" />
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyNameEn">사업부 명 (영문)</label>
+                        <input type="text" id="companyNameEn" name="companyNameEn" class="form-control" placeholder="사업부 명(영문)" data-msg="사업부 명(영문)을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyCeo">사업부 대표</label>
+                        <input type="text" id="companyCeo" name="companyCeo" class="form-control" placeholder="대표자 성함을 입력해 주세요" data-msg="대표자 성함을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyPlace">사업부 위치</label>
+                        <input type="text" id="companyPlace" name="companyPlace" class="form-control" placeholder="사업부 위치를 입력해 주세요" data-msg="사업부 위치를 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyType">사업부 타입</label>
+                        <select class="select2InModal form-select" name="companyType" id="companyType">
+                            <option value="기타">기타</option>
+                            <option value="전략기획">전략기획</option>
+                            <option value="경영">경영</option>
+                            <option value="인사">인사</option>
+                            <option value="영업">영업</option>
+                            <option value="연구">연구</option>
+                            <option value="대외고객 접점">대외고객 접점</option>
+                            <option value="솔루션">솔루션</option>
+                            <option value="전산 IT">전산 IT</option>
+                            <option value="서비스">서비스</option>
+                            <option value="디자인">디자인</option>
+                            <option value="마케팅">마케팅</option>
+
+                        </select>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                        <label class="form-label" for="companyEmail">사업부 e-mail</label>
+                        <input type="text" id="companyEmail" name="companyEmail" class="form-control" placeholder="이메일 정보를 입력해 주세요" data-msg="올바른 이메일 정보를 입력해 주세요"/>
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="companyDes">사업부 한줄 소개</label>
+                        <input type="text" id="companyDes" name="companyDes" class="form-control" placeholder="40자 이내로 입력해 주세요"/>
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="companyView">비춰보기 (필수 입력 아님)</label>
+                        <input type="text" id="companyView" name="companyView" class="form-control" placeholder="비춰보기 관련 정보를 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="unchecked">
+                            <label class="form-check-label" for="inlineCheckbox2">신규 사업부 (신규 사업부는 2주간 일반 사업부로 무료 이용 가능)</label>
+                        </div></div>
+
+                    <div class="alert alert-primary" role="alert">
+                        <div class="alert-body">입금 확인 후 사업부 공간이 생성됩니다. 신청 후 1030-0200(사업부 114 _계약)계좌로 송금 부탁드립니다. <br> 송금 확인 후 입력하신 사업부 e-mail로 결과 메일 송부합니다.</div>
+                    </div>
+
+                    <div class="col-12 text-center">
+                        <button id="registerBtn" type="submit" class="btn btn-primary me-1 mt-2">확인</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-2" data-bs-dismiss="modal" aria-label="Close">
+                            취소
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- / add new address modal -->

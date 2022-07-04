@@ -1,0 +1,100 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModalScrollable" tabindex="-1" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">Company</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+
+                <div class="row">
+
+
+                    <div class="col-md-6 col-xl-3">
+                        <div class="card border-0 text-white">
+                            <img class="card-img" src="<%=companybg%>" alt="Card image">
+                            <div class="card-img-overlay bg-overlay">
+                                <h3 class="text-white"><%=companyName%></h3>
+                                <p class="card-text">
+                                    <%=companyDes%>
+                                </p>
+
+                            </div>
+                        </div>
+
+
+                        <div class="card card-user-timeline">
+                            <div class="card-header">
+                                <div class="d-flex align-items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list user-timeline-title-icon"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg>
+                                    <h4 class="card-title"> Information</h4>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="timeline ms-50">
+                                    <li class="timeline-item" style="padding-bottom: 5px;">
+                                        <span class="timeline-point timeline-point-indicator"></span>
+                                        <div class="timeline-event">
+                                            <h6>사업부 대표</h6>
+                                            <p class="mb-0"><%=companyCeo%></p>
+                                        </div>
+                                    </li>
+                                    <li class="timeline-item" style="padding-bottom: 5px;">
+                                        <span class="timeline-point timeline-point-danger timeline-point-indicator"></span>
+                                        <div class="timeline-event">
+                                            <h6>사업부 타입</h6>
+                                            <p class="mb-0"><%=companyType%></p>
+                                        </div>
+                                    </li>
+
+
+                                    <li class="timeline-item" style="padding-bottom: 5px;">
+                                        <span class="timeline-point timeline-point-success timeline-point-indicator"></span>
+                                        <div class="timeline-event">
+                                            <h6 class="mb-0">사업부 장소</h6>
+                                            <p><%=companyPlace%></p>
+                                            <h6 class="mb-0">E-mail</h6>
+                                            <p><%=companyEmail%></p>
+                                            <h6 class="mb-0">비춰보기</h6>
+                                            <p class="mb-0"><%=companyView%></p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="col-md-6 col-xl-9">
+                        <div class="card shadow-none bg-transparent border-primary">
+                            <div class="card-body">
+                                <dl class="row">
+                                    <dt class="col-sm-6"><h4 class="card-title text-primary">Introduction</h4></dt>
+                                    <dd class="col-sm-6"><p class="card-text text-end">
+                                            마지막 수정 : <%=updateDate%>
+                                        </p></dd>
+                                </dl>
+
+
+
+                                <div id="editor"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="editBtn" type="button" class="btn btn-outline-dark waves-effect">수정</button>
+                <button id="saveBtn" type="button" class="btn btn-outline-dark waves-effect">저장</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

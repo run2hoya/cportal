@@ -1,0 +1,160 @@
+<div class="row match-height">
+    <!-- Medal Card -->
+    <div class="col-xl-6 col-md-6 col-12">
+        <div class="card card-congratulation-medal">
+            <div class="card-body">
+                <h5>사업부 114</h5>
+                <p class="card-text font-small-3">사업부의 모든 정보 / 홍보 </p>
+                <h3 class="mb-75 mt-2 pt-50">
+                    <a href="#">Company 114</a>
+                </h3>
+                <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#twoFactorAuthModal">이용방법</button>
+                <img src="app-assets/images/illustration/marketing.svg" style="position: absolute;top: 3px;right: 10px;" alt="Medal Pic">
+            </div>
+        </div>
+
+        <div class="card card-statistics">
+            <div class="card-header">
+                <h4 class="card-title">Statistics</h4>
+                <div class="d-flex align-items-center">
+                    <p class="card-text font-small-2 me-25 mb-0">사업부 정보를 등록 / 업데이트 해주세요</p>
+                </div>
+            </div>
+            <div class="card-body statistics-body">
+                <div class="row">
+
+                    <div class="col-xl-3 col-sm-6 col-12">
+                        <div class="d-flex flex-row">
+                            <div class="avatar bg-light-success me-2">
+                                <div class="avatar-content">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award">
+                                        <circle cx="12" cy="8" r="7"></circle>
+                                        <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="my-auto">
+                                <h4 class="fw-bolder mb-0" id="totalCompanyCnt">0</h4>
+                                <p class="card-text font-small-3 mb-0">전체 사업부</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                        <div class="d-flex flex-row">
+                            <div class="avatar bg-light-primary me-2">
+                                <div class="avatar-content">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-award avatar-icon">
+                                        <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                        <polyline points="17 6 23 6 23 12"></polyline>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="my-auto">
+                                <h4 class="fw-bolder mb-0" id="premierCompanyCnt">0</h4>
+                                <p class="card-text font-small-3 mb-0">프리미어</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-xl-0">
+                        <div class="d-flex flex-row">
+                            <div class="avatar bg-light-info me-2">
+                                <div class="avatar-content">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user avatar-icon ">
+                                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                        <circle cx="12" cy="7" r="4"></circle>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="my-auto">
+                                <h4 class="fw-bolder mb-0" id="normalCompanyCnt">0</h4>
+                                <p class="card-text font-small-3 mb-0">사업부</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                        <div class="d-flex flex-row">
+                            <div class="avatar bg-light-danger me-2">
+                                <div class="avatar-content">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-box avatar-icon">
+                                        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                                        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+                                        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="my-auto">
+                                <h4 class="fw-bolder mb-0" id="companyCnt">0</h4>
+                                <p class="card-text font-small-3 mb-0">불확실</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!--/ Medal Card -->
+
+    <!-- Statistics Card -->
+    <div class="col-xl-6 col-md-6 col-12">
+        <div class="card">
+            <div class="card-header flex-column align-items-start">
+                <h4 class="card-title mb-75">서비스 별 분포</h4>
+                <span class="card-subtitle text-muted">지원하는 서비스 별 사업부 정보 </span>
+            </div>
+            <div class="card-body">
+                <div id="donut-chart"></div>
+            </div>
+        </div>
+    </div>
+    <!--/ Statistics Card -->
+</div>
+
+<div id="companyList">
+    <div class="divider divider-primary">
+        <div class="divider-text">프리미어 사업부</div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="pretext">
+                <h1>premier company</h1>
+            </div>
+
+            <div class="temp">
+                <div class="options" id="premierDivId">
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="divider divider-success">
+        <div class="divider-text">사업부</div>
+    </div>
+
+    <div class="row" style="margin-bottom: 130px;" id="normalDivId">
+
+    </div>
+
+
+    <div class="divider divider-dark">
+        <div class="divider-text">불확실 사업부
+            <i data-feather="help-circle" id="companyTooltip" class="font-medium-3 text-muted cursor-pointer"
+               data-bs-toggle="tooltip" data-bs-placement="top" title="운영 여부 보장 못함"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: 130px;">
+
+    <div class="demo-inline-spacing" id="etcDivId">
+    </div>
+</div>
+
+<div id="registerModal"></div>
+<div id="companyInfoModal"></div>
