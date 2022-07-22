@@ -1,6 +1,6 @@
 package com.castis.cportal.dto.company;
 
-import com.castis.cportal.common.enumeration.CompanyProductType;
+import com.castis.cportal.common.enumeration.ProductType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -16,7 +16,7 @@ public class CompanyInfoDto implements Serializable {
     private String companyEmail;
     private String companyDes;
     private String companyView;
-    private CompanyProductType companyProductType;
+    private ProductType productType;
     private String companyNew;
     private String companyPlace;
     private String companyType;

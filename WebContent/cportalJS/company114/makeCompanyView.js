@@ -197,13 +197,14 @@ define(['common/ajaxUtil', 'common/utils'], function (ajaxUtil, utils) {
             Swal.fire({title: 'ERROR', text: '해당 상품은 이미지를 이용 할 수 없습니다.', icon: 'error'});
             return;
         }
+
         let form_data = new FormData();
         form_data.append('file', file);
         $.ajax({
             data       : form_data,
             type       : "POST",
             dataType   : 'text',
-            url        : 'upload/file/COMPANY114',
+            url        : 'upload/file/COMPANY114/editor',
             cache      : false,
             contentType: false,
             enctype    : 'multipart/form-data',

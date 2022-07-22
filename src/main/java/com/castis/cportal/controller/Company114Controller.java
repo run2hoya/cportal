@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 @RestController
 @Slf4j
@@ -92,14 +93,15 @@ public class Company114Controller extends AbstrctController {
     }
 
     @RequestMapping(value = "/company/{companyId}/content", method = RequestMethod.PUT, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> updateCompanyContent(HttpServletRequest req, @PathVariable("companyId") Integer companyId,  @RequestBody final EditContentDto editContentDto) {
+    public ResponseEntity<?> updateCompanyContent(HttpServletRequest req, @PathVariable("companyId") Integer companyId,
+                                                  @RequestBody final EditContentDto editContentDto, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.PUT);
+            trId = startLog(req, Constants.request.PUT, user);
             log.info(trId + editContentDto.toString());
 
             companyService.updateCompanyContent(companyId, editContentDto);

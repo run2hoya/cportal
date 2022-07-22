@@ -1,7 +1,7 @@
 package com.castis.cportal.service;
 
 import com.castis.commonLib.util.ObjectMapperUtils;
-import com.castis.cportal.common.enumeration.CompanyProductType;
+import com.castis.cportal.common.enumeration.ProductType;
 import com.castis.cportal.dto.EditContentDto;
 import com.castis.cportal.dto.company.CompanyByType;
 import com.castis.cportal.dto.company.CompanyGroupByType;
@@ -26,9 +26,9 @@ public class CompanyService {
 
     public CompanyGroupByType getCompanyTitleDto() {
 
-        List<CompanyTitleDto> premier = companyRepository.findByCompanyProductType(CompanyProductType.PREMIER);
-        List<CompanyTitleDto> normal = companyRepository.findByCompanyProductType(CompanyProductType.NORMAL);
-        List<CompanyTitleDto> etc = companyRepository.findByCompanyProductType(CompanyProductType.ETC);
+        List<CompanyTitleDto> premier = companyRepository.findByProductType(ProductType.PREMIER);
+        List<CompanyTitleDto> normal = companyRepository.findByProductType(ProductType.NORMAL);
+        List<CompanyTitleDto> etc = companyRepository.findByProductType(ProductType.ETC);
 
         return new CompanyGroupByType(premier, normal, etc);
     }

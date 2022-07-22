@@ -75,19 +75,11 @@
         <%@ include file="/WEB-INF/view/common/footer.jsp" %>
 
 
-        <!-- <script data-main="js/view/report/adReport/adReportMain" src="js/lib/require.js"></script> -->
+        <script data-main="cportalJS/company114/company114Main" src="assets/js/lib/require.js"></script>
 
         <!-- END: Page JS-->
 
         <script>
-            $(window).on('load', function () {
-                if (feather) {
-                    feather.replace({
-                        width : 14,
-                        height: 14
-                    });
-                }
-            });
             window.auth = "${auth}";
         </script>
     </body>

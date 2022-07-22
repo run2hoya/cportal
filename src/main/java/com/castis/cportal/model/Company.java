@@ -1,6 +1,6 @@
 package com.castis.cportal.model;
 
-import com.castis.cportal.common.enumeration.CompanyProductType;
+import com.castis.cportal.common.enumeration.ProductType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -53,9 +53,9 @@ public class Company implements Serializable {
     @Column(name="companybg")
     private String companybg;
 
-    @Column(name="companyProductType")
+    @Column(name="productType")
     @Enumerated(EnumType.STRING)
-    private CompanyProductType companyProductType;
+    private ProductType productType;
 
     @Column(name="content", columnDefinition = "LONGTEXT")
     private String content;
@@ -83,7 +83,7 @@ public class Company implements Serializable {
                 ", companyPlace='" + companyPlace + '\'' +
                 ", companyType='" + companyType + '\'' +
                 ", companybg='" + companybg + '\'' +
-                ", companyProductType=" + companyProductType +
+                ", companyProductType=" + productType +
                 ", registDate=" + registDate +
                 ", updateDate=" + updateDate +
                 '}';

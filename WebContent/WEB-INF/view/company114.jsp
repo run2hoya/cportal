@@ -97,6 +97,8 @@
 
         <script>
             window.auth = "${auth}";
+
+            console.log(window.auth);
         </script>
     </body>
 </html>

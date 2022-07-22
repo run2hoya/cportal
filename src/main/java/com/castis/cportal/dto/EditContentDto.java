@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class EditContentDto {
-    private final Integer id = null;
-    private final String content = null;
+    private Integer id = null;
+    private String content = null;
 
     public EditContentDto() {
     }

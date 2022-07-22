@@ -6,6 +6,6 @@ import com.castis.cportal.model.User;
 
 public interface UserRepository extends JpaRepository<User, Integer>{
 
-	public User findTopByUserID(String userId);
+	public User findTopByUserId(String userId);
 	
 }

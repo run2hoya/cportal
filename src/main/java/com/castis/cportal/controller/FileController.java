@@ -4,7 +4,6 @@ import com.castis.commonLib.define.Constants;
 import com.castis.commonLib.define.ResultCode;
 import com.castis.commonLib.dto.ResultDetail;
 import com.castis.commonLib.dto.TransactionID;
-import com.castis.cportal.common.enumeration.UploadFileType;
 import com.castis.cportal.controller.common.AbstrctController;
 import com.castis.cportal.service.FileService;
 import lombok.RequiredArgsConstructor;
@@ -28,8 +27,10 @@ public class FileController extends AbstrctController {
 
     private final FileService fileService;
 
-    @RequestMapping(value = "/upload/file/{fileType}", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> upload(Model model, @RequestParam("file") MultipartFile file, HttpServletRequest request, @PathVariable("fileType") UploadFileType uploadFileType) {
+    @RequestMapping(value = "/upload/file/{dir}/{fileName}/{ext}", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> upload(Model model, @RequestParam("file") MultipartFile file, HttpServletRequest request,
+                                    @PathVariable("dir") String dir, @PathVariable("fileName") String fileName
+            , @PathVariable("ext") String ext) {
 
         long startTime = System.currentTimeMillis();
         TransactionID trId = null;
@@ -37,9 +38,9 @@ public class FileController extends AbstrctController {
 
         try {
             trId = startLog(request, Constants.request.POST);
-            String fileName = fileService.restore(file, trId, uploadFileType);
+            String resFileName = fileService.restore(file, trId, dir, fileName +  "." + ext);
 
-            response = new ResponseEntity<>(fileName, HttpStatus.OK);
+            response = new ResponseEntity<>(resFileName, HttpStatus.OK);
 
         } catch (Exception e) {
             log.error("", e);

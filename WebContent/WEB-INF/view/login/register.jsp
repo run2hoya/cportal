@@ -40,6 +40,8 @@
     <link rel="stylesheet" type="text/css" href="app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/forms/form-validation.css">
     <link rel="stylesheet" type="text/css" href="app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -51,7 +53,7 @@
 
 <!-- BEGIN: Body-->
 
-<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static   menu-collapsed" data-open="click" data-menu="vertical-menu-modern" data-col="blank-page">
+<body class="vertical-layout vertical-menu-modern blank-page navbar-floating footer-static   menu-collapsed" data-menu="vertical-menu-modern" data-col="blank-page">
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -105,29 +107,44 @@
                                         <input class="form-control" id="userId" type="text" name="userId" placeholder="ID를 입력해 주세요" aria-describedby="userId" autofocus="" tabindex="1" />
                                     </div>
                                     <div class="mb-1">
-                                        <label class="form-label" for="register-username">닉네임</label>
-                                        <input class="form-control" id="register-username" type="text" name="register-username" placeholder="닉네임을 입력해 주세요" aria-describedby="register-username" autofocus="" tabindex="2" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="form-label" for="register-email">Email</label>
-                                        <input class="form-control" id="register-email" type="text" name="register-email" placeholder="castis.com 메일로 가입해 주세요." aria-describedby="register-email" tabindex="3" />
-                                    </div>
-                                    <div class="mb-1">
-                                        <label class="form-label" for="register-password">비밀 번호</label>
+                                        <label class="form-label" for="password">비밀 번호</label>
                                         <div class="input-group input-group-merge form-password-toggle">
-                                            <input class="form-control form-control-merge" id="register-password" type="password" name="register-password" placeholder="****" aria-describedby="register-password" tabindex="4" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                            <input class="form-control form-control-merge" id="password" type="password" name="register-password" placeholder="****" aria-describedby="register-password" tabindex="2" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-1">
                                         <label class="form-label" for="re_password">비밀번호 재확인</label>
                                         <div class="input-group input-group-merge form-password-toggle">
-                                            <input class="form-control form-control-merge" id="re_password" type="password" name="re_password" placeholder="****" aria-describedby="re_password" tabindex="5" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                            <input class="form-control form-control-merge" id="re_password" type="password" name="re_password" placeholder="****" aria-describedby="re_password" tabindex="3" /><span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                                         </div>
                                     </div>
                                     <div class="mb-1">
-                                        
+                                        <label class="form-label" for="nickName">닉네임</label>
+                                        <input class="form-control" id="nickName" type="text" name="register-username" placeholder="닉네임을 입력해 주세요" aria-describedby="register-username" autofocus="" maxlength='7' tabindex="4" />
                                     </div>
-                                    <button class="btn btn-primary w-100" id="submit" tabindex="5">가입 하기</button>
+                                    <div class="mb-1">
+                                        <label class="form-label" for="email">Email</label>
+                                        <input class="form-control" id="email" type="text" name="register-email" placeholder="메일 주소를 입력해 주세요." aria-describedby="register-email" tabindex="5" />
+                                    </div>
+
+                                    <label class="form-label" for="nickName">계정 타입</label>
+                                    <div class="mb-3">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="userType" id="internalPerson" value="INTERNAL_PERSON" checked="">
+                                            <label class="form-check-label" for="internalPerson">개인</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="userType" id="company" value="COMPANY">
+                                            <label class="form-check-label" for="company">사업부</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="userType" id="external" value="EXTERNAL">
+                                            <label class="form-check-label" for="external">대외고객</label>
+                                        </div>
+
+                                    </div>
+
+                                    <button class="btn btn-primary w-100" id="register" tabindex="6">가입 하기</button>
                                 </form>
                                 <p class="text-center mt-2"><span>이미 가입 하셨나요?</span><a href="login"><span>&nbsp;Sign in instead</span></a></p>
                                 
@@ -156,6 +173,7 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
+    <script src="app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
     <script src="cportalJS/auth/register.js"></script>
     <!-- END: Page JS-->
 

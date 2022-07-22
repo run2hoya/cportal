@@ -1,0 +1,52 @@
+<div class="card">
+    <div class="card-header border-bottom">
+        <h4 class="card-title">Profile Details</h4>
+    </div>
+    <div class="card-body py-2 my-25" id="account-details">
+        <!-- header section -->
+        <div class="d-flex">
+            <a href="#" class="me-25">
+                <img src="/cportalFile/img/d_user.png" id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="100" width="100" />
+            </a>
+            <!-- upload and reset button -->
+            <div class="d-flex align-items-end mt-75 ms-1">
+                <div>
+                    <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
+                    <input type="file" id="account-upload" hidden accept=".jpg, .png, .jpeg" />
+                    <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
+                    <p class="mb-0">Allowed file types: jpg, png, jpeg</p>
+                    <p class="mb-0">변경 후 로그아웃 한 다음 다시 로그인 한 뒤 적용됩니다.</p>
+                </div>
+            </div>
+            <!--/ upload and reset button -->
+        </div>
+        <!--/ header section -->
+
+        <!-- form -->
+        <form class="validate-form mt-2 pt-50" id="account-form">
+            <div class="row">
+                <div class="col-12 col-sm-6 mb-1">
+                    <label class="form-label" for="nickName">닉네임</label>
+                    <input type="text" class="form-control" id="nickName" name="nickName" maxlength='7' data-msg="닉네임을 입력해 주세요" />
+                </div>
+                <div class="col-12 col-sm-6 mb-1">
+                    <label class="form-label" for="accountEmail">Email</label>
+                    <input type="text" class="form-control" id="accountEmail" name="accountEmail" placeholder="Email를 입력해 주세요" />
+                </div>
+                <div class="col-12 col-sm-6 mb-1">
+                    <label class="form-label" for="introduction">자기 소개</label>
+                    <input type="text" class="form-control" id="introduction" name="introduction" placeholder="한 줄 자기 소개" />
+                </div>
+                <div class="col-12 col-sm-6 mb-1">
+                    <label class="form-label" for="phone">Phone</label>
+                    <input type="text" class="form-control account-number-mask" id="phone" name="phone" placeholder="연락처를 입력해 주세요" />
+                </div>
+
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary mt-1 me-1">Save changes</button>
+                </div>
+            </div>
+        </form>
+        <!--/ form -->
+    </div>
+</div>

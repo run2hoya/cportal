@@ -2,11 +2,12 @@ require.config({
     baseUrl: 'cportalJS'
 });
 
-require(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, makeCompanyView) {
+define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, makeCompanyView) {
 
     let id = null;
+    let company114Main = {};
 
-    function init() {
+    company114Main.init = function () {
         createMainTemplate();
         addEvent();
 
@@ -113,6 +114,5 @@ require(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, m
        if (feather) { feather.replace({width : 14, height: 14});}
     }
 
-
-    init();
+    return company114Main;
 });

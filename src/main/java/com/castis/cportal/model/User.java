@@ -1,5 +1,6 @@
 package com.castis.cportal.model;
 
+import com.castis.cportal.common.enumeration.UserType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +28,7 @@ public class User implements Serializable {
 	private int id;
 
 	@Column(name="userId", unique = true)
-	private String userID;
+	private String userId;
     
 	@Column(name="password")
 	@JsonIgnore
@@ -39,8 +40,8 @@ public class User implements Serializable {
 	@Column(name="enabled")
     private boolean enabled;
 	
-	@Column(name="userName")
-    private String name;
+	@Column(name="nickName")
+    private String nickName;
 
 	@Column(name="email")
     private String email;
@@ -54,9 +55,17 @@ public class User implements Serializable {
 	@Column(name="phone")
     private String phone;
 
+	@Column(name="userType")
+	@Enumerated(EnumType.STRING)
+	private UserType userType;
+
 	@Column(name="registDate")
 	@CreationTimestamp
 	private LocalDateTime registDate;
+
+	@OneToOne(fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_setting_id")
+	private UserSetting userSetting;
 
 	public String getUserImg() {
 		return userImg;
@@ -78,14 +87,18 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userID=" + userID + ", password="
-				+ password + ", authority=" + authority + ", enabled="
-				+ enabled + ", name=" + name + ", email=" + email
-				+ ", userImg=" + userImg + ", introduction=" + introduction
-				+ ", phone=" + phone + ", registDate=" + registDate + "]";
+		return "User{" +
+				"id=" + id +
+				", userId='" + userId + '\'' +
+				", password='" + password + '\'' +
+				", authority='" + authority + '\'' +
+				", enabled=" + enabled +
+				", nickName='" + nickName + '\'' +
+				", email='" + email + '\'' +
+				", userImg='" + userImg + '\'' +
+				", introduction='" + introduction + '\'' +
+				", phone='" + phone + '\'' +
+				", registDate=" + registDate +
+				'}';
 	}
-
-	
-
-	
 }

@@ -1,10 +1,7 @@
 package com.castis.cportal.controller.common;
 
-import java.security.Principal;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
+import com.castis.commonLib.define.Constants;
+import com.castis.commonLib.dto.TransactionID;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
@@ -12,10 +9,10 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import com.castis.commonLib.define.Constants;
-import com.castis.commonLib.dto.TransactionID;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 
 
@@ -26,24 +23,22 @@ public class UiController extends AbstrctController{
 	private static Log log = LogFactory.getLog(UiController.class);
 	
 
-	@RequestMapping(value = { "/","/index", "/main"})
-	public String goIndex(ModelMap model, HttpSession httpSession, String search, HttpServletRequest request, Principal user, @RequestParam(value="type", required=false) String type){
+	@RequestMapping(value = { "/","/index"})
+	public String goIndex(ModelMap model, HttpSession httpSession, HttpServletRequest request, Principal user){
 				
 		long startTime = System.currentTimeMillis();
 		TransactionID trId = null;
-		
+
 		try {
 			trId = startLog(request, Constants.request.GET, user);
-			if(type == null || type.isEmpty())
-				type = "channel";
-			model.addAttribute("type", type);
-			jspName = "/company114";
+			jspName = "/main";
 		} catch (Exception e) {
 			log.error("", e);
 			request.setAttribute("errorCode", "500");
 			jspName = "/common/errorPage"; 
+		} finally {
+			endLog(startTime, Constants.request.GET, trId, null);
 		}
-		endLog(startTime, Constants.request.GET, trId, null);
 		return jspName;
 	}
 	
@@ -52,120 +47,63 @@ public class UiController extends AbstrctController{
 		
 		long startTime = System.currentTimeMillis();		
 		TransactionID trId = null;
-		String jspName = "convert";
 		
 		try {
 			trId = startLog(req, Constants.request.GET, user);			
 		} catch (Exception e) {
 			log.error("", e);
-			req.setAttribute("errorCode", "500");			
-			jspName = "/common/errorPage"; 
-		}		
-	
-		endLog(startTime, Constants.request.GET, trId, null);
+			req.setAttribute("errorCode", "500");
+			jspName = "/common/errorPage";
+		} finally {
+			endLog(startTime, Constants.request.GET, trId, null);
+		}
+
 		return jspName;
 	}
 
-	@RequestMapping(value = "/bypass", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String goByPassMain(HttpServletRequest req, Model model, Principal user) {
-		
-		long startTime = System.currentTimeMillis();		
-		TransactionID trId = null;
-		String jspName = "byPass";
-		
-		try {
-			trId = startLog(req, Constants.request.GET, user);			
-		} catch (Exception e) {
-			log.error("", e);
-			req.setAttribute("errorCode", "500");			
-			jspName = "/common/errorPage"; 
-		}		
-	
-		endLog(startTime, Constants.request.GET, trId, null);
-		return jspName;
+	@RequestMapping(value = "/hunter", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String hunterMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/hunter";
 	}
-	
-	@RequestMapping(value = { "/logout"})
-	public String goLogOut(ModelMap model, HttpSession httpSession, HttpServletRequest request, Principal user){
-				
-		long startTime = System.currentTimeMillis();
-		TransactionID trId = null;
-		
-		try {
-			trId = startLog(request, Constants.request.GET, user);
-			httpSession.invalidate();
-			jspName = "/login/login";	
-		} catch (Exception e) {
-			log.error("", e);
-			request.setAttribute("errorCode", "500");
-			jspName = "/common/errorPage"; 
-		}
-		endLog(startTime, Constants.request.GET, trId, null);
-		return jspName;
+
+	@RequestMapping(value = "/resume", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String resumeMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/resume";
 	}
-	
-	@RequestMapping(value = { "/login"})
-	public String goLogIn(ModelMap model, HttpSession httpSession, HttpServletRequest request, @RequestParam(required=false) Boolean error, Principal user){
-				
-		long startTime = System.currentTimeMillis();
-		TransactionID trId = null;
-		
-		try {
-			trId = startLog(request, Constants.request.GET, user);
-			
-			if(error != null && error == Boolean.FALSE) {
-				log.info(trId + " ########  로그인 실패   ########");
-				model.addAttribute("description", "가입하지 않은 Id이거나, 잘못된 비밀번호입니다.");
-			}
-			
-			jspName = "/login/login";	
-		} catch (Exception e) {
-			log.error("", e);
-			request.setAttribute("errorCode", "500");
-			jspName = "/common/errorPage"; 
-		}
-		endLog(startTime, Constants.request.GET, trId, null);
-		return jspName;
+
+	@RequestMapping(value = "/sellCompany", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String sellCompanyMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/sellCompany";
 	}
-	
-	@RequestMapping(value = { "/register"})
-	public String goUserRegister(ModelMap model, HttpSession httpSession, HttpServletRequest request, Principal user){
-				
-		long startTime = System.currentTimeMillis();
-		TransactionID trId = null;
-		
-		try {
-			trId = startLog(request, Constants.request.GET, user);
-			jspName = "/login/register";	
-		} catch (Exception e) {
-			log.error("", e);
-			request.setAttribute("errorCode", "500");
-			jspName = "/common/errorPage"; 
-		}
-		endLog(startTime, Constants.request.GET, trId, null);
-		return jspName;
+
+	@RequestMapping(value = "/alba", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String albaMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/alba";
 	}
-	
-	
-	@RequestMapping(value = { "/setting"})
-	public String goSetting(ModelMap model, HttpSession httpSession, HttpServletRequest request, Principal user){
-				
-		long startTime = System.currentTimeMillis();
-		TransactionID trId = null;
-		
-		try {
-			trId = startLog(request, Constants.request.GET, user);
-			jspName = "/setting";	
-		} catch (Exception e) {
-			log.error("", e);
-			request.setAttribute("errorCode", "500");
-			jspName = "/common/errorPage"; 
-		}
-		endLog(startTime, Constants.request.GET, trId, null);
-		return jspName;
+
+	@RequestMapping(value = "/business", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String businessMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/business";
 	}
-	
-	
+
+	@RequestMapping(value = "/job", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String jobMain(HttpServletRequest req, Model model, Principal user) {
+		return "/jobcast/job";
+	}
+	@RequestMapping(value = "/company114", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String company114Main(HttpServletRequest req, Model model, Principal user) {
+		return "/company114";
+	}
+
+	@RequestMapping(value = "/cportal", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goCportalMain(HttpServletRequest req, Model model, Principal user) {
+		return "/cportal";
+	}
+
+	@RequestMapping(value = "/setting", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goUserSettingMain(HttpServletRequest req, Model model, Principal user) {
+		return "/login/setting";
+	}
 	
 	
 	@RequestMapping("/not_chrome")
@@ -177,7 +115,15 @@ public class UiController extends AbstrctController{
 		}
 		return jspName;
 	}
-	
+
+	@RequestMapping(value = { "/errorPage"})
+	public String goErrorPage(ModelMap model, HttpSession httpSession, String search, HttpServletRequest request){
+		request.setAttribute("errorCode", "500");
+		jspName = "/common/errorPage";
+		return jspName;
+	}
+
+
 	@RequestMapping(value = { "/errorPage/500"})
 	public String go500ErrorPage(ModelMap model, HttpSession httpSession, String search, HttpServletRequest request){
 		request.setAttribute("errorCode", "500");

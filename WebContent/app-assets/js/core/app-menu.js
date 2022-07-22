@@ -20,6 +20,15 @@
   var menuWrapper_el = $('div[data-menu="menu-wrapper"]').html();
   var menuWrapperClasses = $('div[data-menu="menu-wrapper"]').attr('class');
 
+
+  $('.menu-content').on('click', 'li', function() {
+    $('.navigation-main li.active').removeClass('active');
+  });
+
+  $('.navigation-main').on('click', 'li', function() {
+    $('.menu-content li.active').removeClass('active');
+  });
+
   // Main menu
   $.app.menu = {
     expanded: null,

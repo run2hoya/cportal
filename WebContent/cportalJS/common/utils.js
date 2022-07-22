@@ -7,6 +7,7 @@ define([], function () {
 
     }
 
+    
 
     return utils;
 });

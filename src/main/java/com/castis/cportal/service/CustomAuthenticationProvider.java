@@ -1,8 +1,12 @@
 package com.castis.cportal.service;
 
-import java.util.Collection;
-
+import com.castis.commonLib.dto.TransactionID;
+import com.castis.commonLib.util.ObjectMapperUtils;
+import com.castis.commonLib.util.idgenerator.IdGenerator;
+import com.castis.cportal.dto.UserDto;
 import com.castis.cportal.model.User;
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -10,17 +14,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Service;
 
-import com.castis.commonLib.dto.TransactionID;
-import com.castis.commonLib.util.idgenerator.IdGenerator;
-
-import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import java.util.Collection;
 
 
 @Slf4j
@@ -75,7 +74,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             authorities = user.getAuthorities();
             
             result = new UsernamePasswordAuthenticationToken(userId, password, authorities);
-            result.setDetails(user);
+
+            UserDto dto = ObjectMapperUtils.map(user, UserDto.class);
+            dto.setPassword(null);
+            result.setDetails(dto);
             
         } catch(UsernameNotFoundException e) {
         	log.error("" + e);

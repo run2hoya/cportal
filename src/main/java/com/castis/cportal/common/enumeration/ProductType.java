@@ -1,6 +1,6 @@
 package com.castis.cportal.common.enumeration;
 
-public enum CompanyProductType {
+public enum ProductType {
     UNKNOWN("UNKNOWN"),
     PREMIER("PREMIER"),
     NORMAL("NORMAL"),
@@ -8,7 +8,7 @@ public enum CompanyProductType {
 
     private final String value;
 
-    private CompanyProductType(String value) {
+    private ProductType(String value) {
         this.value = value;
     }
 
@@ -16,14 +16,14 @@ public enum CompanyProductType {
         return value;
     }
 
-    public static CompanyProductType valueof(String value) {
-        CompanyProductType[] list = CompanyProductType.values();
-        for (CompanyProductType type : list) {
+    public static ProductType valueof(String value) {
+        ProductType[] list = ProductType.values();
+        for (ProductType type : list) {
             if (type.toString().equalsIgnoreCase(value)) {
                 return type;
             }
         }
-        return CompanyProductType.UNKNOWN;
+        return ProductType.UNKNOWN;
     }
 
 

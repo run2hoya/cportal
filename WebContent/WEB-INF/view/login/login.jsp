@@ -20,8 +20,8 @@
     <meta name="keywords" content="dashboard template, cportal, web app">
     <meta name="author" content="PIXINVENT">
     <title>Cportal</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -103,7 +103,10 @@
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
                                 <h2 class="card-title fw-bold mb-1">Welcome to Castis!</h2>
                                 <p class="card-text mb-2">Sign into your castis account</p>
-                                <form class="auth-login-form mt-2" action="index.html" method="POST">
+                                <p class="text-danger">${description}</p>
+                                <form class="auth-login-form mt-2" action="login" method="POST">
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+
                                     <div class="mb-1">
                                         <label class="form-label" for="login-id">ID</label>
                                         <input class="form-control" id="login-id" type="text" name="login-id" placeholder="id를 입력해주세요" aria-describedby="login-id" autofocus="" tabindex="1" />
@@ -118,8 +121,8 @@
                                     </div>
                                     <div class="mb-1">
                                         <div class="form-check">
-                                            <input class="form-check-input" id="remember-me" type="checkbox" tabindex="3" />
-                                            <label class="form-check-label" for="remember-me"> Remember Me</label>
+                                            <input class="form-check-input" id="idSaveCheck" type="checkbox" tabindex="3" />
+                                            <label class="form-check-label" for="idSaveCheck"> Remember Me</label>
                                         </div>
                                     </div>
                                     <button class="btn btn-primary w-100" tabindex="4">Sign in</button>
@@ -149,11 +152,8 @@
     <!-- BEGIN: Theme JS-->
     <script src="app-assets/js/core/app-menu.js"></script>
     <script src="app-assets/js/core/app.js"></script>
+    <script type="text/javascript" src="assets/js/lib/js.cookie-2.2.1.min.js"></script>
     <!-- END: Theme JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="app-assets/js/scripts/pages/auth-login.js"></script>
-    <!-- END: Page JS-->
 
     <script>
         $(window).on('load', function() {
@@ -163,6 +163,39 @@
                     height: 14
                 });
             }
+
+            var pageLoginForm = $('.auth-login-form');
+            if (pageLoginForm.length) {
+                pageLoginForm.validate({
+                    rules: {
+                        'login-id': {
+                            required: true,
+                        },
+                        'login-password': {
+                            required: true
+                        }
+                    }
+                });
+            }
+
+            $("#login-id").val(Cookies.get('key'));
+            if($("#login-id").val() != ""){
+                $("#idSaveCheck").attr("checked", true);
+            }
+
+            $("#idSaveCheck").change(function(){
+                if($("#idSaveCheck").is(":checked")){
+                    Cookies.set('key', $("#login-id").val(), { expires: 30 });
+                }else{
+                    Cookies.remove('key');
+                }
+            });
+
+            $("#login-id").keyup(function(){
+                if($("#idSaveCheck").is(":checked")){
+                    Cookies.set('key', $("#login-id").val(), { expires: 30 });
+                }
+            });
         })
     </script>
 </body>
