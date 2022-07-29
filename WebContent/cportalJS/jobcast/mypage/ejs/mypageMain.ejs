@@ -1,0 +1,115 @@
+<div class="row">
+    <!-- share project card -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i data-feather="file-text" class="font-large-2 mb-1"></i>
+                <h5 class="card-title">일자리</h5>
+                <p class="card-text">같이 일할 사람 구인</p>
+
+                <!-- modal trigger button -->
+                <button type="button" class="btn btn-primary" id="wantedWorker">
+                    등록하기
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- / share project card -->
+
+    <!-- add new card  -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i data-feather="credit-card" class="font-large-2 mb-1"></i>
+                <h5 class="card-title">일거리</h5>
+                <p class="card-text">
+                    프로젝트를 수행 할 사업부 또는 개인 구함
+                </p>
+
+                <!-- modal trigger button -->
+                <button type="button" class="btn btn-primary" id="wantedWork">
+                    등록하기
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- / add new card  -->
+
+    <!-- pricing card -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i data-feather="bar-chart-2" class="font-large-2 mb-1"></i>
+                <h5 class="card-title">알바</h5>
+                <p class="card-text">누군가의 도움이 필요할때 등록하세요</p>
+
+                <!-- modal trigger button -->
+                <button type="button" class="btn btn-primary" id="wantedAlba">
+                    등록하기
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- / pricing card -->
+
+    <!-- refer and earn card -->
+    <div class="col-md-3">
+        <div class="card">
+            <div class="card-body text-center">
+                <i data-feather="package" class="font-large-2 mb-1"></i>
+                <h5 class="card-title">사업부 매각</h5>
+                <p class="card-text">
+                    사업부 매각정보를 올릴때 등록하세요
+                </p>
+
+                <!-- modal trigger button -->
+                <button type="button" class="btn btn-primary" id="wantedSellCompany">
+                    등록하기
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- / refer and earn card -->
+
+
+</div>
+
+<div class="divider divider-primary">
+    <div class="divider-text">등록한 정보</div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header border-bottom">
+                <h4 class="card-title">등록한 공고</h4>
+
+                <input type="text" class="form-control" id="daterange" style="width: 260px;cursor: pointer;" readonly="readonly"/>
+
+            </div>
+            <div class="card-datatable">
+                <table class="datatables-ajax table table-responsive hover">
+                    <thead>
+                        <tr>
+                            <th>공고 타입</th>
+                            <th>상품 타입</th>
+                            <th>공고 제목</th>
+                            <th>시작날짜</th>
+                            <th>끝날짜</th>
+                            <th>공개 여부</th>
+                            <th>열람 / 지원자 / 찜</th>
+                            <th>등록일</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="divider divider-primary">
+    <div class="divider-text">찜한 정보</div>
+</div>
+
+<div id="modal"></div>

@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,10 +26,9 @@ public class FileController extends AbstrctController {
 
     private final FileService fileService;
 
-    @RequestMapping(value = "/upload/file/{dir}/{fileName}/{ext}", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+    @RequestMapping(value = "/upload/file", method = RequestMethod.POST, produces = "application/json; charset=utf8")
     public ResponseEntity<?> upload(Model model, @RequestParam("file") MultipartFile file, HttpServletRequest request,
-                                    @PathVariable("dir") String dir, @PathVariable("fileName") String fileName
-            , @PathVariable("ext") String ext) {
+                                    @RequestParam("dir") String dir, @RequestParam(name = "fileName", required = false) String fileName) {
 
         long startTime = System.currentTimeMillis();
         TransactionID trId = null;
@@ -38,7 +36,8 @@ public class FileController extends AbstrctController {
 
         try {
             trId = startLog(request, Constants.request.POST);
-            String resFileName = fileService.restore(file, trId, dir, fileName +  "." + ext);
+            log.info(trId + "upload file :" + dir + "/" + fileName);
+            String resFileName = fileService.restore(file, trId, dir, fileName);
 
             response = new ResponseEntity<>(resFileName, HttpStatus.OK);
 
@@ -52,6 +51,7 @@ public class FileController extends AbstrctController {
 
         return response;
     }
+
 
     @RequestMapping(value = "/upload/file", method = RequestMethod.DELETE, produces = "application/json;")
     public ResponseEntity<?> delete(Model model, HttpServletRequest request, @RequestParam(name = "fileName", required = true) String fileName) {

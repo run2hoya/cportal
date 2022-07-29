@@ -24,6 +24,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend'], function (ajaxUt
             $('#accountEmail').val(msg.email);
             $('#introduction').val(msg.introduction);
             $('#phone').val(msg.phone);
+            imageSend.returnImgName = msg.userImg;
 
         }).fail(function (xhr, textStatus) {
             console.log(xhr);
@@ -33,7 +34,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend'], function (ajaxUt
     }
 
     function setEvents() {
-        imageSend.init(400, 400, window.userId, '/upload/file/userImg/');
+        imageSend.init(400, 400, window.userId, 'userImg', null);
         let form = $('#account-form');
         if (form.length) {
             form.validate({

@@ -89,10 +89,11 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
                     companyInfo.companyEmail = $('#companyEmail').val();
                     companyInfo.companyDes = $('#companyDes').val();
                     companyInfo.companyView = $('#companyView').val();
-                    companyInfo.companyProductType = $('input[name=companyType]:checked').val();
+                    companyInfo.productType = $('input[name=companyType]:checked').val();
                     companyInfo.companyNew = $("#inlineCheckbox2").is(":checked");
                     companyInfo.companyPlace = $('#companyPlace').val();
                     companyInfo.companyType = $("#companyType option:selected").val();
+                    companyInfo.registerId = window.id;
 
                     //사업부 등록 요청
                     ajaxUtil.makeAjax("post", './company/mail', JSON.stringify(companyInfo), $('#addNewAddressForm')).done(function(msg){

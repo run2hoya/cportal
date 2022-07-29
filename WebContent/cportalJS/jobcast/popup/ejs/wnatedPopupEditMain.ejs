@@ -1,0 +1,206 @@
+<div class="content-detached content-left">
+    <div class="content-body">
+        <!-- Blog Detail -->
+        <div class="blog-detail-wrapper">
+            <div class="row">
+                <!-- Blog -->
+                <div class="col-12">
+                    <div class="card">
+                        <img src="<%= bgImg %>" id="wantedBg" class="img-fluid card-img-top" style="max-height: 480px;" alt="Blog Detail Pic">
+                        <div class="card-body">
+                            <h2 class=" fw-bolder mb-2"><%= title %></h2>
+                            <div class="d-flex">
+                                <div class="avatar me-50">
+                                    <img src="<%= userImg %>" alt="Avatar" width="24" height="24">
+                                </div>
+                                <div class="author-info">
+                                    <small class="text-muted me-25">by</small>
+                                    <small><a href="#" class="text-body"><%= nickName %></a></small>
+                                    <span class="text-muted ms-50 me-25">|</span>
+                                    <small class="text-muted">등록일 : <%= registDate %></small>
+                                </div>
+                            </div>
+
+                            <hr class="my-2"/>
+
+                            <div id="editor"></div>
+
+                            <hr class="my-2"/>
+
+                        </div>
+                    </div>
+                </div>
+                <!--/ Blog -->
+
+
+            </div>
+        </div>
+        <!--/ Blog Detail -->
+
+    </div>
+</div>
+
+<div class="sidebar-detached sidebar-right">
+    <div class="sidebar">
+        <div class="blog-sidebar my-2 my-lg-0">
+
+            <div class="card card-payment">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="d-grid col-12">
+                            <button type="button" class="btn btn-primary waves-effect waves-float waves-light" id="wantedSaveBtn">저장하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">남은 기간</h4>
+                </div>
+                <div class="card-body p-0" style="position: relative;">
+
+                    <div class="row text-center mx-0">
+                        <h1 class="font-large-2 fw-bolder mb-2" id="remainDays">7일</h1>
+                    </div>
+                    <div class="row border-top text-center mx-0">
+                        <div class="col-6 border-end py-1">
+                            <p class="card-text text-muted mb-0">시작일</p>
+                            <h5 class="fw-bolder mb-0"><%= startDate %></h5>
+                        </div>
+                        <div class="col-6 py-1">
+                            <p class="card-text text-muted mb-0">종료일</p>
+                            <h5 class="fw-bolder mb-0"><%= endDate %></h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card card-payment">
+                <div class="card-body">
+                    <form class="form">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2">
+                                    <small class="text-primary">공개를 해야 다른 사람에게 노출됩니다.</small><br>
+                                    <small class="text-primary">공고 종료 전에 인재를 구할 경우 비공개로 설정하여 불필요한 지원을 방지해 주세요</small>
+                                    <div class="demo-inline-spacing">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="openRadio" id="open" value="true">
+                                            <label class="form-check-label" for="open">공개</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="openRadio" id="close" value="false">
+                                            <label class="form-check-label" for="close">비공개</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+
+                                <small class="text-primary">공고의 직무 타입을 선택해야 합니다</small>
+                                <label class="form-label" for="select2-basic">직무 분류</label>
+                                <select class="select2 form-select mb-1" id="select2-basic">
+                                    <option value="기타">기타</option>
+                                    <option value="기획·전략·경영">기획·전략·경영</option>
+                                    <option value="경리·회계·결산">경리·회계·결산</option>
+                                    <option value="인사·노무·교육">인사·노무·교육</option>
+                                    <option value="주관자">주관자</option>
+                                    <option value="마케팅">마케팅</option>
+                                    <option value="프로그래머">프로그래머</option>
+                                    <option value="DBA·데이터베이스">DBA·데이터베이스</option>
+                                    <option value="PM">PM</option>
+                                    <option value="엔지니어">엔지니어</option>
+                                    <option value="테크니션">테크니션</option>
+                                    <option value="HTML·퍼블리싱·UI개발">HTML·퍼블리싱·UI개발</option>
+                                    <option value="디자인">디자인</option>
+                                    <option value="QA·테스터·검증">QA·테스터·검증</option>
+                                    <option value="시스템분석·설계">시스템분석·설계</option>
+                                    <option value="IT·솔루션·기술영업">IT·솔루션·기술영업</option>
+                                    <option value="영업관리·지원·영업기획">영업관리·지원·영업기획</option>
+                                    <option value="외국어·번역·통역">외국어·번역·통역</option>
+                                    <option value="사업부 매각">사업부 매각</option>
+                                </select>
+
+                            </div>
+
+                            <div class="col-12">
+                                <div class="mb-1">
+                                    <label class="form-label" for="email">e-mail</label>
+                                    <input type="text" class="form-control" id="email" placeholder="email을 입력해주세요">
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <small>프리미어 상품은 업로드한 이미지가 보입니다. 별도의 이미지를 업로드 하지 않으면 기본 이미지가 나옵니다.</small>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#" class="me-25">
+                                <img src="<%= bgImg %>" id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="auto" width="100%"/>
+                            </a>
+                            <!-- upload and reset button -->
+                            <div class="align-items-end mt-75 ms-1">
+                                <div id="imgSelect">
+                                    <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
+                                    <input type="file" id="account-upload" hidden accept=".jpg, .png, .jpeg"/>
+                                    <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
+                                    <small class="mb-0">Allowed file types: jpg, png, jpeg</small><br>
+                                    <small class="mb-0">가로 길이기 긴 이미지를 올려주세요</small>
+                                </div>
+                            </div>
+                            <!--/ upload and reset button -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-body" style="position: relative;">
+
+                    <div class="d-flex justify-content-between mb-1">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-primary">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">조회</span>
+                        </div>
+                        <span><%= viewCnt %></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-warning">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">지원자</span>
+                        </div>
+                        <span><%= candidateCnt %></span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-danger">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">찜</span>
+                        </div>
+                        <span><%= likeCnt %></span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

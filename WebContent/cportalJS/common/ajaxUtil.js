@@ -57,6 +57,11 @@ define([], function () {
             complete   : function () {
                 if (blockUi != null)
                     blockUi.unblock();
+            }, error   : (jqXHR) => {
+                if (jqXHR.status === 403) {
+                    alert("세션이 만료되었습니다");
+                    location.replace("/login");
+                }
             }
         });
     }

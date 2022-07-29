@@ -3,10 +3,12 @@ package com.castis.cportal.service;
 
 import com.castis.commonLib.dto.TransactionID;
 import com.castis.commonLib.util.CiFileUtil;
+import com.castis.commonLib.util.idgenerator.IdGenerator;
 import com.castis.cportal.common.setting.Properties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,9 +28,8 @@ public class FileService {
 
 	public void delete(TransactionID trId, String fileName) {
 		try {
-			String deleteFileName = StringUtils.substringAfter(fileName, properties.getCportalFile());
-			log.info(trId + "파일을 삭제 합니다. deleteFileName : " + properties.getCportalFile() + deleteFileName);
-			CiFileUtil.deleteFile(new File(deleteFileName));
+			log.info(trId + "파일을 삭제 합니다. deleteFileName : " + fileName);
+			CiFileUtil.deleteFile(new File(fileName));
 		} catch (Exception e) {
 			log.error(trId + "" , e);
 		}
@@ -43,6 +44,11 @@ public class FileService {
 			dir = properties.getCportalFile() + dir + "/" + LocalDate.now().format( DateTimeFormatter.ofPattern("yyyyMM")) +"/";
 			FileUtils.forceMkdir(new File(dir));
 
+			if(StringUtils.isEmpty(fileName)) {
+				String originFilename = multipartFile.getOriginalFilename();
+				String extName = FilenameUtils.getExtension(originFilename);
+				fileName = IdGenerator.getInstance().generateId() + "." + extName;
+			}
 			url = dir + fileName;
 			log.info(trId + "파일을 저장 합니다. originFilename : " + fileName + ", size : " + size + ", saveFileName : " + url);
 

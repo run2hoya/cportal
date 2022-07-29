@@ -14,7 +14,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
         <meta name="description" content="Cportal &amp; castis">
         <meta name="keywords" content="dashboard template, cportal, web app">
-        <meta name="author" content="PIXINVENT">
+        <meta name="author" content="castis">
         <title>Cportal</title>
         <link rel="apple-touch-icon" href="app-assets/images/ico/apple-icon-120.png">
         <link rel="shortcut icon" type="image/x-icon" href="app-assets/images/ico/favicon.ico">
@@ -26,6 +26,7 @@
 
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/vendors.min.css">
+        <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/wizard/bs-stepper.min.css">
         <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/forms/select/select2.min.css">
         <!-- END: Vendor CSS-->
@@ -48,6 +49,7 @@
         <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/forms/form-wizard.css">
         <link rel="stylesheet" type="text/css" href="app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
         <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
         <link rel="stylesheet" type="text/css" href="app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
         <!-- END: Page CSS-->
 
@@ -60,7 +62,7 @@
         <style>
             @font-face {
                 font-family: 'NotoSansKR';
-                src: url('app-assets/fonts/NotoSansKR-Regular.otf') format('opentype')
+                src: url('/app-assets/fonts/NotoSansKR-Regular.otf') format('opentype')
             }
         </style>
 
@@ -73,6 +75,7 @@
         <%@ include file="/WEB-INF/view/common/menu.jsp" %>
         <%@ include file="/WEB-INF/view/common/util.jsp" %>
         <sec:authentication property="authorities" var="auth"/>
+        <sec:authentication property="Details.id" var="id"/>
 
         <!-- BEGIN: Content-->
         <div class="app-content content ">
@@ -96,16 +99,20 @@
         <script src="assets/summernote/summernote-lite.min.js"></script>
         <script src="assets/summernote/summernote-ko-KR.min.js"></script>
 
+        <script src="app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+        <script src="app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+
 
         <script src="app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script data-main="cportalJS/main" src="assets/js/lib/require.js"></script>
         <!-- END: Page JS-->
 
         <script>
-            window.auth = "${auth}";
-
-            console.log(window.auth);
+            window.id = "${id}";
+            window.page = "${page}";
         </script>
     </body>
 </html>

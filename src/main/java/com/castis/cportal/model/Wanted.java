@@ -10,10 +10,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "tbl_wanted")
+@Table(name="tbl_wanted", indexes = { @Index(name = "IDX_REGISTER_ID", columnList = "registerId") })
 @NoArgsConstructor
 @Getter
 @Setter
@@ -22,10 +23,10 @@ public class Wanted implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
 	@Column(name="id")
-	private int id;
+	private Long id;
 
 	@Column(name="registerId")
-    private int registerId;
+    private Integer registerId;
 
 	@Column(name="title")
 	private String title;
@@ -37,36 +38,37 @@ public class Wanted implements Serializable {
 	private String wantedType;
 
 	@Column(name="jobType")
-	private String jobType;
-
-	@Column(name="jobTypeDetail")
-	private String jobTypeDetail;
+	private String jobType ="기타";
 
 	@Column(name="bgImg")
 	private String bgImg;
 
 	@Column(name="viewCnt")
-	private int viewCnt;
+	private Integer viewCnt = 0;
 
 	@Column(name="candidateCnt")
-	private int candidateCnt;
+	private Integer candidateCnt = 0;
 
 	@Column(name="likeCnt")
-	private int likeCnt;
+	private Integer likeCnt = 0;
+
+	@Column(name="open")
+	private Boolean open = Boolean.FALSE;
 
 	@Column(name="productType")
 	@Enumerated(EnumType.STRING)
 	private ProductType productType;
 
+	@Column(name="email")
+	private String email;
+
 	@Column(name="startDate")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	@CreationTimestamp
-	private LocalDateTime startDate;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate startDate;
 
 	@Column(name="endDate")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
-	@CreationTimestamp
-	private LocalDateTime endDate;
+	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+	private LocalDate endDate;
 
 	@Column(name="registDate")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")

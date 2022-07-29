@@ -2,13 +2,16 @@ package com.castis.cportal.controller.common;
 
 import com.castis.commonLib.define.Constants;
 import com.castis.commonLib.dto.TransactionID;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -23,14 +26,19 @@ public class UiController extends AbstrctController{
 	private static Log log = LogFactory.getLog(UiController.class);
 	
 
-	@RequestMapping(value = { "/","/index"})
-	public String goIndex(ModelMap model, HttpSession httpSession, HttpServletRequest request, Principal user){
+	@RequestMapping(value = { "/","/index", "/main"})
+	public String goIndex(ModelMap model, HttpSession httpSession, HttpServletRequest request,
+						  @RequestParam(name = "page", required = false) String page, Principal user){
 				
 		long startTime = System.currentTimeMillis();
 		TransactionID trId = null;
 
 		try {
 			trId = startLog(request, Constants.request.GET, user);
+			if(StringUtils.isEmpty(page)) {
+				page = "cportal";
+			}
+			model.addAttribute("page", page);
 			jspName = "/main";
 		} catch (Exception e) {
 			log.error("", e);
@@ -41,15 +49,18 @@ public class UiController extends AbstrctController{
 		}
 		return jspName;
 	}
-	
-	@RequestMapping(value = "/convert", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String goConvertMain(HttpServletRequest req, Model model, Principal user) {
-		
-		long startTime = System.currentTimeMillis();		
+
+	@RequestMapping(value = "/wanted/popup/edit/{wantedId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goWantedEditMain(HttpServletRequest req, @PathVariable("wantedId") Long wantedId, Model model, Principal user) {
+
+		long startTime = System.currentTimeMillis();
 		TransactionID trId = null;
-		
+		String jspName = "popup";
+
 		try {
-			trId = startLog(req, Constants.request.GET, user);			
+			trId = startLog(req, Constants.request.GET, user);
+			model.addAttribute("wantedId", wantedId);
+			model.addAttribute("target", "/cportalJS/jobcast/popup/wantedPopupEditMain");
 		} catch (Exception e) {
 			log.error("", e);
 			req.setAttribute("errorCode", "500");
@@ -61,43 +72,26 @@ public class UiController extends AbstrctController{
 		return jspName;
 	}
 
-	@RequestMapping(value = "/hunter", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String hunterMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/hunter";
-	}
+	@RequestMapping(value = "/wanted/popup/view/{wantedId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goWantedViewMain(HttpServletRequest req, @PathVariable("wantedId") Long wantedId, Model model, Principal user) {
 
-	@RequestMapping(value = "/resume", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String resumeMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/resume";
-	}
+		long startTime = System.currentTimeMillis();
+		TransactionID trId = null;
+		String jspName = "popup";
 
-	@RequestMapping(value = "/sellCompany", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String sellCompanyMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/sellCompany";
-	}
+		try {
+			trId = startLog(req, Constants.request.GET, user);
+			model.addAttribute("wantedId", wantedId);
+			model.addAttribute("target", "/cportalJS/jobcast/popup/wantedPopupViewMain");
+		} catch (Exception e) {
+			log.error("", e);
+			req.setAttribute("errorCode", "500");
+			jspName = "/common/errorPage";
+		} finally {
+			endLog(startTime, Constants.request.GET, trId, null);
+		}
 
-	@RequestMapping(value = "/alba", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String albaMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/alba";
-	}
-
-	@RequestMapping(value = "/business", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String businessMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/business";
-	}
-
-	@RequestMapping(value = "/job", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String jobMain(HttpServletRequest req, Model model, Principal user) {
-		return "/jobcast/job";
-	}
-	@RequestMapping(value = "/company114", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String company114Main(HttpServletRequest req, Model model, Principal user) {
-		return "/company114";
-	}
-
-	@RequestMapping(value = "/cportal", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String goCportalMain(HttpServletRequest req, Model model, Principal user) {
-		return "/cportal";
+		return jspName;
 	}
 
 	@RequestMapping(value = "/setting", method = RequestMethod.GET, produces = "application/json; charset=utf8")

@@ -47,7 +47,8 @@ public class Company114Controller extends AbstrctController {
             InternetAddress[] toAddr = new InternetAddress[1];
             toAddr[0] = new InternetAddress("run2hoya@castis.com");
 
-            if(mailService.sendMail(trId, JsonUtil.objectToJson(companyInfoDTO), "사업부 114 신규 등록 요청", toAddr)) {
+            if(mailService.sendMail(trId, JsonUtil.objectToJson(companyInfoDTO),
+                    "사업부 114 신규 등록 요청", toAddr, "erp@castis.com")) {
                 result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
             } else {
                 result = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResultDetail(ResultCode.EXTERNAL_SYSTEM_ERROR, ResultCode.EXTERNAL_SYSTEM_ERROR_NAME,
@@ -66,7 +67,7 @@ public class Company114Controller extends AbstrctController {
         return result;
     }
 
-    @RequestMapping(value = "/company", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+    @RequestMapping(value = "/company/new", method = RequestMethod.POST, produces = "application/json; charset=utf8")
     public ResponseEntity<?> saveCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO) {
 
         long startTime = System.currentTimeMillis();
@@ -186,7 +187,7 @@ public class Company114Controller extends AbstrctController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResultDetail(ResultCode.NOT_FOUND, ResultCode.NOT_FOUND_NAME,
                         "관리자에게 연락 부탁드립니다."));
             }
-            log.info(trId + "result: Premier size = " + res);
+            log.info(trId + "result: = " + res);
 
             result = new ResponseEntity<>(res, HttpStatus.OK);
         } catch (Exception e) {

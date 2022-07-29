@@ -1,0 +1,43 @@
+<!-- add new card modal  -->
+<div class="modal fade" id="applicant" tabindex="-1" aria-labelledby="addNewCardTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-sm-5 mx-50 pb-5">
+                <h1 class="text-center mb-1" id="addNewCardTitle">지원하기</h1>
+                <p class="text-center">이력서 제출 기능 제공 예정</p>
+
+                <!-- form -->
+                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75" onsubmit="return false">
+
+                    <div class="col-12">
+                        <label class="form-label" for="name">이름</label>
+                        <input type="text" id="name" class="form-control" placeholder="이름을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="apllicantEmail">이메일</label>
+                        <input type="text" id="apllicantEmail" class="form-control" placeholder="e-mail을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="apllicantPhone">연락처</label>
+                        <input type="text" id="apllicantPhone" class="form-control" placeholder="연락처를 입력해 주세요" />
+                    </div>
+
+
+
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-1 mt-1" id="submit">지원</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
+                            취소
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalScrollableTitle">등록하기</h5>
+                <h5 class="modal-title" id="wantedType">등록하기</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" >
@@ -23,21 +23,9 @@
                             <div class="line">
                                 <i data-feather="chevron-right" class="font-medium-2"></i>
                             </div>
-                            <div class="step" data-target="#personal-info" role="tab" id="personal-info-trigger">
-                                <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">2</span>
-                                    <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">이미지선택</span>
-                                        <span class="bs-stepper-subtitle">프리미어 상품만 선택</span>
-                                    </span>
-                                </button>
-                            </div>
-                            <div class="line">
-                                <i data-feather="chevron-right" class="font-medium-2"></i>
-                            </div>
                             <div class="step" data-target="#address-step" role="tab" id="address-step-trigger">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">3</span>
+                                    <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">결제</span>
                                         <span class="bs-stepper-subtitle">옵션 선택</span>
@@ -50,29 +38,29 @@
                         <div class="bs-stepper-content">
                             <div id="account-details" class="content" role="tabpanel" aria-labelledby="account-details-trigger">
                                 <div class="content-header">
-                                    <h5 class="mb-0">구인 상품 선택</h5>
+                                    <h5 class="mb-0">상품 선택</h5>
 
                                 </div>
                                 <div class="row custom-options-checkable g-1 mb-2">
                                     <div class="col-md-6">
-                                        <input class="custom-option-item-check" type="radio" name="customOptionsCheckableRadios" id="customOptionsCheckableRadios1" value="premier" checked="">
+                                        <input class="custom-option-item-check" type="radio" name="productType" id="customOptionsCheckableRadios1" value="PREMIER" checked="">
                                         <label class="custom-option-item p-1" for="customOptionsCheckableRadios1">
                                             <span class="d-flex justify-content-between flex-wrap mb-50">
                                                 <span class="fw-bolder">Premier</span>
                                                 <span class="fw-bolder">30,000 cas / 주</span>
                                             </span>
-                                            <small class="d-block">이미지 및 텍스트로 구인을 등록 할 수 있습니다.</small>
+                                            <small class="d-block">이미지 및 텍스트로 등록 할 수 있습니다.</small>
                                         </label>
                                     </div>
 
                                     <div class="col-md-6">
-                                        <input class="custom-option-item-check" type="radio" name="customOptionsCheckableRadios" id="customOptionsCheckableRadios2" value="normal">
+                                        <input class="custom-option-item-check" type="radio" name="productType" id="customOptionsCheckableRadios2" value="NORMAL">
                                         <label class="custom-option-item p-1" for="customOptionsCheckableRadios2">
                                             <span class="d-flex justify-content-between flex-wrap mb-50">
                                                 <span class="fw-bolder">Basic</span>
                                                 <span class="fw-bolder">15,000 cas / 주</span>
                                             </span>
-                                            <small class="d-block">텍스트로 구인을 등록 할 수 있습니다.</small>
+                                            <small class="d-block">텍스트로 등록 할 수 있습니다.</small>
                                         </label>
                                     </div>
                                 </div>
@@ -87,56 +75,27 @@
                                     </button>
                                 </div>
                             </div>
-                            <div id="personal-info" class="content" role="tabpanel" aria-labelledby="personal-info-trigger">
-                                <div class="content-header">
-                                    <h5 class="mb-0">이미지 변경</h5>
-                                    <small>프리미어 상품은 업로드한 이미지가 보입니다. 별도의 이미지를 업로드 하지 않으면 기본 이미지가 나옵니다.</small>
-                                </div>
-
-                                <div class="d-flex mb-2">
-                                    <a href="#" class="me-25">
-                                        <img src="/cportalFile/img/wanted.png" id="account-upload-img" class="uploadedAvatar rounded me-50" alt="profile image" height="150" width="350" />
-                                    </a>
-                                    <!-- upload and reset button -->
-                                    <div class="d-flex align-items-end mt-75 ms-1">
-                                        <div  id="imgSelect">
-                                            <label for="account-upload" class="btn btn-sm btn-primary mb-75 me-75">Upload</label>
-                                            <input type="file" id="account-upload" hidden accept=".jpg, .png, .jpeg" />
-                                            <button type="button" id="account-reset" class="btn btn-sm btn-outline-secondary mb-75">Reset</button>
-                                            <p class="mb-0">Allowed file types: jpg, png, jpeg</p>
-                                            <p class="mb-0">가로 길이기 긴 이미지를 올려주세요</p>
-                                        </div>
-                                    </div>
-                                    <!--/ upload and reset button -->
-                                </div>
-
-
-
-                                <div class="d-flex justify-content-between">
-                                    <button class="btn btn-primary btn-prev">
-                                        <i data-feather="arrow-left" class="align-middle me-sm-25 me-0"></i>
-                                        <span class="align-middle d-sm-inline-block d-none">Previous</span>
-                                    </button>
-                                    <button class="btn btn-primary btn-next">
-                                        <span class="align-middle d-sm-inline-block d-none">Next</span>
-                                        <i data-feather="arrow-right" class="align-middle ms-sm-25 ms-0"></i>
-                                    </button>
-                                </div>
-                            </div>
                             <div id="address-step" class="content" role="tabpanel" aria-labelledby="address-step-trigger">
                                 <div class="content-header">
-                                    <h5 class="mb-0">결제</h5>
-                                    <small>옵션을 선택해 주세요.</small>
+                                    <small class="text-danger">Title은 결제 이후 변경 불가능 합니다.</small>
                                 </div>
-                                <form>
+                                <form id="wantedForm">
+                                    <div class="row">
+                                        <div class="mb-1 col-md-12">
+                                            <label class="form-label" for="title" id="wantedTitle">Title</label>
+                                            <input type="text" name="title" id="title" class="form-control" placeholder="공고의 제목을 입력해주세요"/>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="startDate">시작 날짜</label>
-                                            <input type="text" id="startDate" name="startDate" class="form-control" placeholder="시작 날짜를 선택해주세요" />
+                                            <input type="text" id="startDate" name="startDate" class="form-control" placeholder="시작 날짜를 선택해주세요" data-msg="시작 날짜를 선택해주세요"/>
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="week">상품 이용 기간 (주)</label>
-                                            <input type="text" name="week" id="week" class="form-control" placeholder="몇주간 이용할지 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
+                                            <input type="text" name="week" id="week" class="form-control" placeholder="몇주간 이용할지 입력해주세요"
+                                                   data-msg="몇주간 이용할지 입력해주세요" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"/>
                                         </div>
                                         <div class="mb-1 col-md-4">
                                             <label class="form-label" for="endDate">종료 날짜</label>
@@ -146,7 +105,9 @@
 
                                     <hr>
 
-                                    <small class="text-center">결제 이후 공고를 작성 할 수 있습니다. </small>
+                                    <div class="text-center">
+                                        <small>결제 이후 공고를 작성 할 수 있습니다. </small>
+                                    </div>
 
                                     <div class="annual-plan my-2">
                                         <div class="d-flex justify-content-center plan-price">

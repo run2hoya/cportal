@@ -20,7 +20,7 @@
             <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="user-nav d-sm-flex d-none">
                     <span class="user-name fw-bolder"><sec:authentication property="Details.nickName"/> 님</span></div>
-                <span class="avatar"><img class="round" src="<sec:authentication property="Details.userImg"/>" alt="avatar" height="40" width="40">
+                <span class="avatar"><img class="round" src="<sec:authentication property="Details.userImg"/>" id="userImg" alt="avatar" height="40" width="40">
                     </span>
             </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
@@ -75,7 +75,7 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li id="cportal" class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="target"></i><span class="menu-title text-truncate" data-i18n="Cportal">Cportal</span></a>
             </li>
-            <li id="company114" class="active nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="info"></i><span class="menu-title text-truncate" data-i18n="company114">사업부114</span></a>
+            <li id="company114" class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="info"></i><span class="menu-title text-truncate" data-i18n="company114">사업부114</span></a>
             </li>
             <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="layout"></i><span class="menu-title text-truncate" data-i18n="Collapsed Menu">Jobcast</span></a>
                 <ul class="menu-content">

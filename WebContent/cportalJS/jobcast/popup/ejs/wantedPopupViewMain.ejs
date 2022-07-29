@@ -1,0 +1,139 @@
+<div class="content-detached content-left">
+    <div class="content-body">
+        <!-- Blog Detail -->
+        <div class="blog-detail-wrapper">
+            <div class="row">
+                <!-- Blog -->
+                <div class="col-12">
+                    <div class="card">
+                        <img src="<%= bgImg %>" class="img-fluid card-img-top" style="max-height: 480px;" alt="Blog Detail Pic">
+                        <div class="card-body">
+                            <h2 class=" fw-bolder mb-2" id="title"><%= title %></h2>
+                            <div class="d-flex">
+                                <div class="avatar me-50">
+                                    <img src="<%= userImg %>" alt="Avatar" width="24" height="24">
+                                </div>
+                                <div class="author-info">
+                                    <small class="text-muted me-25">by</small>
+                                    <small><a href="#" class="text-body"><%= nickName %></a></small>
+                                    <span class="text-muted ms-50 me-25">|</span>
+                                    <small class="text-muted">등록일 : <%= registDate %></small>
+                                </div>
+                            </div>
+
+                            <hr class="my-2"/>
+
+                            <div id="editor"></div>
+
+                            <hr class="my-2"/>
+
+                        </div>
+                    </div>
+                </div>
+                <!--/ Blog -->
+
+
+            </div>
+        </div>
+        <!--/ Blog Detail -->
+
+    </div>
+</div>
+
+<div class="sidebar-detached sidebar-right">
+    <div class="sidebar">
+        <div class="blog-sidebar my-2 my-lg-0">
+
+            <div class="card card-payment">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="d-grid col-12">
+                            <button type="button" class="btn btn-primary waves-effect waves-float waves-light" id="wantedBtn">지원하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">남은 기간</h4>
+                </div>
+                <div class="card-body p-0" style="position: relative;">
+
+                    <div class="row text-center mx-0">
+                        <h1 class="font-large-2 fw-bolder mb-2" id="remainDays">7일</h1>
+                    </div>
+                    <div class="row border-top text-center mx-0">
+                        <div class="col-6 border-end py-1">
+                            <p class="card-text text-muted mb-0">시작일</p>
+                            <h5 class="fw-bolder mb-0"><%= startDate %></h5>
+                        </div>
+                        <div class="col-6 py-1">
+                            <p class="card-text text-muted mb-0">종료일</p>
+                            <h5 class="fw-bolder mb-0"><%= endDate %></h5>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card card-payment">
+                <div class="card-body">
+                    <div class="col-12 mb-1">
+                        <h5 class="mb-1">공고 직무 타입</h5>
+                        <h4 class="fw-bolder mb-0"><%= jobType %></h4>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="mb-1">
+                            <label class="form-label" for="email">e-mail</label>
+                            <input type="text" class="form-control" id="email" placeholder="email을 입력해주세요" readonly="readonly">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <div class="card">
+                <div class="card-body" style="position: relative;">
+
+                    <div class="d-flex justify-content-between mb-1">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-primary">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">조회</span>
+                        </div>
+                        <span><%= viewCnt %></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-warning">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">지원자</span>
+                        </div>
+                        <span><%= candidateCnt %></span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="d-flex align-items-center">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle font-medium-1 text-danger">
+                                <circle cx="12" cy="12" r="10"></circle>
+                            </svg>
+                            <span class="fw-bold ms-75">찜</span>
+                        </div>
+                        <span><%= likeCnt %></span>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modal"></div>

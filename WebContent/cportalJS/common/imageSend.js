@@ -3,7 +3,7 @@ define(['common/utils'], function (utils) {
     let imageSend = {};
     let returnImgName;
 
-    imageSend.init = function (maxWidth, maxHeight, fileName, urlPath) {
+    imageSend.init = function (maxWidth, maxHeight, fileName, dir, obj) {
 
         let accountUploadImg = $('#account-upload-img');
         let accountUserImage = $('.uploadedAvatar');
@@ -18,7 +18,6 @@ define(['common/utils'], function (utils) {
 
                     var reader = new FileReader();
                     reader.onload = function (e) {
-
 
                         var img = document.createElement("img");
                         img.onload = function (event) {
@@ -51,9 +50,10 @@ define(['common/utils'], function (utils) {
                             var dataurl = canvas.toDataURL("image/png");
                             accountUploadImg.attr('src', dataurl);
 
-                            if(utils.isEmpty(fileName))
-                                fileName = Date.now();
-                            sendFile(urlPath, dataURItoBlob(dataurl), fileName , "png");
+                            if(utils.isEmpty(fileName)) {
+                                fileName = new Date().getTime();
+                            }
+                            sendFile(dir, dataURItoBlob(dataurl), fileName , "png", obj);
                         }
                         img.src = e.target.result;
                     }
@@ -84,7 +84,7 @@ define(['common/utils'], function (utils) {
         return new Blob([ab], {type: mimeString});
     }
 
-    function sendFile(urlPath, file, fileName, ext) {
+    function sendFile(dir, file, fileName, ext, obj) {
 
         let form_data = new FormData();
         form_data.append('file', file);
@@ -92,7 +92,7 @@ define(['common/utils'], function (utils) {
             data       : form_data,
             type       : "POST",
             dataType   : 'text',
-            url        : urlPath + fileName + "/" + ext,
+            url        : '/upload/file?dir=' + dir + '&fileName=' + fileName + "." + ext,
             cache      : false,
             contentType: false,
             enctype    : 'multipart/form-data',
@@ -100,6 +100,9 @@ define(['common/utils'], function (utils) {
             success    : function (msg) {
                 console.log(msg);
                 imageSend.returnImgName = msg;
+                if(utils.isEmpty(obj) === false) {
+                    obj.attr("src", msg + '?' + new Date().getTime());
+                }
             },
             error      : function (xhr, textStatus) {
                 console.log(xhr);

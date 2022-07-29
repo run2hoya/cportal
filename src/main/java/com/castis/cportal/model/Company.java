@@ -53,6 +53,9 @@ public class Company implements Serializable {
     @Column(name="companybg")
     private String companybg;
 
+    @Column(name="registerId")
+    private Integer registerId;
+
     @Column(name="productType")
     @Enumerated(EnumType.STRING)
     private ProductType productType;

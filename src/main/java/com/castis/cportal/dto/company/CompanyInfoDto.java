@@ -20,6 +20,7 @@ public class CompanyInfoDto implements Serializable {
     private String companyNew;
     private String companyPlace;
     private String companyType;
+    private Integer registerId;
 
 
 

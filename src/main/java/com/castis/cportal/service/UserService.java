@@ -28,6 +28,7 @@ public class UserService {
 
 	@Autowired UserRepository userRepository;
 
+	public User getUser(int id) {return userRepository.findOne(id);}
 	public List<User> getUserList(){
 		return userRepository.findAll();
 	}

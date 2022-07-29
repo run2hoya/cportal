@@ -8,15 +8,16 @@ import java.time.LocalDateTime;
 
 @Data
 public class CompanyDto implements Serializable {
-    private final Integer id;
-    private final String companyName;
-    private final String companyNameEn;
-    private final String companyCeo;
-    private final String companyEmail;
-    private final String companyDes;
-    private final String companyView;
-    private final ProductType productType;
-    private final String content;
-    private final LocalDateTime registDate;
-    private final LocalDateTime updateDate;
+    private Integer id;
+    private Integer registerId;
+    private String companyName;
+    private String companyNameEn;
+    private String companyCeo;
+    private String companyEmail;
+    private String companyDes;
+    private String companyView;
+    private ProductType productType;
+    private String content;
+    private LocalDateTime registDate;
+    private LocalDateTime updateDate;
 }

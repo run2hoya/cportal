@@ -1,0 +1,36 @@
+<div class="col-lg-3 col-md-6 col-12">
+    <div class="card card-profile premierItem cursor-pointer chover" id="<%= id %>">
+        <img src="<%= bgImg %>" class="img-fluid card-img-top" alt="Profile Cover Photo" style="max-height: 160px;">
+        <div class="card-body">
+            <div class="profile-image-wrapper">
+                <div class="profile-image">
+                    <div class="avatar">
+                        <img src="<%= userImg %>" alt="Profile Picture">
+                    </div>
+                </div>
+            </div>
+            <h5 class="fw-bolder"><%= title %></h5>
+            <h6 class="text-muted"><%= nickName %></h6>
+
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="badge badge-light-dark"><%= jobType %></span>
+                <span class="badge badge-light-primary"><%= days %></span>
+            </div>
+            <hr class="mb-2">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h6 class="text-muted fw-bolder">열람</h6>
+                    <h3 class="mb-0"><%= viewCnt %></h3>
+                </div>
+                <div>
+                    <h6 class="text-muted fw-bolder">지원자</h6>
+                    <h3 class="mb-0"><%= candidateCnt %></h3>
+                </div>
+                <div>
+                    <h6 class="text-muted fw-bolder">찜</h6>
+                    <h3 class="mb-0"><%= likeCnt %></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
