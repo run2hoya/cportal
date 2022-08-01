@@ -17,4 +17,6 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
     @Query(value = "SELECT companyType as type, COUNT(c.id) as cnt FROM tbl_company AS c " +
             "WHERE companyType IS NOT NULL GROUP BY companyType ", nativeQuery = true)
     List<Object[]> countTotalCompanyByType();
+
+
 }

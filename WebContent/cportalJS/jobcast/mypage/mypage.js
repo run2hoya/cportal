@@ -27,6 +27,9 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
                     daysOfWeek: ["일", "월", "화", "수", "목", "금", "토"],
                     monthNames: ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
                 },
+                maxSpan: {
+                    "years": 3
+                },
                 startDate: start,
                 endDate: end,
                 minYear: 2020,
@@ -160,9 +163,9 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             date.setDate(date.getDate() + ($('#week').val() * 7));
             $('#endDate').val(date.toISOString().slice(0, 10));
 
-            let price = 30000;
-            if ($('input[name=customOptionsCheckableRadios]:checked').val() === 'normal')
-                price = 15000;
+            let price = 100000;
+            if ($('input[name=productType]:checked').val() === 'NORMAL')
+                price = 50000;
 
             new numberCounter("price", $('#week').val() * price);
         }
@@ -279,6 +282,11 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $('#startDate').flatpickr({local: 'ko'});
 
             $('#week').keyup(function () {
+
+                //최대 3주 임시
+                let v = parseInt(this.value);
+                if (v > 3) this.value = 3;
+
                 setEndDateAndPrice();
             });
 
@@ -289,6 +297,8 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $("input[name=productType]:radio").change(function () {
                 setEndDateAndPriceInit();
             });
+
+
 
 
         }

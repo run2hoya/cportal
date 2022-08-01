@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="mb-1">
                                         <label class="form-label" for="nickName">닉네임</label>
-                                        <input class="form-control" id="nickName" type="text" name="register-username" placeholder="닉네임을 입력해 주세요" aria-describedby="register-username" autofocus="" maxlength='7' tabindex="4" />
+                                        <input class="form-control" id="nickName" type="text" name="register-username" placeholder="닉네임을 입력해 주세요" aria-describedby="register-username" autofocus="" maxlength='10' tabindex="4" />
                                     </div>
                                     <div class="mb-1">
                                         <label class="form-label" for="email">Email</label>

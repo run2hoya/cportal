@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.castis</groupId>
 	<artifactId>cportal</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<packaging>war</packaging>
 
 	<properties>
@@ -272,7 +272,7 @@
 		<dependency>
 			<groupId>com.castis</groupId>
 			<artifactId>commonLib</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1</version>
 		</dependency>
 
 		<!-- Security -->

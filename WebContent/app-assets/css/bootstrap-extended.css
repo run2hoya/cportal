@@ -841,7 +841,7 @@ select:-webkit-autofill {
 
 .header-navbar .navbar-container ul.navbar-nav li a.dropdown-user-link .user-name {
   display: inline-block;
-  margin-bottom: 0.435rem;
+  /*margin-bottom: 0.435rem;*/
   margin-left: 0.2rem; }
 
 .header-navbar .navbar-container ul.navbar-nav li a.dropdown-user-link .user-status {

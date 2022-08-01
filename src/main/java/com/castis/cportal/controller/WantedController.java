@@ -150,7 +150,7 @@ public class WantedController extends AbstrctController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
                     "관리자에게 연락 부탁드립니다."));
         } finally {
-            endLog(startTime, Constants.request.GET, trId, null);
+            endLog(startTime, Constants.request.PUT, trId, null);
         }
         return result;
     }
@@ -183,7 +183,7 @@ public class WantedController extends AbstrctController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
                     "관리자에게 연락 부탁드립니다."));
         } finally {
-            endLog(startTime, Constants.request.GET, trId, null);
+            endLog(startTime, Constants.request.POST, trId, null);
         }
         return result;
     }

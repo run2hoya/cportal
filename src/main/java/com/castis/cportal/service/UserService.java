@@ -2,6 +2,7 @@ package com.castis.cportal.service;
 
 import com.castis.commonLib.define.ResultCode;
 import com.castis.commonLib.dto.ResultDetail;
+import com.castis.commonLib.dto.TransactionID;
 import com.castis.commonLib.dto.exception.CiException;
 import com.castis.commonLib.util.ObjectMapperUtils;
 import com.castis.cportal.dto.UserDto;
@@ -19,6 +20,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.mail.internet.InternetAddress;
 import javax.transaction.Transactional;
 import java.util.List;
 
@@ -27,13 +29,14 @@ import java.util.List;
 public class UserService {
 
 	@Autowired UserRepository userRepository;
+	@Autowired MailService mailService;
 
 	public User getUser(int id) {return userRepository.findOne(id);}
 	public List<User> getUserList(){
 		return userRepository.findAll();
 	}
 
-	public ResponseEntity<ResultDetail> saveUser(UserDto userDto) {
+	public ResponseEntity<ResultDetail> saveUser(TransactionID trId, UserDto userDto) {
 
 		try {
 			User user = ObjectMapperUtils.map(userDto, User.class);
@@ -43,7 +46,11 @@ public class UserService {
 			user.setUserSetting(new UserSetting());
 			userRepository.saveAndFlush(user);
 
+			InternetAddress[] toAddr = new InternetAddress[1];
+			toAddr[0] = new InternetAddress("run2hoya@castis.com");
 
+			mailService.sendMail(trId, user.toString(),
+					"[Cportal] 신규 가입자 ", toAddr, "erp@castis.com");
 		
 			return new ResponseEntity<ResultDetail>(new ResultDetail(ResultCode.OK, ResultCode.OK_NAME, null), HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {

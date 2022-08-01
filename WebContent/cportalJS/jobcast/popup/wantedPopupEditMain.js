@@ -14,7 +14,7 @@ require(['common/ajaxUtil', 'common/summerNote', 'common/utils', 'common/imageSe
     function updateContent() {
         let wantedWithContentDto = {};
         wantedWithContentDto.jobType = $("#select2-basic option:selected").val();
-        wantedWithContentDto.bgImg = imageSend.returnImgName;;
+        wantedWithContentDto.bgImg = imageSend.returnImgName;
         ($('input[name="openRadio"]:checked').val() === "true")? wantedWithContentDto.open = true : wantedWithContentDto.open = false;
         wantedWithContentDto.content = $('#editor').summernote('code');
         wantedWithContentDto.email = $('#email').val();
@@ -50,12 +50,14 @@ require(['common/ajaxUtil', 'common/summerNote', 'common/utils', 'common/imageSe
             } else
                 $('#close').prop('checked', true);
 
-
             $('#remainDays').text((moment(msg.endDate).diff(moment(), 'days') +1 ) + '일');
             $("#select2-basic").val(msg.jobType).prop("selected", true);
             $('#email').val(msg.email);
             imageSend.returnImgName = msg.bgImg;
             imageSend.init(1200, 800, null, 'wanted', $("#wantedBg"));
+
+            if(msg.productType !== 'PREMIER')
+                $('#imageUpload').hide();
 
             summerNote.init($('#editor'), msg.productType, 'wanted');
             if(utils.isEmpty(msg.content) === false)

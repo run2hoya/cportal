@@ -29,7 +29,7 @@ define(['common/utils', 'common/ajaxUtil'], function (utils, ajaxUtil) {
             fontNames: ['Arial', 'Arial Black', 'NotoSansKR', 'Courier New', '맑은 고딕', '궁서', '굴림체', '굴림', '돋움체', '바탕체', 'sc'],
             fontSizes: ['8', '9', '10', '11', '12', '14', '16', '18', '20', '22', '24', '28', '30', '36', '50', '72'],
             lang     : "ko-KR",
-            height   : 540,
+            height   : 500,
             focus    : true,
             callbacks: {
                 onImageUpload: function (files, editor, welEditable) {

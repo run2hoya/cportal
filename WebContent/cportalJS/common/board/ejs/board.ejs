@@ -1,0 +1,23 @@
+<div class="card">
+    <div class="card-header">
+        <h4 class="card-title fw-bolder"><%=boardTitle%></h4>
+        <input type="text" class="form-control" id="daterange" style="width: 260px;cursor: pointer;" readonly="readonly"/>
+        <button type="button" class="btn btn-primary" id="writeBtn">
+            글쓰기
+        </button>
+    </div>
+    <div class="card-datatable">
+        <table class="datatables-ajax table table-responsive hover">
+            <thead>
+                <tr>
+                    <th>제목</th>
+                    <th>작성자</th>
+                    <th>조회수</th>
+                    <th>등록일</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+
+    <div id="boardModal"></div>
+</div>

@@ -145,7 +145,7 @@ public class UserController extends AbstrctController{
 		
 		try {
 			trId = startLog(req, Constants.request.POST, userDto.toString());
-			result = userService.saveUser(userDto);
+			result = userService.saveUser(trId, userDto);
 			log.info(trId + "result:" + result);
 						
 		} catch (Exception e) {

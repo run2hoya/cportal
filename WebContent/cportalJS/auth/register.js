@@ -48,10 +48,21 @@
 
 	});
 
+	// 특수 문자 체크
+	function checkSpecial(str) {
+		var special_pattern = /[`~!@#$%^&*|\\\'\";:\/?]/gi;
+
+		if(special_pattern.test(str) == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	function checkInfo() {
 
 		var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-		var getCheck = RegExp(/^[a-zA-Z0-9]{4,12}$/);
+		var getCheck = RegExp(/^[a-zA-Z0-9]{3,12}$/);
 
 		// 아이디 공백 확인
 		if ($("#userId").val() == "") {
@@ -60,7 +71,7 @@
 		}
 		
 		if (!getCheck.test($("#userId").val())) {
-			Swal.fire({title: 'ERROR', text: 'ID는 4자 이상 영문 대소문자와 숫자로만 입력 가능합니다.', icon: 'error'});
+			Swal.fire({title: 'ERROR', text: 'ID는 3자 이상 영문 대소문자와 숫자로만 입력 가능합니다.', icon: 'error'});
 			return null;
 		}
 		
@@ -86,6 +97,12 @@
 			Swal.fire({title: 'ERROR', text: '닉네임을 입력해주세요', icon: 'error'});
 			return null;
 		}
+
+		if (checkSpecial($("#nickName").val()) === true) {
+			Swal.fire({title: 'ERROR', text: '닉네임에 특수문자를 넣을수 없습니다.', icon: 'error'});
+			return null;
+		}
+
 		
 
 

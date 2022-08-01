@@ -1,0 +1,42 @@
+<!-- Modal -->
+<div class="modal fade" id="modalScrollable" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable <%=modalSize%>">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">view</h5>
+                <h5 class="modal-title ms-2">
+                    마지막 수정 : <%=updateDate%>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+
+                <div class="row">
+
+                    <div class="col-12">
+                        <div class="card shadow-none bg-transparent border-primary">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <input type="text" class="form-control mb-1" maxlength='40' id="title" placeholder="글 제목을 입력하세요">
+                                    </div>
+                                </div>
+                                <div class="divider divider-primary">
+                                    <div class="divider-text">글 내용</div>
+                                </div>
+                                <div id="editor"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="editBtn" type="button" class="btn btn-outline-dark waves-effect">수정</button>
+                <button id="saveBtn" type="button" class="btn btn-outline-dark waves-effect">저장</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>
