@@ -32,7 +32,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend', 'common/payment/p
                 }
 
                 $('.premierItem').on('click', function () {
-                    window.open('./wanted/popup/view/' + $(this).attr('id'), "_blank");
+                    window.open('/popup/view/wanted/' + $(this).attr('id'), "_blank");
                 });
 
             }).fail(function (xhr, textStatus) {
@@ -109,7 +109,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend', 'common/payment/p
             $('.datatables-ajax tbody').on('click', '.item-edit', function () {
                 console.log(dt_ajax.row($(this).parents('tr')).data());
                 let wantedId = dt_ajax.row($(this).parents('tr')).data().id;
-                window.open('./wanted/popup/view/' + wantedId, "_blank");
+                window.open('/popup/view/wanted/' + wantedId, "_blank");
             });
         }
 

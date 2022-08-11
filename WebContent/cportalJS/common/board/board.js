@@ -100,6 +100,9 @@ define(['common/ajaxUtil', 'common/summerNote', 'common/utils'], function (ajaxU
         if(bSearch === false) {
             config.searching = false;
             config.lengthChange = false;
+        } else {
+            config.searching = true;
+            config.lengthChange = true;
         }
 
 
@@ -114,20 +117,29 @@ define(['common/ajaxUtil', 'common/summerNote', 'common/utils'], function (ajaxU
 
     function createWrite() {
         //TODO 권한 관리 개발
-        if (window.id !== '1') {
-            $('#writeBtn').remove();
-        } else {
-            $('#writeBtn').click(function () {
-                $('#boardModal').empty();
-                let template = new EJS({url: 'cportalJS/common/board/ejs/boardContentModal.ejs'}).render(
-                    {modalSize : board.modalSize,
-                        updateDate : '-'});
-                $('#boardModal').append(template);
-                addEvent(null);
-                summerNote.init($('#editor'), 'PREMIER', 'notice');
-                $('#modalScrollable').modal('show');
-            });
-        }
+
+        ajaxUtil.get('/authority/user/' + window.id + '?type=' + board.boardType, null).done(function (msg) {
+            if (msg === false) {
+                $('#writeBtn').remove();
+            } else {
+                $('#writeBtn').click(function () {
+                    $('#boardModal').empty();
+                    let template = new EJS({url: 'cportalJS/common/board/ejs/boardContentModal.ejs'}).render(
+                        {modalSize : board.modalSize,
+                            updateDate : '-'});
+                    $('#boardModal').append(template);
+                    addEvent(null);
+                    summerNote.init($('#editor'), 'PREMIER', 'notice');
+                    $('#modalScrollable').modal('show');
+                });
+            }
+
+        }).fail(function (xhr, textStatus) {
+            console.log(xhr);
+            console.log(textStatus);
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
+
     }
 
     function addEvent(boardId) {
@@ -155,7 +167,6 @@ define(['common/ajaxUtil', 'common/summerNote', 'common/utils'], function (ajaxU
             }
 
             ajaxUtil.makeAjax(type, url, JSON.stringify(boardItem), $('#editor')).done(function (msg) {
-                console.log(msg);
                 Swal.fire({title: 'success', text: '저장에 성공하였습니다', icon: 'success'});
                 dt_ajax.ajax.reload();
             }).fail(function (xhr, textStatus) {
@@ -177,8 +188,6 @@ define(['common/ajaxUtil', 'common/summerNote', 'common/utils'], function (ajaxU
         $('#boardModal').empty();
 
         ajaxUtil.get('/board/' + boardId, null).done(function (msg) {
-            console.log(msg);
-
             let template = new EJS({url: 'cportalJS/common/board/ejs/boardContentModal.ejs'}).render(msg , {modalSize : board.modalSize});
             $('#boardModal').append(template);
             $('#title').val(msg.title).prop('readonly', true);

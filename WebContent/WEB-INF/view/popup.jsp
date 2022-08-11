@@ -138,7 +138,7 @@
         <script src="/app-assets/js/scripts/forms/form-select2.js"></script>
         <script type="text/javascript" src="/assets/js/lib/ejs_production.js"></script>
         <script type="text/javascript" src="/assets/js/lib/ejs.js"></script>
-
+        <script src="/assets/js/clipboard.min.js"></script>
 
 
         <script src="/assets/summernote/summernote-lite.min.js"></script>
@@ -149,8 +149,7 @@
         <!-- END: Page JS-->
 
         <script>
-            window.id = "${id}";
-            window.wantedId = "${wantedId}";
+            window.targetId = "${targetId}";
         </script>
     </body>
 </html>

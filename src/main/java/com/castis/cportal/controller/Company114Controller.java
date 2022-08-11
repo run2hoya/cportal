@@ -35,14 +35,14 @@ public class Company114Controller extends AbstrctController {
 
 
     @RequestMapping(value = "/company/mail", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> registerCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO) {
+    public ResponseEntity<?> registerCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.POST, companyInfoDTO.toString());
+            trId = startLog(req, Constants.request.POST, companyInfoDTO.toString(), user);
 
             InternetAddress[] toAddr = new InternetAddress[1];
             toAddr[0] = new InternetAddress("run2hoya@castis.com");
@@ -68,14 +68,14 @@ public class Company114Controller extends AbstrctController {
     }
 
     @RequestMapping(value = "/company/new", method = RequestMethod.POST, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> saveCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO) {
+    public ResponseEntity<?> saveCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.POST, companyInfoDTO.toString());
+            trId = startLog(req, Constants.request.POST, companyInfoDTO.toString(), user);
 
             companyService.saveCompany(companyInfoDTO);
             result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
@@ -120,14 +120,14 @@ public class Company114Controller extends AbstrctController {
     }
 
     @RequestMapping(value = "/company/title", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> getCompanyTitle(HttpServletRequest req) {
+    public ResponseEntity<?> getCompanyTitle(HttpServletRequest req, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.GET);
+            trId = startLog(req, Constants.request.GET, user);
 
             CompanyGroupByType res = companyService.getCompanyTitleDto();
             log.info(trId + "result: Premier size = " + res.getPremier().size() +
@@ -147,14 +147,14 @@ public class Company114Controller extends AbstrctController {
     }
 
     @RequestMapping(value = "/company/chart/type", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> getCompanyByType(HttpServletRequest req) {
+    public ResponseEntity<?> getCompanyByType(HttpServletRequest req, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.GET);
+            trId = startLog(req, Constants.request.GET, user);
 
             CompanyByType companyByType = companyService.countTotalCompanyByType();
             log.info(trId + "result:  = " + companyByType.toString());
@@ -171,15 +171,15 @@ public class Company114Controller extends AbstrctController {
         return result;
     }
 
-    @RequestMapping(value = "/company/{companyId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> getCompanyInfo(HttpServletRequest req, @PathVariable("companyId") Integer companyId) {
+    @RequestMapping(value = "/company/info/{companyId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> getCompanyInfo(HttpServletRequest req, @PathVariable("companyId") Integer companyId, Principal user) {
 
         long startTime = System.currentTimeMillis();
         ResponseEntity<?> result = null;
         TransactionID trId = null;
 
         try {
-            trId = startLog(req, Constants.request.GET);
+            trId = startLog(req, Constants.request.GET, user);
             log.info(trId + "(getCompanyInfo) companyId :" + companyId);
             Company res = companyService.getCompany(companyId);
 

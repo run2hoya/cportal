@@ -72,11 +72,7 @@
           data-menu="vertical-menu-modern" data-col="">
 
 
-        <%@ include file="/WEB-INF/view/common/menu.jsp" %>
-        <%@ include file="/WEB-INF/view/common/util.jsp" %>
-        <sec:authentication property="authorities" var="auth"/>
-        <sec:authentication property="Details.id" var="id"/>
-
+        <%@ include file="/WEB-INF/view/dododo/menu.jsp" %>
         <!-- BEGIN: Content-->
         <div class="app-content content ">
             <div class="content-overlay"></div>
@@ -90,7 +86,7 @@
             </div>
         </div>
 
-        <%@ include file="/WEB-INF/view/common/footer.jsp" %>
+        <%@ include file="/WEB-INF/view/dododo/footer.jsp" %>
 
         <%--        <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>--%>
         <script src="app-assets/vendors/js/charts/apexcharts.min.js"></script>
@@ -98,7 +94,6 @@
         <script src="app-assets/vendors/js/forms/select/select2.full.min.js"></script>
         <script src="assets/summernote/summernote-lite.min.js"></script>
         <script src="assets/summernote/summernote-ko-KR.min.js"></script>
-        <script src="/assets/js/clipboard.min.js"></script>
 
         <script src="app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
         <script src="app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
@@ -108,11 +103,11 @@
         <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <script data-main="cportalJS/main" src="assets/js/lib/require.js"></script>
+        <script data-main="cportalJS/dododo/main" src="assets/js/lib/require.js"></script>
         <!-- END: Page JS-->
 
         <script>
-            window.id = "${id}";
+            window.id = "${userId}";
             window.page = "${page}";
         </script>
     </body>

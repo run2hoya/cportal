@@ -9,16 +9,20 @@
                         <img src="<%= bgImg %>" class="img-fluid card-img-top" style="max-height: 480px;" alt="Blog Detail Pic">
                         <div class="card-body">
                             <h2 class=" fw-bolder mb-2" id="title"><%= title %></h2>
-                            <div class="d-flex">
-                                <div class="avatar me-50">
-                                    <img src="<%= userImg %>" alt="Avatar" width="24" height="24">
+                            <div class="d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <div class="avatar me-50">
+                                        <img src="<%= userImg %>" alt="Avatar" width="24" height="24">
+                                    </div>
+                                    <div class="author-info">
+                                        <small class="text-muted me-25">by</small>
+                                        <small><a href="#" class="text-body"><%= nickName %></a></small>
+                                        <span class="text-muted ms-50 me-25">|</span>
+                                        <small class="text-muted">등록일 : <%= registDate %></small>
+                                    </div>
                                 </div>
-                                <div class="author-info">
-                                    <small class="text-muted me-25">by</small>
-                                    <small><a href="#" class="text-body"><%= nickName %></a></small>
-                                    <span class="text-muted ms-50 me-25">|</span>
-                                    <small class="text-muted">등록일 : <%= registDate %></small>
-                                </div>
+
+                                <button type="button" class="btn btn-outline-primary btn-sm waves-effect" id="shareBtn">공유하기</button>
                             </div>
 
                             <hr class="my-2"/>

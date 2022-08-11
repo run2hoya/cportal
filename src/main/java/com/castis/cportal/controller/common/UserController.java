@@ -60,12 +60,21 @@ public class UserController extends AbstrctController{
 		try {
 			trId = startLog(request, Constants.request.GET, user);
 
-			if(error != null && error == Boolean.FALSE) {
-				log.info(trId + " ########  로그인 실패   ########");
-				model.addAttribute("description", "가입하지 않은 Id이거나, 잘못된 비밀번호입니다.");
+			String uri =  request.getRequestURL().toString().replace(request.getRequestURI(), "");
+			log.info("OriginalURI ==>" + uri );
+			if(uri.contains("dododo")) {
+				model.addAttribute("userId", 22);
+				model.addAttribute("page", "board");
+				jspName = "/dododo";
+			} else {
+				if(error != null && error == Boolean.FALSE) {
+					log.info(trId + " ########  로그인 실패   ########");
+					model.addAttribute("description", "가입하지 않은 Id이거나, 잘못된 비밀번호입니다.");
+				}
+
+				jspName = "/login/login";
 			}
 
-			jspName = "/login/login";
 		} catch (Exception e) {
 			log.error("", e);
 			request.setAttribute("errorCode", "500");

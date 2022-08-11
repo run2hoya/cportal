@@ -15,6 +15,12 @@
     <http pattern="/app-assets/**" security="none"></http>
     <http pattern="/assets/**" security="none"></http>
     <http pattern="/cportalJS/**" security="none"></http>
+    <http pattern="/dododo/**" security="none"></http>
+    <http pattern="/board/**" security="none"></http>
+    <http pattern="/authority/**" security="none"></http>
+    <http pattern="/popup/view/**" security="none"></http>
+    <http pattern="/wanted/info/**" security="none"></http>
+    <http pattern="/company/info/**" security="none"></http>
 
 
     <http auto-config="true" use-expressions="true" entry-point-ref="authenticationEntryPoint">

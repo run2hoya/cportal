@@ -18,4 +18,8 @@ public class BoardWithContentDto extends BoardDto{
     }
 
 
+    @Override
+    public String toString() {
+        return "BoardWithContentDto{} " + super.toString();
+    }
 }

@@ -1,5 +1,5 @@
 require.config({
-    baseUrl: 'cportalJS'
+    baseUrl: '/cportalJS',
 });
 
 define(['common/ajaxUtil', 'common/utils', 'common/summerNote'], function (ajaxUtil, utils, summerNote) {
@@ -50,6 +50,10 @@ define(['common/ajaxUtil', 'common/utils', 'common/summerNote'], function (ajaxU
         $('#editBtn').click(function () {
             summerNote.init($('#editor'), makeCompanyView.productType, 'company114');
         });
+
+        var clipboard = new ClipboardJS('#shareBtn', {container: document.getElementById('exampleModalScrollable')});
+        clipboard.on( 'success', function() {Swal.fire({title: 'SUCCESS', text: '주소가 복사되었습니다.', icon: 'success'});} );
+        clipboard.on( 'error', function() {Swal.fire({title: 'ERROR', text: '해당 브라우저는 복사 기능이 지원되지 않습니다', icon: 'error'});} );
     }
 
     function makePremierCompany(premier, div) {
@@ -75,10 +79,11 @@ define(['common/ajaxUtil', 'common/utils', 'common/summerNote'], function (ajaxU
         $('#companyInfoModal').empty();
 
         $('#editor').text('');
-        ajaxUtil.get('./company/' + companyId, $(".modal-body")).done(function (msg) {
+        ajaxUtil.get('/company/info/' + companyId, $(".modal-body")).done(function (msg) {
             console.log(msg);
             if (!utils.isEmpty(msg)) {
-                let template = new EJS({url: 'cportalJS/company114/ejs/companyInfoModal.ejs'}).render(msg);
+                let template = new EJS({url: 'cportalJS/company114/ejs/companyInfoModal.ejs'}).render(
+                    msg, {companyId : makeCompanyView.companyId});
                 $('#companyInfoModal').append(template);
 
                 if (!utils.isEmpty(msg.content)) {

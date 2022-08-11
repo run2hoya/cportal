@@ -27,6 +27,11 @@ define([], function () {
             complete   : function () {
                 if (blockUi != null)
                     blockUi.unblock();
+            }, error   : (jqXHR) => {
+                if (jqXHR.status === 403) {
+                    alert("[세션 없음] 로그인 해주세요");
+                    location.replace("/login");
+                }
             }
         });
     }
@@ -59,7 +64,7 @@ define([], function () {
                     blockUi.unblock();
             }, error   : (jqXHR) => {
                 if (jqXHR.status === 403) {
-                    alert("세션이 만료되었습니다");
+                    alert("[세션 없음] 로그인 해주세요");
                     location.replace("/login");
                 }
             }

@@ -8,7 +8,7 @@ public class CportalSetting {
 	static final Log		log = LogFactory.getLog( CportalSetting.class );
 	
 	public static final String	PRODUCT_VERSION_KEY	= "productVersion";
-	public static final	String	PRODUCT_VERSION		=	"1.0.1.QR1";
+	public static final	String	PRODUCT_VERSION		=	"1.0.2.QR1";
 	
 	public CportalSetting() {
 		super();		
