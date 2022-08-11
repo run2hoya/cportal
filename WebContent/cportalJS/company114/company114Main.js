@@ -90,7 +90,7 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
                     companyInfo.companyDes = $('#companyDes').val();
                     companyInfo.companyView = $('#companyView').val();
                     companyInfo.productType = $('input[name=companyType]:checked').val();
-                    companyInfo.companyNew = $("#inlineCheckbox2").is(":checked");
+                    companyInfo.companyNew = false;
                     companyInfo.companyPlace = $('#companyPlace').val();
                     companyInfo.companyType = $("#companyType option:selected").val();
                     companyInfo.registerId = window.id;

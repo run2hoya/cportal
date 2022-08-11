@@ -163,9 +163,9 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             date.setDate(date.getDate() + ($('#week').val() * 7));
             $('#endDate').val(date.toISOString().slice(0, 10));
 
-            let price = 100000;
+            let price = 40000;
             if ($('input[name=productType]:checked').val() === 'NORMAL')
-                price = 50000;
+                price = 15000;
 
             new numberCounter("price", $('#week').val() * price);
         }
@@ -258,19 +258,19 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
                             wantedRegisterDto.endDate = $('#endDate').val();
 
                             //사업부 등록 요청
-                            ajaxUtil.makeAjax("post", './wanted', JSON.stringify(wantedRegisterDto), null).done(function(msg){
-                                Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
-                                dt_ajax.ajax.reload();
-                            }).
-                            fail(function(xhr, textStatus){
-                                console.log(xhr);
-                                console.log(textStatus);
-                                Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
-                            });
+                            // ajaxUtil.makeAjax("post", './wanted', JSON.stringify(wantedRegisterDto), null).done(function(msg){
+                            //     Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+                            //     dt_ajax.ajax.reload();
+                            // }).
+                            // fail(function(xhr, textStatus){
+                            //     console.log(xhr);
+                            //     console.log(textStatus);
+                            //     Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+                            // });
 
                             //TODO 결제하기 구현
-                            //payment.create(null, null, $('#modal'));
-                            $('#registerModal').modal('hide');
+                            payment.create(null, null, $('#modal'));
+                            //$('#registerModal').modal('hide');
 
                         }
 
@@ -282,11 +282,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $('#startDate').flatpickr({local: 'ko'});
 
             $('#week').keyup(function () {
-
-                //최대 3주 임시
-                let v = parseInt(this.value);
-                if (v > 3) this.value = 3;
-
                 setEndDateAndPrice();
             });
 

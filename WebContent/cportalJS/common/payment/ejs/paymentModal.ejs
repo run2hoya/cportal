@@ -1,20 +1,90 @@
-<div class="modal fade modal-dark text-start" id="paymentModal" tabindex="-1" aria-labelledby="myModalLabel150" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+<div class="modal fade modal-dark text-start" id="paymentModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="myModalLabel150" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <h5 class="modal-title text-white" id="myModalLabel150">결제 하기</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="card">
-                <img class="card-img-top" src="cportalFile/img/ad.png" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">계좌이체</h4>
-                    <p class="card-text">
-                        cbank에서 open api를 신청해야 계좌이체 가능합니다.
-                    </p>
-                    <a href="#" class="btn btn-outline-primary waves-effect">Go somewhere</a>
+
+
+            <div class="modal-body">
+                <div class="row">
+                    <!-- share project card -->
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img class="card-img-top" src="cportalFile/img/ad.png" alt="Card image cap">
+                            <div class="card-body">
+                                <h4 class="card-title">광고 신청</h4>
+                                <p class="card-text">
+                                    run2hoya@castis.com으로 연락 주세요
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <h1 class="text-center mb-1" id="addNewCardTitle">결제하기</h1>
+
+
+                        <div class="annual-plan my-2">
+                            <div class="d-flex justify-content-center plan-price">
+                                <sup class="d-block font-medium-1 fw-bold text-primary mt-2">$</sup>
+                                <span class="pricing-enterprise-value fw-bolder text-primary font-large-3 lh-1"><%= price %></span>
+                                <sub class="pricing-duration text-body font-medium-1 fw-bold mt-3">cas</sub>
+                            </div>
+                            <small class="annual-pricing d-none text-muted"></small>
+                        </div>
+
+                        <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75" onsubmit="return false" novalidate="novalidate">
+                            <div class="col-12">
+                                <label class="form-label" for="modalAddCardNumber">Card Number</label>
+                                <div class="input-group input-group-merge">
+                                    <input id="modalAddCardNumber" name="modalAddCard" class="form-control add-credit-card-mask" type="text" placeholder="1356 3215 6548 7898" aria-describedby="modalAddCard2" data-msg="Please enter your credit card number">
+                                    <span class="input-group-text cursor-pointer p-25" id="modalAddCard2">
+                                                <span class="add-card-type"></span>
+                                            </span>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label" for="modalAddCardName">Name On Card</label>
+                                <input type="text" id="modalAddCardName" class="form-control" placeholder="John Doe">
+                            </div>
+
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="modalAddCardExpiryDate">Exp. Date</label>
+                                <input type="text" id="modalAddCardExpiryDate" class="form-control add-expiry-date-mask" placeholder="MM/YY">
+                            </div>
+
+                            <div class="col-6 col-md-3">
+                                <label class="form-label" for="modalAddCardCvv">CVV</label>
+                                <input type="text" id="modalAddCardCvv" class="form-control add-cvv-code-mask" maxlength="3" placeholder="654">
+                            </div>
+
+                            <div class="col-12">
+                                <div class="d-flex align-items-center">
+                                    <div class="form-check form-switch form-check-primary me-25">
+                                        <input type="checkbox" class="form-check-input" id="saveCard" checked="">
+                                        <label class="form-check-label" for="saveCard">
+                                            <span class="switch-icon-left"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check"><polyline points="20 6 9 17 4 12"></polyline></svg></span>
+                                            <span class="switch-icon-right"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                                        </label>
+                                    </div>
+                                    <label class="form-check-label fw-bolder" for="saveCard">Save Card for future billing?</label>
+                                </div>
+                            </div>
+
+                            <div class="col-12 text-center">
+                                <button type="submit" class="btn btn-primary me-1 mt-1 waves-effect waves-float waves-light">Submit</button>
+                                <button type="reset" class="btn btn-outline-secondary mt-1 waves-effect" data-bs-dismiss="modal" aria-label="Close">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
+
             </div>
+
         </div>
     </div>
 </div>
