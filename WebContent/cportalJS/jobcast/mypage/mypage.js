@@ -267,7 +267,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
                                 Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
                             });
 
-                            //TODO 결제하기 구현
+                            //TODO 결제하기 구현 master
                             //payment.create(null, null, $('#modal'));
                             $('#registerModal').modal('hide');
 
