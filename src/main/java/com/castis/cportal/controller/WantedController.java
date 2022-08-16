@@ -15,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.InternetAddress;
@@ -189,27 +188,6 @@ public class WantedController extends AbstrctController {
         return result;
     }
 
-    @RequestMapping(value = "/wanted/popup/edit/{wantedId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-    public String goWantedEditMain(HttpServletRequest req, @PathVariable("wantedId") Long wantedId, Model model, Principal user) {
-
-        long startTime = System.currentTimeMillis();
-        TransactionID trId = null;
-        String jspName = "popup";
-
-        try {
-            trId = startLog(req, Constants.request.GET, user);
-            model.addAttribute("wantedId", wantedId);
-            model.addAttribute("target", "/cportalJS/jobcast/popup/wantedPopupEditMain");
-        } catch (Exception e) {
-            log.error("", e);
-            req.setAttribute("errorCode", "500");
-            jspName = "/common/errorPage";
-        } finally {
-            endLog(startTime, Constants.request.GET, trId, null);
-        }
-
-        return jspName;
-    }
 
 
 

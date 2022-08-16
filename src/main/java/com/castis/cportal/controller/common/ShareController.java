@@ -28,6 +28,15 @@ public class ShareController extends AbstrctController{
 		return "popup";
 	}
 
+	@RequestMapping(value = "/popup/wanted/edit/{wantedId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goWantedEditMain(HttpServletRequest req, @PathVariable("wantedId") Long wantedId, Model model, Principal user) {
+
+		model.addAttribute("targetId", wantedId);
+		model.addAttribute("target", "/cportalJS/jobcast/popup/wantedPopupEditMain");
+		return "popup";
+	}
+
+
 
 
 }	

@@ -25,7 +25,7 @@ require(['common/ajaxUtil', 'common/summerNote', 'common/utils', 'common/imageSe
         }
 
 
-        ajaxUtil.makeAjax("put", '/wanted/' + window.wantedId, JSON.stringify(wantedWithContentDto), $('#editor')).done(function (msg) {
+        ajaxUtil.makeAjax("put", '/wanted/' + window.targetId, JSON.stringify(wantedWithContentDto), $('#editor')).done(function (msg) {
             console.log(msg);
             Swal.fire({title: 'success', text: '저장에 성공하였습니다', icon: 'success'});
         }).fail(function (xhr, textStatus) {
@@ -36,7 +36,7 @@ require(['common/ajaxUtil', 'common/summerNote', 'common/utils', 'common/imageSe
     }
 
     function loadWantedInfo() {
-        let url = '/wanted/' + window.wantedId ;
+        let url = '/wanted/info/' + window.targetId ;
         ajaxUtil.makeAjax("get", url, null, $('.content-overlay')).done(function (msg) {
             console.log(msg);
             if(msg.registerId !== parseInt(window.id)) {

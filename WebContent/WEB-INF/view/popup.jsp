@@ -150,6 +150,7 @@
 
         <script>
             window.targetId = "${targetId}";
+            window.id = "${id}";
         </script>
     </body>
 </html>

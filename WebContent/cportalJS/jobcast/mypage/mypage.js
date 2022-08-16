@@ -104,7 +104,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $('.datatables-ajax tbody').on('click', '.item-edit', function () {
                 console.log( dt_ajax.row( $(this).parents('tr') ).data() );
                 let wantedId = dt_ajax.row( $(this).parents('tr') ).data().id;
-                window.open('./wanted/popup/edit/' + wantedId, "_blank");
+                window.open('/popup/wanted/edit/' + wantedId, "_blank");
             });
 
         }
@@ -257,20 +257,19 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
                             wantedRegisterDto.startDate = $('#startDate').val();
                             wantedRegisterDto.endDate = $('#endDate').val();
 
-                            //사업부 등록 요청
-                            // ajaxUtil.makeAjax("post", './wanted', JSON.stringify(wantedRegisterDto), null).done(function(msg){
-                            //     Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
-                            //     dt_ajax.ajax.reload();
-                            // }).
-                            // fail(function(xhr, textStatus){
-                            //     console.log(xhr);
-                            //     console.log(textStatus);
-                            //     Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
-                            // });
+                            ajaxUtil.makeAjax("post", './wanted', JSON.stringify(wantedRegisterDto), null).done(function(msg){
+                                Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+                                dt_ajax.ajax.reload();
+                            }).
+                            fail(function(xhr, textStatus){
+                                console.log(xhr);
+                                console.log(textStatus);
+                                Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+                            });
 
                             //TODO 결제하기 구현
-                            payment.create(null, null, $('#modal'));
-                            //$('#registerModal').modal('hide');
+                            //payment.create(null, null, $('#modal'));
+                            $('#registerModal').modal('hide');
 
                         }
 
@@ -292,10 +291,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $("input[name=productType]:radio").change(function () {
                 setEndDateAndPriceInit();
             });
-
-
-
-
         }
 
 
