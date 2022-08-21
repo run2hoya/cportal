@@ -52,9 +52,8 @@ require(['common/ajaxUtil', 'common/summerNote', 'common/utils',],
                 applicant.phone = $('#apllicantPhone').val();
                 applicant.companyEmail = $('#email').val();
                 applicant.wantedTitle = $('#title').text();
-                applicant.wantedId = window.wantedId;
+                applicant.wantedId = window.targetId;
 
-                //사업부 등록 요청
                 ajaxUtil.makeAjax("post", '/wanted/applicant', JSON.stringify(applicant), $('#applicant')).done(function(msg){
                     console.log(msg);
                     applicantModal.hide();

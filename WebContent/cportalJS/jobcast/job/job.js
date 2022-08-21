@@ -23,8 +23,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend', 'common/payment/p
 
             let url = '/wanted/viewer/'+ wantedType + '?date=' + moment().format('YYYY-MM-DD') + '&productType=PREMIER';
             ajaxUtil.makeAjax("get", url, null, $('#contentBody')).done(function (msg) {
-                console.log(msg);
-
                 for (var i = 0, wanted; wanted = msg[i]; i++) {
                     let day = 'D - ' + (moment(wanted.endDate).diff(moment(), 'days') + 1) + '일';
                     $('#premier').append(new EJS({url: '/cportalJS/jobcast/job/ejs/premierItem.ejs'}).render(
@@ -60,8 +58,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend', 'common/payment/p
                     ajax      : {
                         url        : '/wanted/viewer/' + wantedType + '?date=' + moment().format('YYYY-MM-DD') + '&productType=NORMAL',
                         dataSrc    : function (data) {
-                            console.log(data);
-
                             return data;
                         },
                         type       : "get",
@@ -107,7 +103,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend', 'common/payment/p
             $('.dataTables_filter .form-control').removeClass('form-control-sm');
             $('.dataTables_length .form-select').removeClass('form-select-sm').removeClass('form-control-sm');
             $('.datatables-ajax tbody').on('click', '.item-edit', function () {
-                console.log(dt_ajax.row($(this).parents('tr')).data());
                 let wantedId = dt_ajax.row($(this).parents('tr')).data().id;
                 window.open('/popup/view/wanted/' + wantedId, "_blank");
             });

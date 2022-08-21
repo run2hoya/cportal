@@ -36,6 +36,25 @@ public class UserService {
 		return userRepository.findAll();
 	}
 
+	public InternetAddress[] getJobCastMailList() throws Exception {
+
+		List<String> emails = userRepository.getJobCastMailList();
+		InternetAddress[] toAddr = null;
+
+		if(emails != null && !emails.isEmpty()) {
+			toAddr = new InternetAddress[emails.size()];
+
+			int i = 0;
+			for(String email : emails) {
+				toAddr[i] = new InternetAddress(email);
+				i++;
+			}
+		}
+
+		return toAddr;
+	}
+
+
 	public ResponseEntity<ResultDetail> saveUser(TransactionID trId, UserDto userDto) {
 
 		try {
@@ -50,7 +69,7 @@ public class UserService {
 			toAddr[0] = new InternetAddress("run2hoya@castis.com");
 
 			mailService.sendMail(trId, user.toString(),
-					"[Cportal] 신규 가입자 ", toAddr, "erp@castis.com");
+					"[Cportal] 신규 가입자 ", toAddr, null, "cportal-cast@naver.com");
 		
 			return new ResponseEntity<ResultDetail>(new ResultDetail(ResultCode.OK, ResultCode.OK_NAME, null), HttpStatus.OK);
 		} catch (DataIntegrityViolationException e) {

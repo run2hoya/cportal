@@ -29,6 +29,9 @@ public class Properties {
 	@Value("${cportalFile.dir:/cportalFile/}")
 	private String cportalFile;
 
+	@Value("${mailTemp.Dir:/mailTemp/}")
+	private String mailTempDir;
+
 	public Properties() {
 		super();
 	}
@@ -49,8 +52,8 @@ public class Properties {
 		
 		List<String> headersList = Arrays.asList("KEY", "VALUE");
 		List<List<String>> rowsList_properties = Arrays.asList(
-				Arrays.asList("cportalFile.dir", this.cportalFile)
-
+				Arrays.asList("cportalFile.dir", this.cportalFile),
+				Arrays.asList("mailTemp.Dir", this.mailTempDir)
 		);
 
 				

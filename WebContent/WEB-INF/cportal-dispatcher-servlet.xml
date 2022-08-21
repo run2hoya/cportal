@@ -49,7 +49,7 @@
 		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
 	</context:component-scan>
 	<mvc:annotation-driven />
-	
+	<task:annotation-driven/>
 			<!-- 트랜잭션 관리자 활성화 -->
 	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
 	

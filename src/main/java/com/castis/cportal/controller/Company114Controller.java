@@ -48,7 +48,7 @@ public class Company114Controller extends AbstrctController {
             toAddr[0] = new InternetAddress("run2hoya@castis.com");
 
             if(mailService.sendMail(trId, JsonUtil.objectToJson(companyInfoDTO),
-                    "사업부 114 신규 등록 요청", toAddr, "erp@castis.com")) {
+                    "사업부 114 신규 등록 요청", toAddr, null,"cportal-cast@naver.com")) {
                 result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
             } else {
                 result = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResultDetail(ResultCode.EXTERNAL_SYSTEM_ERROR, ResultCode.EXTERNAL_SYSTEM_ERROR_NAME,

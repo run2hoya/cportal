@@ -21,6 +21,7 @@
     <http pattern="/popup/view/**" security="none"></http>
     <http pattern="/wanted/info/**" security="none"></http>
     <http pattern="/company/info/**" security="none"></http>
+    <http pattern="/wanted/mail/**" security="none"></http>
 
 
     <http auto-config="true" use-expressions="true" entry-point-ref="authenticationEntryPoint">

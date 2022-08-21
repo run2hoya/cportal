@@ -9,6 +9,8 @@ require(['common/menuNav'], function (
     function init() {
         menuNav.setMenuNav('cportal');
         menuNav.goPage('cportal', window.page);
+
+        $('#' + window.page).addClass( 'active' );
     }
 
 

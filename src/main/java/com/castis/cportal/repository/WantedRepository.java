@@ -2,6 +2,7 @@ package com.castis.cportal.repository;
 
 import com.castis.cportal.common.enumeration.ProductType;
 import com.castis.cportal.dto.chart.ChartDataDto;
+import com.castis.cportal.dto.wanted.WantedMailDto;
 import com.castis.cportal.dto.wanted.WantedWithContentDto;
 import com.castis.cportal.model.Wanted;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -31,6 +32,18 @@ public interface WantedRepository extends JpaRepository<Wanted, Long> {
     List<WantedWithContentDto> getWantedList(@Param("wantedType") String wantedType,
                                                     @Param("date") LocalDate date,
                                                     @Param("productType") ProductType productType);
+
+    @Query(value="SELECT new com.castis.cportal.dto.wanted.WantedMailDto"
+            + "( wt.id, wt.title, u.nickName, wt.wantedType) "
+            + "FROM Wanted wt "
+            + "left outer join User u on wt.registerId= u.id "
+            + "where wt.startDate <= :date and wt.endDate >= :date and "
+            + "wt.productType = :productType and wt.wantedType = :wantedType and wt.open = true "
+            + "order by wt.id desc" ,
+            nativeQuery = false)
+    List<WantedMailDto> getWantedMailList(@Param("wantedType") String wantedType,
+                                      @Param("date") LocalDate date,
+                                      @Param("productType") ProductType productType);
 
 
     @Query(value="SELECT new com.castis.cportal.dto.chart.ChartDataDto(wt.jobType, COUNT(wt.id)) "

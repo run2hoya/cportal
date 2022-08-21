@@ -62,7 +62,6 @@ define(['common/ajaxUtil', 'common/summerNote', 'common/utils'], function (ajaxU
             ajax      : {
                 url        : '/board/list?startDate=' + start.format("YYYY-MM-DD") + '&endDate=' + end.format("YYYY-MM-DD") + '&boardType=' + boardType,
                 dataSrc    : function (data) {
-                    console.log(data);
                     return data;
                 },
                 type       : "get",

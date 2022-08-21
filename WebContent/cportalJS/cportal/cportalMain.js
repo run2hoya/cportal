@@ -11,7 +11,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/board/board', 'amcharts5/inde
 
     let caportalMain = {};
 
-    caportalMain.init = function (wantedType) {
+    caportalMain.init = function () {
         $('#contentBody').append(new EJS({url: '/cportalJS/cportal/ejs/cportalMain.ejs'}).render(
         ));
         createStat();
@@ -25,10 +25,15 @@ define(['common/ajaxUtil', 'common/utils', 'common/board/board', 'amcharts5/inde
 
     function createStat() {
         ajaxUtil.makeAjax("get", '/cportal/stat', null, null).done(function (msg) {
-            console.log(msg);
-
             $('#stat').append(new EJS({url: '/cportalJS/cportal/ejs/stat.ejs'}).render(msg));
             if (feather) { feather.replace({width : 14, height: 14});}
+
+            $('#companyLinkBtn').click(function () {location.href='/main?page=company114';});
+            $('#jobLinkBtn').click(function () {location.href='/main?page=job';});
+            $('#businessLinkBtn').click(function () {location.href='/main?page=business';});
+            $('#albaLinkBtn').click(function () {location.href='/main?page=alba';});
+            $('#sellCompanyLinkBtn').click(function () {location.href='/main?page=sellCompany';});
+
         }).fail(function (xhr, textStatus) {
             console.log(xhr);
             console.log(textStatus);
@@ -38,7 +43,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/board/board', 'amcharts5/inde
     function createJobcastChart() {
 
         ajaxUtil.makeAjax("get", '/cportal/jobcast/chart', null, $('#chartdiv')).done(function (msg) {
-            console.log(msg);
             am5.ready(function() {
                 var root = am5.Root.new("chartdiv");
                 root.setThemes([am5themes_Animated.new(root)]);

@@ -10,7 +10,10 @@ import com.castis.cportal.dto.wanted.WantedApplicantDto;
 import com.castis.cportal.dto.wanted.WantedRegisterDto;
 import com.castis.cportal.dto.wanted.WantedWithContentDto;
 import com.castis.cportal.service.MailService;
+import com.castis.cportal.service.UserService;
 import com.castis.cportal.service.WantedService;
+import com.castis.cportal.service.createMail.ApplicantMailService;
+import com.castis.cportal.service.createMail.JobcastMailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +22,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.security.Principal;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -30,6 +35,8 @@ public class WantedController extends AbstrctController {
 
     private final WantedService wantedService;
     private final MailService mailService;
+    private final JobcastMailService jobcastMailService;
+    private final UserService userService;
 
 
     @RequestMapping(value = "/wanted", method = RequestMethod.POST, produces = "application/json; charset=utf8")
@@ -169,9 +176,50 @@ public class WantedController extends AbstrctController {
             InternetAddress[] toAddr = new InternetAddress[1];
             toAddr[0] = new InternetAddress(wantedApplicantDto.getCompanyEmail());
 
-            if(mailService.sendMail(trId, mailService.generateHtml(wantedApplicantDto).toString(),
-                    "[jobcast] 지원자가 왔습니다 ", toAddr, "no_reply@castis.com")) {
+            InternetAddress[] bccAddr = new InternetAddress[1];
+            bccAddr[0] = new InternetAddress("run2hoya@castis.com");
+
+            if(mailService.sendMail(trId, ApplicantMailService.generateHtml(wantedApplicantDto).toString(),
+                    "[jobcast] 지원자가 왔습니다 ", toAddr, bccAddr, "cportal-cast@naver.com")) {
                 wantedService.incrementApplicant(wantedApplicantDto.getWantedId());
+                result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+            } else {
+                result = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResultDetail(ResultCode.EXTERNAL_SYSTEM_ERROR, ResultCode.EXTERNAL_SYSTEM_ERROR_NAME,
+                        "관리자에게 연락 부탁드립니다."));
+            }
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.POST, trId, null);
+        }
+        return result;
+    }
+
+    @RequestMapping(value = "/wanted/mail", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> wantedMail(HttpServletRequest req, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.GET, user);
+
+            InternetAddress[] test = userService.getJobCastMailList();
+            log.info(Arrays.toString(test));
+
+            InternetAddress[] toAddr = new InternetAddress[1];
+            toAddr[0] = new InternetAddress("cportal-cast@naver.com");
+
+            InternetAddress[] bccAddr = new InternetAddress[2];
+            bccAddr[0] = new InternetAddress("hoya2352@nate.com");
+            bccAddr[1] = new InternetAddress("run2hoya@castis.com");
+
+            if(mailService.sendMailWithImage(trId, jobcastMailService.generateHtml(), "[jobcast] 당신을 위한 정보 ",
+                    toAddr, bccAddr,"cportal-cast@naver.com", new File("/cportalFile/img/wanted.jpg"))) {
                 result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
             } else {
                 result = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResultDetail(ResultCode.EXTERNAL_SYSTEM_ERROR, ResultCode.EXTERNAL_SYSTEM_ERROR_NAME,
