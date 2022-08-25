@@ -281,6 +281,9 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $('#startDate').flatpickr({local: 'ko'});
 
             $('#week').keyup(function () {
+                //최대 3주 임시
+                let v = parseInt(this.value);
+                if (v > 5) this.value = 5;
                 setEndDateAndPrice();
             });
 
