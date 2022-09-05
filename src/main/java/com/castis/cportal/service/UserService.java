@@ -54,6 +54,24 @@ public class UserService {
 		return toAddr;
 	}
 
+	public InternetAddress[] getAdMailList() throws Exception {
+
+		List<String> emails = userRepository.getAdMailList();
+		InternetAddress[] toAddr = null;
+
+		if(emails != null && !emails.isEmpty()) {
+			toAddr = new InternetAddress[emails.size()];
+
+			int i = 0;
+			for(String email : emails) {
+				toAddr[i] = new InternetAddress(email);
+				i++;
+			}
+		}
+
+		return toAddr;
+	}
+
 
 	public ResponseEntity<ResultDetail> saveUser(TransactionID trId, UserDto userDto) {
 

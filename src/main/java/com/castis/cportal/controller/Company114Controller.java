@@ -14,6 +14,9 @@ import com.castis.cportal.dto.company.CompanyInfoDto;
 import com.castis.cportal.model.Company;
 import com.castis.cportal.service.CompanyService;
 import com.castis.cportal.service.MailService;
+import com.castis.cportal.service.UserService;
+import com.castis.cportal.service.createMail.Company114MailService;
+import com.castis.cportal.service.createMail.Company114PremierMailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,7 +25,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.mail.internet.InternetAddress;
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.security.Principal;
+import java.util.Arrays;
 
 @RestController
 @Slf4j
@@ -32,7 +37,9 @@ public class Company114Controller extends AbstrctController {
     private final MailService mailService;
     private final CompanyService companyService;
     private final Properties properties;
-
+    private final Company114PremierMailService company114PremierMailService;
+    private final Company114MailService company114MailService;
+    private final UserService userService;
 
     @RequestMapping(value = "/company/mail", method = RequestMethod.POST, produces = "application/json; charset=utf8")
     public ResponseEntity<?> registerCompanyInfo(HttpServletRequest req, @RequestBody final CompanyInfoDto companyInfoDTO, Principal user) {
@@ -198,6 +205,41 @@ public class Company114Controller extends AbstrctController {
             endLog(startTime, Constants.request.GET, trId, null);
         }
 
+        return result;
+    }
+
+    @RequestMapping(value = "/company/mail", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> companyMail(HttpServletRequest req, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.GET, user);
+
+            InternetAddress[] bccAddr1 = userService.getAdMailList();
+            log.info(Arrays.toString(bccAddr1));
+
+            InternetAddress[] bccAddr = new InternetAddress[1];
+            bccAddr[0] = new InternetAddress("run2hoya@castis.com");
+
+            InternetAddress[] toAddr = new InternetAddress[1];
+            toAddr[0] = new InternetAddress("cportal-cast@naver.com");
+
+            Company company = companyService.getCompany(properties.getPremier1());
+            mailService.sendMailWithImage(trId, company114MailService.generateHtml(), "[사업부114] 사업부 소개",
+                    toAddr, bccAddr,"cportal-cast@naver.com", new File("/cportalFile/img/p3.jpg"));
+
+            result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.POST, trId, null);
+        }
         return result;
     }
 

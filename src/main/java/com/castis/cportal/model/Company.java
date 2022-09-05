@@ -50,6 +50,9 @@ public class Company implements Serializable {
     @Column(name="companyType")
     private String companyType;
 
+    @Column(name="phone")
+    private String phone;
+
     @Column(name="companybg")
     private String companybg;
 

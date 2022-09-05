@@ -57,6 +57,7 @@
         <link rel="stylesheet" type="text/css" href="assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="assets/css/pre.css">
         <link rel="stylesheet" type="text/css" href="assets/css/cardStyle.css">
+        <link rel="stylesheet" type="text/css" href="assets/css/viewTable.css">
         <!-- END: Custom CSS-->
 
         <style>
@@ -72,7 +73,11 @@
           data-menu="vertical-menu-modern" data-col="">
 
 
-        <%@ include file="/WEB-INF/view/dododo/menu.jsp" %>
+        <%@ include file="/WEB-INF/view/common/menu.jsp" %>
+        <%@ include file="/WEB-INF/view/common/util.jsp" %>
+        <sec:authentication property="authorities" var="auth"/>
+        <sec:authentication property="Details.id" var="id"/>
+
         <!-- BEGIN: Content-->
         <div class="app-content content ">
             <div class="content-overlay"></div>
@@ -86,7 +91,7 @@
             </div>
         </div>
 
-        <%@ include file="/WEB-INF/view/dododo/footer.jsp" %>
+        <%@ include file="/WEB-INF/view/common/footer.jsp" %>
 
         <%--        <script src="https://cdn.ckeditor.com/ckeditor5/34.1.0/classic/ckeditor.js"></script>--%>
         <script src="app-assets/vendors/js/charts/apexcharts.min.js"></script>
@@ -94,20 +99,22 @@
         <script src="app-assets/vendors/js/forms/select/select2.full.min.js"></script>
         <script src="assets/summernote/summernote-lite.min.js"></script>
         <script src="assets/summernote/summernote-ko-KR.min.js"></script>
+        <script src="/assets/js/clipboard.min.js"></script>
 
         <script src="app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
         <script src="app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
 
-        <script src="/assets/js/clipboard.min.js"></script>
+
         <script src="app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <script data-main="cportalJS/dododo/main" src="assets/js/lib/require.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
+        <script data-main="cportalJS/view/viewMain" src="assets/js/lib/require.js"></script>
         <!-- END: Page JS-->
 
         <script>
-            window.id = "${userId}";
+            window.id = "${id}";
             window.page = "${page}";
         </script>
     </body>

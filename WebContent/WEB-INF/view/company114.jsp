@@ -10,10 +10,6 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-        <meta name="_csrf" content="${_csrf.token}"/>
-        <meta name="_csrf_header" content="${_csrf.headerName}"/>
-
         <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
         <meta name="description" content="Cportal &amp; castis">
         <meta name="keywords" content="dashboard template, cportal, web app">

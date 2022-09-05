@@ -70,6 +70,11 @@ public class UiController extends AbstrctController{
 		return "/dododo";
 	}
 
+	@RequestMapping(value = "/view", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goViewMain(HttpServletRequest req, Model model, Principal user) {
+		return "/view";
+	}
+
 
 	@RequestMapping("/not_chrome")
 	public String goNotChrome(ModelMap model, HttpSession httpSession, String search, HttpServletRequest request){		

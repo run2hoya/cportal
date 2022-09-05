@@ -124,16 +124,20 @@ define(['common/ajaxUtil', 'common/utils', 'common/summerNote'], function (ajaxU
 
     function makeETCCompany(etc, div) {
         etc.forEach((value) => {
-            div.append('<button type="button" class="btn btn-outline-secondary round waves-effect">' + value.companyName + '</button>');
-        })
+            let title = value.companyName + "<br> 대표 : " + value.companyCeo + "<br> email : " + value.companyEmail
+            + "<br> phone : " + value.phone + "<br> 한줄 소개 : " + value.companyDes;
+            div.append('<button type="button" class="btn btn-outline-secondary round waves-effect tip" data-bs-html="true" data-bs-toggle="tooltip" data-bs-placement="top" ' +
+                'title="' + title + '" data-bs-trigger="click">' +
+                value.companyName + '</button>');
+        });
+
+        $(".tip").tooltip();
     }
 
     function updateContent(companyId, content) {
         let editContentDto = {};
         editContentDto.id = companyId;
         editContentDto.content = content;
-
-        console.log(JSON.stringify(editContentDto));
 
         ajaxUtil.makeAjax("put", './company/' + companyId + '/content', JSON.stringify(editContentDto), $('#editor')).done(function (msg) {
             console.log(msg);

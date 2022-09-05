@@ -102,7 +102,6 @@ define(['common/ajaxUtil', 'common/utils', 'common/payment/payment'],
             $('.dataTables_filter .form-control').removeClass('form-control-sm');
             $('.dataTables_length .form-select').removeClass('form-select-sm').removeClass('form-control-sm');
             $('.datatables-ajax tbody').on('click', '.item-edit', function () {
-                console.log( dt_ajax.row( $(this).parents('tr') ).data() );
                 let wantedId = dt_ajax.row( $(this).parents('tr') ).data().id;
                 window.open('/popup/wanted/edit/' + wantedId, "_blank");
             });

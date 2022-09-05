@@ -69,7 +69,7 @@
                             </div>
                             <div class="my-auto">
                                 <h4 class="fw-bolder mb-0" id="normalCompanyCnt">0</h4>
-                                <p class="card-text font-small-3 mb-0">사업부</p>
+                                <p class="card-text font-small-3 mb-0">베이직</p>
                             </div>
                         </div>
                     </div>
@@ -86,7 +86,7 @@
                             </div>
                             <div class="my-auto">
                                 <h4 class="fw-bolder mb-0" id="companyCnt">0</h4>
-                                <p class="card-text font-small-3 mb-0">불확실</p>
+                                <p class="card-text font-small-3 mb-0">사업부</p>
                             </div>
                         </div>
                     </div>
@@ -114,7 +114,65 @@
 </div>
 
 <div id="companyList">
-    <div class="divider divider-primary">
+
+    <div class="divider divider-warning">
+        <div class="divider-text">플래티넘 사업부(별도 문의)</div>
+    </div>
+
+    <div class="platinum">
+        <h1>platinum company</h1>
+    </div>
+
+    <div class="row">
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 text-white holo charizard">
+                <img class="card-img" src="/cportalFile/img/p7.jpg" alt="Card image">
+                <div class="card-img-overlay holo-overlay">
+                    <h4 class="card-title text-white">플래티넘 사업부 모집</h4>
+                    <p class="card-text">
+                        3개의 사업부만 모십니다. 많은 관심 부탁드리겠습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 text-white holo mewtwo">
+                <img class="card-img" src="/cportalFile/img/p5.jpg" alt="Card image">
+                <div class="card-img-overlay holo-overlay">
+                    <h4 class="card-title text-white">플래티넘 사업부 모집</h4>
+                    <p class="card-text">
+                        3개의 사업부만 모십니다. 많은 관심 부탁드리겠습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 text-white holo charizard">
+                <img class="card-img" src="/cportalFile/img/p8.jpg" alt="Card image">
+                <div class="card-img-overlay holo-overlay">
+                    <h4 class="card-title text-white">플래티넘 사업부 모집</h4>
+                    <p class="card-text">
+                        3개의 사업부만 모십니다. 많은 관심 부탁드리겠습니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <style class="hover"></style>
+
+<!--    <section class="cards">-->
+<!--        <div class="holo charizard"></div>-->
+<!--        <div class="holo pika"></div>-->
+<!--        <div class="holo eevee"></div>-->
+<!--        <div class="holo mewtwo"></div>-->
+<!--    </section>-->
+
+    <div class="divider divider-primary" style="margin-top: 100px;">
         <div class="divider-text">프리미어 사업부</div>
     </div>
 
@@ -134,7 +192,7 @@
 
 
     <div class="divider divider-success">
-        <div class="divider-text">사업부</div>
+        <div class="divider-text">베이직 사업부</div>
     </div>
 
     <div class="row" style="margin-bottom: 130px;" id="normalDivId">
@@ -143,18 +201,26 @@
 
 
     <div class="divider divider-dark">
-        <div class="divider-text">불확실 사업부
-            <i data-feather="help-circle" id="companyTooltip" class="font-medium-3 text-muted cursor-pointer"
-               data-bs-toggle="tooltip" data-bs-placement="top" title="운영 여부 보장 못함"></i>
+
+        <div class="divider-text">
+            사업부
+            <i id="companyTooltip" data-feather="help-circle" class="font-medium-3 text-muted cursor-pointer tip"
+               data-bs-toggle="tooltip" data-bs-placement="top" title="사업 실행 사업부에 등록 문의"></i>
+            <a href="#" id="etcPlus">등록하기 </a>
         </div>
     </div>
 </div>
 
 <div class="row" style="margin-bottom: 130px;">
 
+    <div class="text-center">
+        <h5 class="fw-bolder">사업부를 클릭하면 사업부의 정보를 볼수 있습니다.</h5>
+    </div>
+
     <div class="demo-inline-spacing" id="etcDivId">
     </div>
 </div>
 
 <div id="registerModal"></div>
+<div id="simpleRegisterModal"></div>
 <div id="companyInfoModal"></div>

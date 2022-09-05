@@ -17,5 +17,13 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 			+ "us.jobcastNotiEmail = true ",
 			nativeQuery = true)
 	List<String> getJobCastMailList();
+
+	@Query(value="SELECT DISTINCT u.email "
+			+ "FROM tbl_user u "
+			+ "left outer join tbl_user_setting us on u.user_setting_id= us.id "
+			+ "where u.enabled = true and u.userType != 'EXTERNAL' and "
+			+ "us.adNotiEmail = true ",
+			nativeQuery = true)
+	List<String> getAdMailList();
 	
 }

@@ -18,6 +18,7 @@ public class CompanyDto implements Serializable {
     private String companyView;
     private ProductType productType;
     private String content;
+    private String phone;
     private LocalDateTime registDate;
     private LocalDateTime updateDate;
 }

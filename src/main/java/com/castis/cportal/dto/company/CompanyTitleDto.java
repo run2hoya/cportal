@@ -17,4 +17,6 @@ public class CompanyTitleDto implements Serializable {
     private final String companybg;
     private final ProductType productType;
     private final String companyType;
+    private final String companyEmail;
+    private final String phone;
 }

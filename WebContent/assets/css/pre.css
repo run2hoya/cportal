@@ -8,12 +8,39 @@
   --user-button-shadow:rgba(0,0,0,0.1);
 }
 
+.platinum {
+  text-align: center;
+}
+
+.platinum h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 62px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-family: "Josefin Sans", sans-serif;
+  background: linear-gradient(to right, rgba(186,148,62,1) 10%, rgba(236,172,32,1) 50%, rgb(227, 212, 11) 60%);
+  background-size: auto auto;
+  background-clip: border-box;
+  background-size: 200% auto;
+  color: #fff;
+  background-clip: text;
+  text-fill-color: transparent;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textclip 1.7s linear infinite;
+  display: inline-block;
+}
+
+
+
 .pretext {
   text-align: center;
 }
 .pretext h1 {
+  text-align: center;
   color: #fff;
-  font-size: 62px;
+  font-size: 52px;
   text-transform: uppercase;
   font-weight: 700;
   font-family: "Josefin Sans", sans-serif;
@@ -26,7 +53,7 @@
   text-fill-color: transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: textclip 1.5s linear infinite;
+  animation: textclip 2s linear infinite;
   display: inline-block;
 }
 
@@ -246,7 +273,7 @@
   height: 450px;
   font-family: "Roboto", sans-serif;
   transition: 0.25s;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
 }
 .temp.dark {
   background: #232223;

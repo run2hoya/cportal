@@ -10,6 +10,7 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
     company114Main.init = function () {
         createMainTemplate();
         addEvent();
+        addHolo();
 
         makeCompanyView.createCompanyView();
     }
@@ -21,14 +22,16 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
         template = new EJS({url: 'cportalJS/company114/ejs/registerModal.ejs'}).render();
         $('#registerModal').append(template);
 
-        $(document).ready(function() {
-            $("#companyTooltip").tooltip();
-        });
+        template = new EJS({url: 'cportalJS/company114/ejs/simpleRegisterModal.ejs'}).render();
+        $('#simpleRegisterModal').append(template);
 
         $('#twoFactorAuthAppsModal').on('shown.bs.modal', function () {
             $('.select2InModal').select2({
                 placeholder: 'Select a type'
             });
+        });
+        $(document).ready(function() {
+            $("#companyTooltip").tooltip();
         });
 
 
@@ -52,6 +55,38 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
                 $('#homeAddressRadio').prop('checked', false);
             }
         });
+
+        let simpleModal = new bootstrap.Modal($('#simple'));
+
+        if(22 !== parseInt(window.id)){
+            $('#etcPlus').hide();
+        } else {
+            $('#etcPlus').click(function () {
+                simpleModal.show();
+            });
+
+            $('#simpleSubmit').click(function () {
+                let companyInfoDTO = {};
+                companyInfoDTO.companyName = $('#name').val();
+                companyInfoDTO.companyCeo = $('#ceo').val();
+                companyInfoDTO.companyEmail = $('#email').val();
+                companyInfoDTO.phone = $('#phone').val();
+                companyInfoDTO.companyDes = $('#simpleDes').val();
+                companyInfoDTO.productType = 'ETC';
+
+                ajaxUtil.makeAjax("post", '/company/new', JSON.stringify(companyInfoDTO), $('#simple')).done(function(msg){
+                    simpleModal.hide();
+                    Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+                }).
+                fail(function(xhr, textStatus){
+                    simpleModal.hide();
+                    console.log(xhr);
+                    console.log(textStatus);
+                    Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+                });
+            });
+        }
+
 
         let addNewAddressForm = $('#addNewAddressForm');
         if (addNewAddressForm.length) {
@@ -113,6 +148,66 @@ define(['common/ajaxUtil', 'company114/makeCompanyView'], function (ajaxUtil, ma
         }
 
        if (feather) { feather.replace({width : 14, height: 14});}
+    }
+
+    function addHolo() {
+        var x;
+        var $cards = $(".holo");
+        var $style = $(".hover");
+
+        $cards
+            .on("mousemove touchmove", function (e) {
+                // normalise touch/mouse
+                var pos = [e.offsetX, e.offsetY];
+                e.preventDefault();
+                if (e.type === "touchmove") {
+                    pos = [e.touches[0].clientX, e.touches[0].clientY];
+                }
+                var $card = $(this);
+                // math for mouse position
+                var l = pos[0];
+                var t = pos[1];
+                var h = $card.height();
+                var w = $card.width();
+                var px = Math.abs(Math.floor((100 / w) * l) - 100);
+                var py = Math.abs(Math.floor((100 / h) * t) - 100);
+                var pa = 50 - px + (50 - py);
+                // math for gradient / background positions
+                var lp = 50 + (px - 50) / 1.5;
+                var tp = 50 + (py - 50) / 1.5;
+                var px_spark = 50 + (px - 50) / 7;
+                var py_spark = 50 + (py - 50) / 7;
+                var p_opc = 20 + Math.abs(pa) * 1.5;
+                var ty = ((tp - 50) / 2) * -1;
+                var tx = ((lp - 50) / 1.5) * 0.5;
+                // css to apply for active card
+                var grad_pos = `background-position: ${lp}% ${tp}%;`;
+                var sprk_pos = `background-position: ${px_spark}% ${py_spark}%;`;
+                var opc = `opacity: ${p_opc / 100};`;
+                var tf = `transform: rotateX(${ty}deg) rotateY(${tx}deg)`;
+                // need to use a <style> tag for psuedo elements
+                var style = `.holo:hover:before { ${grad_pos} }  /* gradient */
+      .holo:hover:after { ${sprk_pos} ${opc} }   /* sparkles */ 
+    `;
+                // set / apply css class and style
+                $cards.removeClass("active");
+                $card.removeClass("animated");
+                $card.attr("style", tf);
+                $style.html(style);
+                if (e.type === "touchmove") {
+                    return false;
+                }
+                clearTimeout(x);
+            })
+            .on("mouseout touchend touchcancel", function () {
+                // remove css, apply custom animation on end
+                var $card = $(this);
+                $style.html("");
+                $card.removeAttr("style");
+                x = setTimeout(function () {
+                    $card.addClass("animated");
+                }, 2500);
+            });
     }
 
     return company114Main;

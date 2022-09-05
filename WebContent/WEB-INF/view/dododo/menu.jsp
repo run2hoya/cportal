@@ -61,6 +61,8 @@
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
             <li id="dododo_main" class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="edit-2"></i><span class="menu-title text-truncate" data-i18n="dododo_main">게시판</span></a>
             </li>
+            <li id="company114" class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="info"></i><span class="menu-title text-truncate" data-i18n="company114">사업부114</span></a>
+            </li>
 
 
         </ul>

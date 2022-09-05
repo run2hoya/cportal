@@ -1,0 +1,49 @@
+<!-- add new card modal  -->
+<div class="modal fade" id="simple" tabindex="-1" data-bs-backdrop="static" aria-labelledby="addNewCardTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-transparent">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body px-sm-5 mx-50 pb-5">
+                <h1 class="text-center mb-1" id="addNewCardTitle">사업부 등록하기</h1>
+
+                <!-- form -->
+                <form id="addNewCardValidation" class="row gy-1 gx-2 mt-75" onsubmit="return false">
+
+                    <div class="col-12">
+                        <label class="form-label" for="name">사업부 명</label>
+                        <input type="text" id="name" class="form-control" placeholder="사업부 이름을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="ceo">대표</label>
+                        <input type="text" id="ceo" class="form-control" placeholder="대표자의 이름을 입력해 주세요" />
+                    </div>
+                    <div class="col-12">
+                        <label class="form-label" for="email">이메일</label>
+                        <input type="text" id="email" class="form-control" placeholder="e-mail을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="phone">핸드폰</label>
+                        <input type="text" id="phone" class="form-control" placeholder="핸드폰을 입력해 주세요" />
+                    </div>
+
+                    <div class="col-12">
+                        <label class="form-label" for="simpleDes">한줄 소개</label>
+                        <input type="text" id="simpleDes" class="form-control" maxlength='40' placeholder="40자 이내로 입력해 주세요" />
+                    </div>
+
+
+                    <div class="col-12 text-center">
+                        <button type="submit" class="btn btn-primary me-1 mt-1" id="simpleSubmit">등록</button>
+                        <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal" aria-label="Close">
+                            취소
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

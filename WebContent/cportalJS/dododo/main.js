@@ -7,7 +7,9 @@ require(['dododo/common/menuNav'], function (
 
 
     function init() {
+        menuNav.setMenuNav();
         menuNav.goPage(window.page);
+        $('#' + window.page).addClass( 'active' );
     }
 
 
