@@ -228,7 +228,9 @@ public class Company114Controller extends AbstrctController {
             InternetAddress[] toAddr = new InternetAddress[1];
             toAddr[0] = new InternetAddress("cportal-cast@naver.com");
 
+            log.info("id = " + properties.getPlatinum1());
             Company company = companyService.getCompany(properties.getPlatinum1());
+            log.info("company = " + company.toString());
             mailService.sendMailWithImage(trId, company114MailService.generateHtml(), "[사업부114] 사업부 소개",
                     toAddr, bccAddr,"cportal-cast@naver.com", new File("/cportalFile/img/p3.jpg"));
             mailService.sendMailWithImage(trId, company114PlatinumMailService.generateHtml(company), "[사업부114] " + company.getCompanyName(),

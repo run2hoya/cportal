@@ -193,9 +193,13 @@ public class Company114PlatinumMailService {
                 .append("                                        <td align=\"left\" valign=\"top\" style=\"font-size: 17px; font-weight: 400; line-height: 160%; border-collapse: collapse; border-spacing: 0; margin: 0; padding: 0;")
                 .append("					padding-top: 25px;")
                 .append("					color: #000000;")
-                .append("					font-family: sans-serif;\" class=\"paragraph\">")
-                .append(company.getContent().replace("/cportalFile", "http://www.cportal.world/cportalFile"))
-                .append("                                        </td>")
+                .append("					font-family: sans-serif;\" class=\"paragraph\">");
+
+        if(company.getContent() != null) {
+            myvar.append(company.getContent().replace("/cportalFile", "http://www.cportal.world/cportalFile"))   ;
+        }
+
+        myvar.append("                                        </td>")
                 .append("")
                 .append("                                    </tr>")
                 .append("")
