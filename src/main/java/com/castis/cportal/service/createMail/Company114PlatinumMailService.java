@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class Company114PremierMailService {
+public class Company114PlatinumMailService {
 
     public String generateHtml(Company company) {
 

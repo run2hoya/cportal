@@ -26,11 +26,12 @@ public class CompanyService {
 
     public CompanyGroupByType getCompanyTitleDto() {
 
+        List<CompanyTitleDto> platinum = companyRepository.findByProductType(ProductType.PLATINUM);
         List<CompanyTitleDto> premier = companyRepository.findByProductType(ProductType.PREMIER);
         List<CompanyTitleDto> normal = companyRepository.findByProductType(ProductType.NORMAL);
         List<CompanyTitleDto> etc = companyRepository.findByProductType(ProductType.ETC);
 
-        return new CompanyGroupByType(premier, normal, etc);
+        return new CompanyGroupByType(platinum, premier, normal, etc);
     }
 
     public Company getCompany(int companyId) {

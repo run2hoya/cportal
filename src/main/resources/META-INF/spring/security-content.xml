@@ -25,6 +25,7 @@
     <http pattern="/company/title/**" security="none"></http>
     <http pattern="/company/chart/type/**" security="none"></http>
     <http pattern="/company/mail/**" security="none"></http>
+    <http pattern="/company/new/**" security="none"></http>
 
 
     <http auto-config="true" use-expressions="true" entry-point-ref="authenticationEntryPoint">

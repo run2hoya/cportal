@@ -32,14 +32,14 @@ public class Properties {
 	@Value("${mailTemp.Dir:/mailTemp/}")
 	private String mailTempDir;
 
-	@Value("${premier1.id}")
-	private Integer premier1;
+	@Value("${platinum1.id:0}")
+	private Integer platinum1;
 
-	@Value("${premier2.id}")
-	private Integer premier2;
+	@Value("${platinum2.id:0}")
+	private Integer platinum2;
 
-	@Value("${premier3.id}")
-	private Integer premier3;
+	@Value("${premier3.id:0}")
+	private Integer platinum3;
 
 	public Properties() {
 		super();

@@ -1,13 +1,29 @@
 
+.demo-inline-spacing > * {
+    margin-right: 1.5rem;
+    margin-top: 0px;
+}
+
 table {
     border-collapse: collapse;
     margin-bottom: 3em;
     width: 100%;
     background: #fff;
 }
+
+table td.highlighted {
+    background-color:#999 !important;
+}
+
+table td.able {
+    color: #2e3434;
+    cursor: pointer;
+}
+
 td, th {
     padding: 0.75em 1.5em;
-    text-align: left;
+    text-align: center;
+    min-width: 120px;
 }
 td.err {
     background-color: #e992b9;
@@ -33,12 +49,12 @@ tbody tr:hover {
     background-color: rgba(129,208,177,.3);
 }
 
+
 /* For appearance */
 .sticky-wrap {
     overflow-x: auto;
     overflow-y: hidden;
     position: relative;
-    margin: 3em 0;
     width: 100%;
 }
 .sticky-wrap .sticky-thead,

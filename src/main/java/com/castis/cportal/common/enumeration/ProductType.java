@@ -4,7 +4,8 @@ public enum ProductType {
     UNKNOWN("UNKNOWN"),
     PREMIER("PREMIER"),
     NORMAL("NORMAL"),
-    ETC("ETC");
+    ETC("ETC"),
+    PLATINUM("PLATINUM");
 
     private final String value;
 

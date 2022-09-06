@@ -16,7 +16,7 @@ import com.castis.cportal.service.CompanyService;
 import com.castis.cportal.service.MailService;
 import com.castis.cportal.service.UserService;
 import com.castis.cportal.service.createMail.Company114MailService;
-import com.castis.cportal.service.createMail.Company114PremierMailService;
+import com.castis.cportal.service.createMail.Company114PlatinumMailService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -37,7 +37,7 @@ public class Company114Controller extends AbstrctController {
     private final MailService mailService;
     private final CompanyService companyService;
     private final Properties properties;
-    private final Company114PremierMailService company114PremierMailService;
+    private final Company114PlatinumMailService company114PlatinumMailService;
     private final Company114MailService company114MailService;
     private final UserService userService;
 
@@ -137,7 +137,8 @@ public class Company114Controller extends AbstrctController {
             trId = startLog(req, Constants.request.GET, user);
 
             CompanyGroupByType res = companyService.getCompanyTitleDto();
-            log.info(trId + "result: Premier size = " + res.getPremier().size() +
+            log.info(trId + "result: platinum size = " + res.getPlatinum().size() +
+                    ", Premier size = " + res.getPremier().size() +
                     ", Normal size = " + res.getNormal().size() +
                     ", ETC size = " + res.getEtc().size());
 
@@ -227,9 +228,11 @@ public class Company114Controller extends AbstrctController {
             InternetAddress[] toAddr = new InternetAddress[1];
             toAddr[0] = new InternetAddress("cportal-cast@naver.com");
 
-            Company company = companyService.getCompany(properties.getPremier1());
+            Company company = companyService.getCompany(properties.getPlatinum1());
             mailService.sendMailWithImage(trId, company114MailService.generateHtml(), "[사업부114] 사업부 소개",
                     toAddr, bccAddr,"cportal-cast@naver.com", new File("/cportalFile/img/p3.jpg"));
+            mailService.sendMailWithImage(trId, company114PlatinumMailService.generateHtml(company), "[사업부114] " + company.getCompanyName(),
+                    toAddr, bccAddr,"cportal-cast@naver.com", new File(company.getCompanybg()));
 
             result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
 

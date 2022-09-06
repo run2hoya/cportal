@@ -107,7 +107,8 @@
 
         <script src="app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
         <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
         <script data-main="cportalJS/view/viewMain" src="assets/js/lib/require.js"></script>

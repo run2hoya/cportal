@@ -68,6 +68,7 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
     background-repeat: no-repeat;
     background-position: 50% 50%;
     transform-origin: center;
+    cursor: pointer;
 }
 /*@media screen and (min-width: 600px) {*/
 /*    .cards {*/
