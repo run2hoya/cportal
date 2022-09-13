@@ -36,6 +36,14 @@ public class ShareController extends AbstrctController{
 		return "popup";
 	}
 
+	@RequestMapping(value = "/popup/view/booking/{viewId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goViewMain(HttpServletRequest req, @PathVariable("viewId") Long viewId, Model model, Principal user) {
+
+		model.addAttribute("targetId", viewId);
+		model.addAttribute("target", "/cportalJS/view/bookingMain");
+		return "booking";
+	}
+
 
 
 

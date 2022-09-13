@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="tbl_view", indexes = { @Index(name = "IDX_REGISTER_ID", columnList = "registerId") })
+@Table(name="tbl_view", indexes = { @Index(name = "IDX_VIEW_DATE", columnList = "viewDate, viewTableId") })
 @NoArgsConstructor
 @Getter
 @Setter
@@ -24,14 +24,32 @@ public class View implements Serializable {
 	@Column(name="registerId")
     private Integer registerId;
 
-	@Column(name="ownerId")
-	private Integer ownerId;
+	@Column(name="viewTableId")
+	private Long viewTableId;
 
 	@Column(name="viewDate")
 	@JsonFormat(pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
 	private LocalDate viewDate;
 
-	@Column(name="booking")
-	private String booking;
+	@Column(name="timezone")
+	private String timezone;
 
+	@Column(name="des")
+	private String des;
+
+	@Column(name="bookingInfo")
+	private String bookingInfo;
+
+	@Column(name="registerName")
+	private String registerName;
+
+	@Column(name="isOnline")
+	private Boolean isOnline;
+
+
+	public View(Long viewTableId, LocalDate viewDate, String timezone) {
+		this.viewTableId = viewTableId;
+		this.viewDate = viewDate;
+		this.timezone = timezone;
+	}
 }

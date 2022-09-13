@@ -2,43 +2,64 @@ require.config({
     baseUrl: '/cportalJS'
 });
 
-require([], function () {
+require(['common/ajaxUtil', 'common/utils'], function (ajaxUtil, utils) {
 
 
     function init() {
-        $('#contentBody').append(new EJS({url: '/cportalJS/view/ejs/viewTable.ejs'}).render());
+        $('#contentBody').append(new EJS({url: '/cportalJS/view/ejs/bookingTable.ejs'}).render());
         if (feather) {
             feather.replace({width: 14, height: 14});
         }
 
-        initTable();
-        createTable();
+        loadTable();
+        addEvent();
     }
 
-    function initTable() {
-        let haed = '<th>비춰보기</th>';
-        let date = moment("2022-09-01");
-        date.locale();
-        for (let i = 0; i < 60; i++) {
-            haed += '<th>' + date.format('MMMM Do (dd)') + '</th>';
-            date.add(1, "days")
-        }
-        $('#viewHead').append(haed);
+    function addEvent() {
+        $('#clear').click(function () {
+            $('.highlighted').removeClass('highlighted');
+        });
+    }
 
-        let time = moment("2022-09-01 09:00");
-        time.locale();
+    function loadTable() {
 
-        for (let i = 0; i < 29; i++) {
-            let body = '<tr>';
-            body += '<th>' + time.format('HH:mm') + '</th>';
-            for (let j = 0; j < 60; j++) {
-                body += '<td class="able">김태호 </td>';
+        ajaxUtil.makeAjax("get", '/view/booking/' + window.targetId, null,null).done(function (msg) {
+
+            $('#viewHead').append(msg.th);
+
+            for (let viewItem of msg.viewItemList) {
+                let body = '<tr>';
+                body += '<th>' + viewItem.title + '</th>';
+
+                for (let view of viewItem.viewList) {
+                    if(utils.isEmpty(view.registerId)) {
+                        body += new EJS({url: '/cportalJS/view/ejs/itemNull.ejs'}).render({ id : view.id});
+                    } else {
+                        body += new EJS({url: '/cportalJS/view/ejs/item.ejs'}).render(
+                            { id : view.id, itemClass : 'booking', content : view.des, register : view.registerName}
+                        );
+                    }
+                }
+                body += '</tr>';
+                $('#viewBody').append(body);
             }
 
-            $('#viewBody').append(body);
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+                return new bootstrap.Popover(popoverTriggerEl);
+            });
 
-            time.add(30, "m")
-        }
+            createTable();
+
+        }).fail(function (xhr, textStatus) {
+            console.log(xhr);
+            console.log(textStatus);
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
+
+    }
+
+    function createTable() {
 
         var isMouseDown = false;
         $("#viewTable td")
@@ -53,14 +74,10 @@ require([], function () {
                 }
             });
 
-        $(document)
-            .mouseup(function () {
+        $(document).mouseup(function () {
                 isMouseDown = false;
             });
 
-    }
-
-    function createTable() {
         $('table').each(function () {
             if ($(this).find('thead').length > 0 && $(this).find('th').length > 0) {
                 // Clone <thead>

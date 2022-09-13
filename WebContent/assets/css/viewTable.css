@@ -4,6 +4,22 @@
     margin-top: 0px;
 }
 
+
+.booking{
+    color: #000000;
+    background-color: rgba(54, 174, 124, 0.3);
+}
+
+.my-select {
+    color: #030f42;
+    background-color: rgba(255, 149, 81, 0.2);
+}
+
+.booking-alert {
+    color: #b917e6;
+    background-color: rgba(255, 74, 74, 0.2);
+}
+
 table {
     border-collapse: collapse;
     margin-bottom: 3em;
@@ -93,6 +109,6 @@ td.user-name {
 }
 .sticky-wrap.overflow-y {
     overflow-y: auto;
-    max-height: 700px;
+    max-height: 780px;
 }
 

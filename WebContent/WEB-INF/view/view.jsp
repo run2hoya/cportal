@@ -111,7 +111,7 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
-        <script data-main="cportalJS/view/viewMain" src="assets/js/lib/require.js"></script>
+        <script data-main="cportalJS/view/viewTableMain" src="assets/js/lib/require.js"></script>
         <!-- END: Page JS-->
 
         <script>
