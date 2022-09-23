@@ -1,0 +1,58 @@
+
+<div id="donationList">
+
+    <div class="divider divider-primary">
+        <div class="divider-text">기부부탁증 / 기회권</div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4 class="card-title">기부 기회권 회수 정보</h4>
+                </div>
+                <div class="card-body p-0">
+                    <div id="goal-overview-chart"></div>
+                    <div class="row border-top text-center mx-0">
+                        <div class="col-6 border-end py-1">
+                            <p class="card-text text-muted mb-0">발급한 기부 기회권</p>
+                            <h3 class="fw-bolder mb-0">1,000</h3>
+                        </div>
+                        <div class="col-6 py-1">
+                            <p class="card-text text-muted mb-0">기부 받은 기회권</p>
+                            <h3 class="fw-bolder mb-0">500</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8 col-12">
+            <div class="card">
+                <div class="card-header border-bottom">
+                    <h4 class="card-title">발급한 기부 기회권</h4>
+
+                    <input type="text" class="form-control" id="daterange" style="width: 260px;cursor: pointer;" readonly="readonly"/>
+
+                </div>
+                <div class="card-datatable">
+                    <table class="datatables-ajax table table-responsive hover">
+                        <thead>
+                            <tr>
+                                <th>발급 대상</th>
+                                <th>회원</th>
+                                <th>최대 기부 가능 금액</th>
+                                <th>실제 기부 금액</th>
+                                <th>상태</th>
+                                <th>등록일</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div id="contentDiv"></div>

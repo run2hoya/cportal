@@ -26,7 +26,9 @@
 
         <!-- BEGIN: Vendor CSS-->
         <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/vendors.min.css">
+        <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css">
         <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/forms/select/select2.min.css">
+        <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/charts/apexcharts.css">
         <!-- END: Vendor CSS-->
 
         <!-- BEGIN: Theme CSS-->
@@ -41,12 +43,17 @@
         <!-- BEGIN: Page CSS-->
         <link rel="stylesheet" type="text/css" href="/app-assets/css/core/menu/menu-types/horizontal-menu.css">
         <link rel="stylesheet" type="text/css" href="/assets/summernote/summernote-lite.min.css">
+        <link rel="stylesheet" type="text/css" href="/app-assets/vendors/css/pickers/flatpickr/flatpickr.min.css">
+        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/confetti.css">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css">
+        <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
+        <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/charts/chart-apex.css">
         <!-- END: Page CSS-->
 
         <!-- BEGIN: Custom CSS-->
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
-        <link rel="stylesheet" type="text/css" href="/app-assets/css/plugins/extensions/ext-component-sweet-alerts.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/pre.css">
+        <link rel="stylesheet" type="text/css" href="/assets/css/bootstrap-tagsinput.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/cardStyle.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/viewTable.css">
 
@@ -66,8 +73,6 @@
 
 
         <%@ include file="/WEB-INF/view/common/util.jsp" %>
-        <sec:authentication property="authorities" var="auth"/>
-        <sec:authentication property="Details.id" var="id"/>
 
         <!-- BEGIN: Header-->
         <nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center" data-nav="brand-center">
@@ -132,6 +137,9 @@
         <script src="/app-assets/vendors/js/forms/validation/jquery.validate.min.js"></script>
         <script src="/app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
         <script src="/app-assets/vendors/js/forms/select/select2.full.min.js"></script>
+        <script src="/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js"></script>
+        <script src="/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js"></script>
+
         <!-- BEGIN Vendor JS-->
 
         <!-- BEGIN: Theme JS-->
@@ -140,10 +148,15 @@
         <!-- END: Theme JS-->
 
         <!-- BEGIN: Page JS-->
+        <script src="/app-assets/vendors/js/charts/apexcharts.min.js"></script>
         <script src="/app-assets/js/scripts/forms/form-select2.js"></script>
+        <script src="/assets/js/bootstrap-tagsinput.js"></script>
         <script type="text/javascript" src="/assets/js/lib/ejs_production.js"></script>
         <script type="text/javascript" src="/assets/js/lib/ejs.js"></script>
         <script src="/assets/js/clipboard.min.js"></script>
+        <script src="/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js"></script>
+        <script src="https://npmcdn.com/flatpickr/dist/l10n/ko.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/locale/ko.js"></script>
         <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.min.js"></script>
@@ -155,7 +168,8 @@
 
         <script>
             window.targetId = "${targetId}";
-            window.id = "${id}";
+            window.id = "${userId}";
+
         </script>
     </body>
 </html>

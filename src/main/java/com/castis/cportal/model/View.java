@@ -1,9 +1,13 @@
 package com.castis.cportal.model;
 
+import com.castis.cportal.common.enumeration.BookingState;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.OptimisticLockType;
+import org.hibernate.annotations.OptimisticLocking;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +18,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
+@OptimisticLocking(type = OptimisticLockType.VERSION)
 public class View implements Serializable {
 
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -34,18 +40,24 @@ public class View implements Serializable {
 	@Column(name="timezone")
 	private String timezone;
 
-	@Column(name="des")
-	private String des;
-
 	@Column(name="bookingInfo")
 	private String bookingInfo;
 
-	@Column(name="registerName")
-	private String registerName;
+	@Column(name="title")
+	private String title;
+
+	@Column(name="registerMember")
+	private String registerMember;
+
+	@Column(name="bookingState")
+	@Enumerated(EnumType.STRING)
+	private BookingState bookingState;
 
 	@Column(name="isOnline")
 	private Boolean isOnline;
 
+	@Version
+	private Integer version;
 
 	public View(Long viewTableId, LocalDate viewDate, String timezone) {
 		this.viewTableId = viewTableId;

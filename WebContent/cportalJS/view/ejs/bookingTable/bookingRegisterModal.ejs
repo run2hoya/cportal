@@ -1,0 +1,80 @@
+<!-- Modal -->
+<div class="modal fade" id="modalScrollable" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalScrollableTitle">등록하기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <div class="row">
+
+
+                    <div class="col-md-6 col-12">
+                        <div id="favorite"></div>
+                    </div>
+
+                    <div class="col-md-6 col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-1">
+                                            <label class="form-label" for="bookingTitle">Title</label>
+                                            <input id="bookingTitle" class="form-control form-control" type="text" placeholder="예약표 노출되는 항목">
+                                        </div>
+
+                                        <div class="mb-1">
+                                            <label class="form-label" for="bookingDate">선택일</label>
+                                            <span class="badge bg-primary cursor-pointer" id="loopBtn">매주 반복</span><br>
+                                            <input id="bookingDate" class="form-control form-control tagsinput" type="text"
+                                                   data-role="tagsinput"/>
+                                        </div>
+
+                                        <div class="mb-1">
+                                            <label class="form-label" for="default-select-multi">회원(검색어를 입력하면 검색 할 수 있습니다)</label>
+                                            <div class="mb-1">
+                                                <select class="select2 form-select" multiple="multiple" id="default-select-multi" >
+                                                    <option></option>
+                                                    <option value="1">아이언맨</option>
+                                                    <option value="2">인크레더블 헐크</option>
+                                                    <option value="3">토르</option>
+                                                    <option value="4">사업 전략</option>
+                                                    <option value="5">사업 실행</option>
+                                                    <option value="6">공동 이익</option>
+                                                    <option value="7" >ERP</option>
+                                                    <option value="8" >jobcast</option>
+                                                    <option value="9" >adfly</option>
+                                                    <option value="10" >광고</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-1">
+                                            <label class="form-label" for="bookingAdd">미가입 회원</label>
+                                            <div class="input-group">
+                                                <input id="bookingAdd" type="text" class="form-control" aria-describedby="bookingAddBtn">
+                                                <button id="bookingAddBtn" class="btn btn-outline-primary waves-effect" type="button">등록</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-1">
+                                            <label class="form-label" for="bookingMemo">Memo</label>
+                                            <input id="bookingMemo" class="form-control form-control" type="text" placeholder="메모">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="saveBtn" type="button" class="btn btn-primary waves-effect">등록</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

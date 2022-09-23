@@ -1,5 +1,8 @@
 package com.castis.cportal.controller.common;
 
+import com.castis.commonLib.define.Constants;
+import com.castis.cportal.dto.UserDto;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,11 +39,19 @@ public class ShareController extends AbstrctController{
 		return "popup";
 	}
 
-	@RequestMapping(value = "/popup/view/booking/{viewId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
-	public String goViewMain(HttpServletRequest req, @PathVariable("viewId") Long viewId, Model model, Principal user) {
-
+	@RequestMapping(value = "/popup/booking/{viewId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+	public String goViewMain(HttpServletRequest req, @PathVariable("viewId") Long viewId, Model model, Principal user) throws Exception {
+		startLog(req, Constants.request.GET, user);
 		model.addAttribute("targetId", viewId);
 		model.addAttribute("target", "/cportalJS/view/bookingMain");
+
+		Integer userId = null;
+		if(user != null) {
+			UsernamePasswordAuthenticationToken userDetails = (UsernamePasswordAuthenticationToken)user;
+			UserDto userDto = (UserDto)userDetails.getDetails();
+			userId = Integer.parseInt(userDto.getId());
+		}
+		model.addAttribute("userId", userId);
 		return "booking";
 	}
 

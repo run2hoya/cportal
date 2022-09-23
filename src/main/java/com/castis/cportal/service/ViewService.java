@@ -1,10 +1,12 @@
 package com.castis.cportal.service;
 
 import com.castis.commonLib.dto.TransactionID;
+import com.castis.cportal.common.enumeration.BookingState;
 import com.castis.cportal.common.enumeration.ProductType;
 import com.castis.cportal.dto.view.ViewData;
 import com.castis.cportal.dto.view.ViewGroupByType;
 import com.castis.cportal.dto.view.ViewItem;
+import com.castis.cportal.dto.view.ViewResponse;
 import com.castis.cportal.model.View;
 import com.castis.cportal.model.ViewTable;
 import com.castis.cportal.repository.ViewRepository;
@@ -35,6 +37,8 @@ public class ViewService {
         return viewTableRepository.findOne(viewTableId);
     }
 
+
+
     public ViewGroupByType getViewTitleDto() {
 
         List<ViewTable> platinum = viewTableRepository.findByProductType(ProductType.PLATINUM);
@@ -53,9 +57,9 @@ public class ViewService {
         sb.append("<th>비춰보기</th>");
         LocalDate date;
         for(date = start; date.isBefore(end); date = date.plusDays(1)) {
-            setStrDate(date, sb);
+            sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)")) + "</th>");
         }
-        setStrDate(date, sb);
+        sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)")) + "</th>");
 
         Map<String,List<View>> map = new LinkedHashMap<>();
         for(View view : viewList) {
@@ -113,15 +117,58 @@ public class ViewService {
     }
 
     @Transactional
-    public void updateView(long viewId, View view) {
-        View currentView = viewRepository.findOne(viewId);
-        currentView.setBookingInfo(view.getBookingInfo());
-        currentView.setDes(view.getDes());
-        currentView.setIsOnline(view.getIsOnline());
-        currentView.setRegisterId(view.getRegisterId());
+    public boolean updateView(View currentView, View view, boolean isOwner, int userId) {
+
+        if(!isOwner && currentView.getRegisterId() != null) {
+            if(currentView.getRegisterId() != view.getRegisterId())
+                return false;
+        }
+
+        if(currentView.getRegisterId() != null && currentView.getRegisterId() != userId && isOwner) {
+            currentView.setTitle("<b>" + view.getTitle() + "</b><hr>" + currentView.getTitle());
+            currentView.setBookingState(BookingState.CONFLICT);
+        } else {
+            currentView.setTitle(view.getTitle());
+            currentView.setBookingInfo(view.getBookingInfo());
+            currentView.setIsOnline(view.getIsOnline());
+            currentView.setRegisterId(view.getRegisterId());
+            currentView.setBookingState(BookingState.BOOKING);
+            currentView.setRegisterMember(view.getRegisterMember());
+        }
         viewRepository.save(currentView);
+        return true;
     }
 
+    public List<ViewResponse> updateViewItemList(TransactionID trId, ViewItem viewItem, int userId) {
+        List<ViewResponse> responseList = new ArrayList<ViewResponse>();
+        if(viewItem != null && viewItem.getViewList() != null && !viewItem.getViewList().isEmpty()) {
+
+            ViewTable viewTable = getViewTable(viewItem.getViewTableId());
+            boolean isOwner = (userId == viewTable.getOwnerId());
+            for(View view : viewItem.getViewList()) {
+
+                View currentView = viewRepository.findOne(view.getId());
+                try {
+
+                    boolean result = updateView(currentView, view, isOwner, userId);
+                    responseList.add(new ViewResponse(
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                                    + "_" + currentView.getTimezone(),
+                            result));
+                } catch (Exception e) {
+                    log.error(trId + "" , e);
+                    responseList.add(new ViewResponse(
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                                    + "_" + currentView.getTimezone(),
+                            false));
+                }
+            }
+
+            return responseList;
+        }
+        return null;
+
+    }
 
 
 }

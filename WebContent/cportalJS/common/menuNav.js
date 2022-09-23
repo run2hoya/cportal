@@ -19,9 +19,18 @@ define(['company114/company114Main', 'jobcast/jobcastMain', 'cportal/cportalMain
         $('#resume').click(function () {menuNav.goPage(stage, 'resume');});
         $('#hunter').click(function () {menuNav.goPage(stage, 'hunter');});
 
+        $('#viewTable').click(function () {menuNav.goPage(stage, 'viewTable');});
+        $('#myDonation').click(function () {menuNav.goPage(stage, 'myDonation');});
+
     }
 
     menuNav.goPage = function (stage, page) {
+
+        if(page === 'viewTable')
+            location.href='/view';
+        if(page === 'myDonation')
+            location.href='/myDonation';
+
         if(stage === 'cportal') {
             $('#contentBody').empty();
 

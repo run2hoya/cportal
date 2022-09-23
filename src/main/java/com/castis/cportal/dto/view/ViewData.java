@@ -12,9 +12,10 @@ import java.util.List;
 @NoArgsConstructor
 public class ViewData {
 
-    String th;
-    List<ViewItem> viewItemList = new ArrayList<ViewItem>();
-    boolean isOwner;
+    public String th;
+    public List<ViewItem> viewItemList = new ArrayList<ViewItem>();
+    public boolean isOwner;
+    public String viewTitle;
 
     public ViewData(String th, List<ViewItem> viewItemList) {
         this.th = th;

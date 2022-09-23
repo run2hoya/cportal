@@ -1,0 +1,67 @@
+<!-- Modal -->
+<div class="modal fade" id="pointViewModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >POINT</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <div class="text-center">
+                    <h3 class="card-title text-warning"><%=viewMemberName%></h3>
+                </div>
+                <div class="mb-1 row">
+                    <label for="point" class="col-sm-3 col-form-label" >현재 point</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control " id="point">
+                    </div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="accumulatePoint" class="col-sm-3 col-form-label" >소진 누적</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control " id="accumulatePoint">
+                    </div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="usePoint" class="col-sm-3 col-form-label" >소멸 누적</label>
+                    <div class="col-sm-9">
+                        <input type="number" class="form-control " id="usePoint">
+                    </div>
+                </div>
+
+
+
+                <div class="divider divider-primary">
+                    <div class="divider-text">포인트 사용</div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="accumulate" class="col-sm-3 col-form-label" >point 소진</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input id="accumulate" type="number" class="form-control" aria-describedby="accumulateBtn">
+                            <button class="btn btn-outline-primary waves-effect" id="accumulateBtn" type="button">차감하기</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="use" class="col-sm-3 col-form-label" >point 소멸</label>
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                            <input id="use" type="number" class="form-control" aria-describedby="useBtn">
+                            <button class="btn btn-outline-primary waves-effect" id="useBtn" type="button">차감하기</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="saveBtn" type="button" class="btn btn-primary waves-effect">저장</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

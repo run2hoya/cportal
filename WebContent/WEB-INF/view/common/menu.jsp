@@ -97,6 +97,16 @@
                 </ul>
             </li>
 
+            <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="disc"></i><span class="menu-title text-truncate" data-i18n="Collapsed Menu">비춰보기</span></a>
+                <ul class="menu-content">
+                    <li id="viewTable" class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="grid"></i><span class="menu-item text-truncate" data-i18n="viewTable">비춰보기 모음</span></a>
+                    </li>
+                    <li id="myDonation" class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="myDonation">기부증</span></a>
+                    </li>
+
+                </ul>
+            </li>
+
 
 
 

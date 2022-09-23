@@ -18,15 +18,15 @@
     <http pattern="/dododo/**" security="none"></http>
     <http pattern="/board/**" security="none"></http>
     <http pattern="/authority/**" security="none"></http>
-    <http pattern="/popup/view/**" security="none"></http>
     <http pattern="/wanted/info/**" security="none"></http>
     <http pattern="/company/info/**" security="none"></http>
     <http pattern="/wanted/mail/**" security="none"></http>
     <http pattern="/company/title/**" security="none"></http>
     <http pattern="/company/chart/type/**" security="none"></http>
     <http pattern="/company/mail/**" security="none"></http>
+    <http pattern="/view/mail/**" security="none"></http>
     <http pattern="/company/new/**" security="none"></http>
-    <http pattern="/view/booking/month/**" security="none"></http>
+    <http pattern="/popup/view/**" security="none"></http>
 
 
 
@@ -38,6 +38,8 @@
         <intercept-url pattern="/user/**" access="permitAll"/>
         <intercept-url pattern="/company/new/**" access="permitAll"/>
         <intercept-url pattern="/view/booking/**" access="permitAll"/>
+        <intercept-url pattern="/view/booking/month/**" access="permitAll"/>
+        <intercept-url pattern="/popup/booking/**" access="permitAll"/>
 
 
 

@@ -31,6 +31,9 @@ public class ViewTable implements Serializable {
 	@Column(name="ownerId")
 	private Integer ownerId;
 
+	@Column(name="bgImg")
+	private String bgImg;
+
 	@Column(name="productType")
 	@Enumerated(EnumType.STRING)
 	private ProductType productType;

@@ -124,4 +124,8 @@
         <url-pattern>*.map</url-pattern>
         <url-pattern>*.json</url-pattern>
     </servlet-mapping>
+
+    <session-config>
+        <session-timeout>1440</session-timeout>
+    </session-config>
 </web-app>

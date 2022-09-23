@@ -2,10 +2,12 @@ require.config({
     baseUrl: '/cportalJS'
 });
 
-require(['common/ajaxUtil', 'common/utils'], function (ajaxUtil, utils) {
+require(['common/ajaxUtil', 'common/utils', 'common/menuNav'], function (ajaxUtil, utils, menuNav) {
 
 
     function init() {
+        $('#viewTable').addClass( 'active' );
+        menuNav.setMenuNav('view');
         $('#contentBody').append(new EJS({url: '/cportalJS/view/ejs/viewMainView.ejs'}).render());
         if (feather) {
             feather.replace({width: 14, height: 14});
@@ -18,8 +20,11 @@ require(['common/ajaxUtil', 'common/utils'], function (ajaxUtil, utils) {
         ajaxUtil.makeAjax("get", '/view/title', null, $('#companyList')).done(function (msg) {
 
             if (!utils.isEmpty(msg.premier)) {
-                $('#premierCompanyCnt').text(msg.premier.length);
                 makePremier(msg.premier, $('#premierDivId'));
+            }
+
+            if (!utils.isEmpty(msg.normal)) {
+                makeNormal(msg.normal, $('#normalDivId'));
             }
 
         }).fail(function (xhr, textStatus) {
@@ -30,9 +35,15 @@ require(['common/ajaxUtil', 'common/utils'], function (ajaxUtil, utils) {
     }
 
     function makePremier(premier, div) {
-
         premier.forEach((value) => {
-            let template = new EJS({url: '/cportalJS/view/ejs/premier.ejs'}).render(value);
+            let template = new EJS({url: '/cportalJS/view/ejs/viewTable/premier.ejs'}).render(value);
+            div.append(template);
+        })
+    }
+
+    function makeNormal(normal, div) {
+        normal.forEach((value) => {
+            let template = new EJS({url: '/cportalJS/view/ejs/viewTable/normal.ejs'}).render(value);
             div.append(template);
         })
     }

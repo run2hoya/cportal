@@ -11,5 +11,4 @@ public interface ViewTableRepository extends JpaRepository<ViewTable, Long> {
 
     List<ViewTable> findByProductType(ProductType productType);
 
-
 }

@@ -13,5 +13,11 @@ import java.util.List;
 public class ViewItem {
 
     String title;
+    Long viewTableId;
     List<View> viewList;
+
+    public ViewItem(String title, List<View> viewList) {
+        this.title = title;
+        this.viewList = viewList;
+    }
 }
