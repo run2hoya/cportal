@@ -1,0 +1,75 @@
+<!-- Modal -->
+<div class="modal fade" id="linkModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >비춰보기</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body"  id="linkModalBody">
+                <div class="row">
+                    <!-- custom option radio -->
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">상품 선택</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row custom-options-checkable g-1">
+                                    <div class="col-md-6">
+                                        <input class="custom-option-item-check" type="radio" name="productRadios" value="NORMAL" id="basic" checked="">
+                                        <label class="custom-option-item p-1" for="basic">
+                                            <span class="d-flex justify-content-between flex-wrap mb-50">
+                                                <span class="fw-bolder">Basic</span>
+                                                <span class="fw-bolder">Free</span>
+                                            </span>
+                                            <small class="d-block">무료입니다. 등록 신청해주세요</small>
+                                        </label>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <input class="custom-option-item-check" type="radio" name="productRadios" id="premier" value="PREMIER">
+                                        <label class="custom-option-item p-1" for="premier">
+                                            <span class="d-flex justify-content-between flex-wrap mb-50">
+                                                <span class="fw-bolder">Premier</span>
+                                                <span class="fw-bolder">10,000 cas / 월</span>
+                                            </span>
+                                            <small class="d-block">비춰보기 홍보 메일이 발송됩니다.</small>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+                <div class="divider divider-primary">
+                    <div class="divider-text">등록 정보</div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="title" class="col-sm-3 col-form-label" >title</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control " id="title">
+                    </div>
+                </div>
+
+                <div class="mb-1 row">
+                    <label for="link" class="col-sm-3 col-form-label" >링크 정보</label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control " id="link">
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button id="saveBtn" type="button" class="btn btn-primary waves-effect">신청하기</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

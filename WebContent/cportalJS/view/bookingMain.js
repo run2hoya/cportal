@@ -25,7 +25,9 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             loadTable();
         });
 
-        //let registerModal = new bootstrap.Modal($('#modalScrollable'));
+        $('#cancelBtn').click(function () {
+            cancel();
+        });
 
         $('#registerBtn').click(function () {
             $('#registerModal').empty();
@@ -108,6 +110,36 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             modal.show();
         });
     }
+
+    function cancel() {
+
+        let viewItem ={}, viewList =[];
+        $('.highlighted').each(function (index, item) {
+            let view = {};
+            view.id = $(item).attr('id');
+            viewList.push(view);
+        });
+
+        viewItem.viewTableId = window.targetId;
+        viewItem.viewList = viewList;
+
+        ajaxUtil.makeAjax("delete", '/view/booking/item/', JSON.stringify(viewItem), null).done(function(msg){
+            console.log(msg);
+            let htmlValue = '';
+            for (let msgElement of msg) {
+                htmlValue += "<b>" + msgElement.targetDate + "</b> : "  + ((msgElement.success)? "삭제 성공" : "삭제 실패") + "<br>";
+            }
+            loadTable();
+            Swal.fire({title: 'success', html: htmlValue, icon: 'success'});
+        }).
+        fail(function(xhr, textStatus){
+            console.log(xhr);
+            console.log(textStatus);
+            loadTable();
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
+    }
+
 
     function donationChanceModal() {
         if($(".highlighted").length !== 1) {
@@ -203,7 +235,6 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
         let data = $("#default-select-multi").select2('data');
         let registerMemberList = [];
         for( let value of data ){
-            console.log( value);
             let registerMember ={};
             registerMember.id = value.id;
             registerMember.text = value.text;
@@ -237,9 +268,13 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
 
         ajaxUtil.makeAjax("put", '/view/booking/item/', JSON.stringify(viewItem), $('#modalScrollable')).done(function(msg){
             console.log(msg);
-            modal.hide();
             loadTable();
-            Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+            let htmlValue = '';
+            for (let msgElement of msg) {
+                htmlValue += "<b>" + msgElement.targetDate + "</b> : "  + ((msgElement.success)? "등록 성공" : "등록 실패") + "<br>";
+            }
+            modal.hide();
+            Swal.fire({title: 'success', html: htmlValue, icon: 'success'});
 
         }).
         fail(function(xhr, textStatus){

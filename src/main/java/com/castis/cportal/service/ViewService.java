@@ -170,5 +170,55 @@ public class ViewService {
 
     }
 
+    @Transactional
+    public boolean deleteView(View currentView, View view, boolean isOwner, int userId) {
+
+        if(!isOwner && currentView.getRegisterId() != null) {
+            if(currentView.getRegisterId() != view.getRegisterId())
+                return false;
+        }
+
+        currentView.setTitle(null);
+        currentView.setBookingInfo(null);
+        currentView.setIsOnline(null);
+        currentView.setRegisterId(null);
+        currentView.setBookingState(null);
+        currentView.setRegisterMember(null);
+
+        viewRepository.save(currentView);
+        return true;
+    }
+
+    public List<ViewResponse> deleteViewItemList(TransactionID trId, ViewItem viewItem, int userId) {
+        List<ViewResponse> responseList = new ArrayList<ViewResponse>();
+        if(viewItem != null && viewItem.getViewList() != null && !viewItem.getViewList().isEmpty()) {
+
+            ViewTable viewTable = getViewTable(viewItem.getViewTableId());
+            boolean isOwner = (userId == viewTable.getOwnerId());
+            for(View view : viewItem.getViewList()) {
+
+                View currentView = viewRepository.findOne(view.getId());
+                try {
+
+                    boolean result = deleteView(currentView, view, isOwner, userId);
+                    responseList.add(new ViewResponse(
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                                    + "_" + currentView.getTimezone(),
+                            result));
+                } catch (Exception e) {
+                    log.error(trId + "" , e);
+                    responseList.add(new ViewResponse(
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                                    + "_" + currentView.getTimezone(),
+                            false));
+                }
+            }
+
+            return responseList;
+        }
+        return null;
+
+    }
+
 
 }

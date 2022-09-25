@@ -4,12 +4,10 @@ import com.castis.commonLib.define.Constants;
 import com.castis.commonLib.define.ResultCode;
 import com.castis.commonLib.dto.ResultDetail;
 import com.castis.commonLib.dto.TransactionID;
+import com.castis.commonLib.util.JsonUtil;
 import com.castis.cportal.controller.common.AbstrctController;
 import com.castis.cportal.dto.UserDto;
-import com.castis.cportal.dto.view.ViewData;
-import com.castis.cportal.dto.view.ViewGroupByType;
-import com.castis.cportal.dto.view.ViewItem;
-import com.castis.cportal.dto.view.ViewResponse;
+import com.castis.cportal.dto.view.*;
 import com.castis.cportal.model.ViewTable;
 import com.castis.cportal.service.MailService;
 import com.castis.cportal.service.ViewService;
@@ -178,6 +176,39 @@ public class ViewController extends AbstrctController {
         return result;
     }
 
+    @RequestMapping(value = "/view/booking/item/", method = RequestMethod.DELETE, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> deleteCompanyContent(HttpServletRequest req,
+                                                  @RequestBody final ViewItem viewItem, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.DELETE, user);
+            log.info(trId + viewItem.toString());
+
+            int userId = 0;
+            if(user != null) {
+                UsernamePasswordAuthenticationToken userDetails = (UsernamePasswordAuthenticationToken)user;
+                UserDto userDto = (UserDto)userDetails.getDetails();
+                userId = Integer.parseInt(userDto.getId());
+            }
+
+            List<ViewResponse> res =  viewService.deleteViewItemList(trId, viewItem, userId);
+            result = new ResponseEntity<>(res, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.DELETE, trId, null);
+        }
+
+        return result;
+    }
+
     @RequestMapping(value = "/view/mail", method = RequestMethod.GET, produces = "application/json; charset=utf8")
     public ResponseEntity<?> viewMail(HttpServletRequest req, Principal user) {
 
@@ -212,6 +243,38 @@ public class ViewController extends AbstrctController {
         return result;
     }
 
+    @RequestMapping(value = "/view/register/link/mail", method = RequestMethod.POST, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> registerCompanyInfo(HttpServletRequest req, @RequestBody final ViewLink viewLink, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.POST, viewLink.toString(), user);
+
+            InternetAddress[] toAddr = new InternetAddress[1];
+            toAddr[0] = new InternetAddress("run2hoya@castis.com");
+
+            if(mailService.sendMail(trId, JsonUtil.objectToJson(viewLink),
+                    "비춰보기 신규 등록 요청", toAddr, null,"cportal-cast@naver.com")) {
+                result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+            } else {
+                result = ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResultDetail(ResultCode.EXTERNAL_SYSTEM_ERROR, ResultCode.EXTERNAL_SYSTEM_ERROR_NAME,
+                        "관리자에게 연락 부탁드립니다."));
+            }
+            log.info(trId + "result:" + result);
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.POST, trId, null);
+        }
+
+        return result;
+    }
 
 
 

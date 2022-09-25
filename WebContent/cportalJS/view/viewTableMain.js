@@ -14,7 +14,42 @@ require(['common/ajaxUtil', 'common/utils', 'common/menuNav'], function (ajaxUti
         }
 
         createTitle();
+
+        $('#registerViewBtn').click(function () {
+            registerModal();
+        });
     }
+
+    function registerModal() {
+
+        $('#registerModal').empty();
+        $('#registerModal').append(new EJS({url: '/cportalJS/view/ejs/viewTable/registerViewLinkModal.ejs'}).render());
+
+        $('#linkModal').modal('show');
+
+        $('#saveBtn').click(function () {
+
+            let viewLink = {};
+            viewLink.title = $('#title').val();
+            viewLink.link = $('#link').val();
+            viewLink.ownerId = window.id;
+            viewLink.productType = $('input[name=productRadios]:checked').val();
+
+            ajaxUtil.makeAjax("post", '/view/register/link/mail', JSON.stringify(viewLink), $('#linkModalBody')).done(function(msg){
+                console.log(msg);
+                $('#linkModal').modal('hide');
+                Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+            }).
+            fail(function(xhr, textStatus){
+                $('#linkModal').modal('hide');
+                console.log(xhr);
+                console.log(textStatus);
+                Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+            });
+
+        });
+    }
+
 
     function createTitle() {
         ajaxUtil.makeAjax("get", '/view/title', null, $('#companyList')).done(function (msg) {
