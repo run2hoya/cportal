@@ -6,7 +6,7 @@ define(['common/utils', 'common/ajaxUtil'], function (utils, ajaxUtil) {
     summerNote.init = function (obj, productType, dir) {
         let option;
         console.log(productType);
-        if (productType === 'PREMIER') {
+        if (productType === 'PREMIER' || productType === 'PLATINUM') {
             option = ['insert', ['picture', 'link', 'hr']];
         } else {
             option = ['insert', ['link', 'hr']]
@@ -64,33 +64,35 @@ define(['common/utils', 'common/ajaxUtil'], function (utils, ajaxUtil) {
 
     function sendFile(file, el) {
 
-        if (summerNote.productType !== 'PREMIER') {
+        if (summerNote.productType === 'PREMIER' || summerNote.productType === 'PLATINUM') {
+            let form_data = new FormData();
+            form_data.append('file', file);
+            $.ajax({
+                data       : form_data,
+                type       : "POST",
+                dataType   : 'text',
+                url        : '/upload/file?dir=' + summerNote.dir,
+                cache      : false,
+                contentType: false,
+                enctype    : 'multipart/form-data',
+                processData: false,
+                success    : function (img_name) {
+                    $(el).summernote('editor.insertImage', img_name);
+                },
+                error      : function (xhr, textStatus, error) {
+                    console.log(xhr);
+                    console.log(textStatus);
+                    console.log(error);
+                    Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+                    return false;
+                }
+            });
+        } else {
             Swal.fire({title: 'ERROR', text: '해당 상품은 이미지를 이용 할 수 없습니다.', icon: 'error'});
             return;
         }
 
-        let form_data = new FormData();
-        form_data.append('file', file);
-        $.ajax({
-            data       : form_data,
-            type       : "POST",
-            dataType   : 'text',
-            url        : '/upload/file?dir=' + summerNote.dir,
-            cache      : false,
-            contentType: false,
-            enctype    : 'multipart/form-data',
-            processData: false,
-            success    : function (img_name) {
-                $(el).summernote('editor.insertImage', img_name);
-            },
-            error      : function (xhr, textStatus, error) {
-                console.log(xhr);
-                console.log(textStatus);
-                console.log(error);
-                Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
-                return false;
-            }
-        });
+
     }
 
 
