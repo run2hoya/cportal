@@ -27,6 +27,8 @@ public class UserDto implements Serializable {
     private String phone = null;
     private UserType userType = null;
 
+    private String registerName = null;
+
     @Override
     public String toString() {
         return "UserDto{" +

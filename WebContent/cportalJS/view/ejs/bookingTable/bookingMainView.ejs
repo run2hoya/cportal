@@ -4,13 +4,17 @@
             <div class="card-body" style="    padding: 10px 30px;">
                 <!-- Round buttons -->
                 <div class="demo-inline-spacing">
-                    <button type="button" id="home" class="btn btn-dark waves-effect waves-float round waves-light btn-sm">home</button>
+                    <select class="form-select form-select-sm" id="year" style="width: 120px;margin-right: 5px;">
+                    </select>
+                    <button type="button" id="home" style="margin-left: 15px;" class="btn btn-dark waves-effect waves-float round waves-light btn-sm">home</button>
                     <button type="button" id="clear" class="btn btn-dark waves-effect waves-float round waves-light btn-sm">클릭 취소</button>
                     <button type="button" id="registerBtn" class="btn btn-success waves-effect waves-float round waves-light btn-sm">예약하기</button>
                     <button type="button" id="cancelBtn" class="btn btn-danger waves-effect waves-float round waves-light btn-sm">등록 취소</button>
                     <button type="button" id="donationChanceBtn" style="display: none;" class="btn btn-primary waves-effect waves-float round waves-light btn-sm">기부부탁증/기회권 발부</button>
                     <button type="button" id="donationViewBtn" style="display: none;" class="btn btn-primary waves-effect waves-float round waves-light btn-sm">기부증 확인</button>
                     <button type="button" id="pointViewBtn" style="display: none;" class="btn btn-primary waves-effect waves-float round waves-light btn-sm">포인트 확인</button>
+                    <button type="button" id="pointViewBtn" style="display: none;" class="btn btn-primary waves-effect waves-float round waves-light btn-sm">포인트 확인</button>
+                    <button type="button" id="viewSettingBtn" style="display: none;" class="btn btn-primary waves-effect waves-float round waves-light btn-sm">설정</button>
                 </div>
             </div>
         </div>
@@ -19,5 +23,4 @@
 
 <div id="contentMainDiv"></div>
 
-<div id="registerModal"></div>
-<div id="donationChanceModalDiv"></div>
+<div id="modalDiv"></div>

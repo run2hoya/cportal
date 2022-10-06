@@ -8,6 +8,7 @@ import com.castis.commonLib.util.JsonUtil;
 import com.castis.cportal.controller.common.AbstrctController;
 import com.castis.cportal.dto.UserDto;
 import com.castis.cportal.dto.view.*;
+import com.castis.cportal.model.ViewSetting;
 import com.castis.cportal.model.ViewTable;
 import com.castis.cportal.service.MailService;
 import com.castis.cportal.service.ViewService;
@@ -64,6 +65,49 @@ public class ViewController extends AbstrctController {
         return result;
     }
 
+    @RequestMapping(value = "/view/table/info/{viewTableId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> getTableInfo(HttpServletRequest req, @PathVariable("viewTableId") Long viewTableId, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.GET, user);
+            ViewTableInfo viewTableInfo = new ViewTableInfo();
+            if(user != null) {
+                UsernamePasswordAuthenticationToken userDetails = (UsernamePasswordAuthenticationToken)user;
+                ViewTable viewTable = viewService.getViewTable(viewTableId);
+                log.info(trId + "viewTable = " + viewTable) ;
+
+                if(viewTable != null) {
+                    UserDto userDto = (UserDto)userDetails.getDetails();
+                    if(viewTable.getOwnerId() == Integer.parseInt(userDto.getId())) {
+                        viewTableInfo.setOwner(true);
+                    }
+                }
+            } else
+                viewTableInfo.setOwner(false);
+
+            ViewSetting viewSetting = viewService.getViewSetting(viewTableId);
+            log.info(trId + "viewSetting = " + viewSetting);
+
+            if(viewSetting == null) {
+                viewTableInfo.setMaxMonth(2);
+            } else
+                viewTableInfo.setMaxMonth(viewSetting.getMaxMonth());
+            result = new ResponseEntity<>(viewTableInfo, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.GET, trId, null);
+        }
+
+        return result;
+    }
+
 
     @RequestMapping(value = "/view/booking/{viewTableId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
     public ResponseEntity<?> getBookingInfo(HttpServletRequest req, @PathVariable("viewTableId") Long viewTableId
@@ -96,7 +140,7 @@ public class ViewController extends AbstrctController {
                 }
             }
 
-            LocalDate start = LocalDate.now().minusDays(2);
+            LocalDate start = LocalDate.now().minusDays(1);
             LocalDate end = LocalDate.now().plusMonths(monthsToadd);
             end = end.withDayOfMonth(end.lengthOfMonth());
 
@@ -276,6 +320,61 @@ public class ViewController extends AbstrctController {
         return result;
     }
 
+    @RequestMapping(value = "/view/setting/{viewTableId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> getViewSetting(HttpServletRequest req, @PathVariable("viewTableId") Long viewTableId
+            , Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.GET, user);
+
+            log.info(trId + "viewTableId = " + viewTableId);
+            ViewSetting viewSetting = viewService.getViewSetting(viewTableId);
+            log.info(trId + "viewSetting = " + viewSetting);
+
+            if(viewSetting == null) {
+                viewSetting = new ViewSetting();
+            }
+            result = new ResponseEntity<>(viewSetting, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.GET, trId, null);
+        }
+
+        return result;
+    }
+
+    @RequestMapping(value = "/view/setting/", method = RequestMethod.PUT, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> updateSetting(HttpServletRequest req,
+                                                  @RequestBody final ViewSetting viewSetting, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.PUT, user);
+            log.info(trId + viewSetting.toString());
+
+            viewService.updateViewSetting(viewSetting);
+            result = new ResponseEntity<>(Boolean.TRUE, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.PUT, trId, null);
+        }
+
+        return result;
+    }
 
 
 }

@@ -1,0 +1,49 @@
+<!-- Modal -->
+<div class="modal fade" id="settingModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >설정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" >
+                <div class="row">
+
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="mb-1 row">
+                                        <label for="account" class="col-sm-3 col-form-label">기부 받을 계좌번호</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" id="account">
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-1 row">
+                                        <label for="memo" class="col-sm-3 col-form-label">memo</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" id="memo" rows="5" placeholder="Textarea"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-1 row">
+                                        <label for="maxMonth" class="col-sm-3 col-form-label">이용자에 노출될 최대 월 (최대 : 36)</label>
+                                        <div class="col-sm-9">
+                                            <input type="number" class="form-control" max="36" id="maxMonth">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="settingSaveBtn" type="button" class="btn btn-primary waves-effect">저장</button>
+                <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">닫기</button>
+            </div>
+        </div>
+    </div>
+</div>

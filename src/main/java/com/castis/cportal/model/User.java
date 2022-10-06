@@ -45,6 +45,9 @@ public class User implements Serializable {
 
 	@Column(name="email")
     private String email;
+
+	@Column(name="registerName")
+	private String registerName;
 	
 	@Column(name="userImg")
     private String userImg;

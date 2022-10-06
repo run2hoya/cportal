@@ -24,6 +24,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend'], function (ajaxUt
             $('#accountEmail').val(msg.email);
             $('#introduction').val(msg.introduction);
             $('#phone').val(msg.phone);
+            $('#registerName').val(msg.registerName);
             imageSend.returnImgName = msg.userImg;
 
         }).fail(function (xhr, textStatus) {
@@ -66,6 +67,7 @@ define(['common/ajaxUtil', 'common/utils', 'common/imageSend'], function (ajaxUt
                     user.email = $('#accountEmail').val();
                     user.introduction = $('#introduction').val();
                     user.phone = $('#phone').val();
+                    user.registerName = $('#registerName').val();
 
                     //사업부 등록 요청
                     ajaxUtil.makeAjax("put", './user/' + window.userId, JSON.stringify(user), $('#account-details')).done(function (msg) {

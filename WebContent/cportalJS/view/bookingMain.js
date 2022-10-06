@@ -5,33 +5,48 @@ require.config({
 require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointView'],
     function (ajaxUtil, utils, donationChance, pointView) {
 
-    let isOwner = false;
     let viewTitle;
+    let viewTableInfo;
 
     function init() {
         $('#contentBody').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingMainView.ejs'}).render());
         $('#registerModal').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingRegisterModal.ejs'}).render());
         if (feather) {feather.replace({width: 14, height: 14});}
 
-        loadTable();
-        addEvent();
+        ajaxUtil.makeAjax("get", '/view/table/info/' + window.targetId, null,null).done(function (msg) {
+            console.log(msg);
+            viewTableInfo = msg;
+            setDateBox();
+            addEvent();
+            loadTable();
+        }).fail(function (xhr, textStatus) {
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
     }
 
     function addEvent() {
         $('#clear').click(function () {
             $('.highlighted').removeClass('highlighted');
         });
-        $('#home').click(function () {
-            loadTable();
-        });
+        $('#home').click(function () {loadTable();});
+        $('#cancelBtn').click(function () {cancel();});
 
-        $('#cancelBtn').click(function () {
-            cancel();
-        });
+        console.log(viewTableInfo.isOwner);
+        if(viewTableInfo.isOwner === true) {
+            $('#donationChanceBtn').show();
+            $('#donationViewBtn').show();
+            $('#pointViewBtn').show();
+            $('#viewSettingBtn').show();
+
+            $("#donationChanceBtn").off().on('click', function() {donationChanceModal();});
+            $("#donationViewBtn").off().on('click', function() {donationChance.donationChanceInit();});
+            $("#pointViewBtn").off().on('click', function() {pointView.pointViewInit();});
+            $("#viewSettingBtn").off().on('click', function() {updateViewSetting();});
+        }
 
         $('#registerBtn').click(function () {
-            $('#registerModal').empty();
-            $('#registerModal').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingRegisterModal.ejs'}).render());
+            $('#modalDiv').empty();
+            $('#modalDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingRegisterModal.ejs'}).render());
 
             console.log(window.id);
             if(utils.isEmpty(window.id))
@@ -85,11 +100,6 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             }
 
             //test
-            $('#bookmarkBtn1').click(function () {
-                $('#bookingTitle').val('김태호');
-                $('#bookingMemo').val('남길 메모를 입력합니다');
-                $('#default-select-multi').val([1, 8, 9]).trigger('change');
-            });
 
             $('#bookmarkBtn2').click(function () {
                 $('#bookingTitle').val('외근');
@@ -109,6 +119,69 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
 
             modal.show();
         });
+    }
+
+    function setDateBox()   {
+
+        let date = moment().startOf("month");
+        let endDate;
+
+        if(viewTableInfo.isOwner) {
+            endDate = moment().add(3, "y");
+        } else
+            endDate = moment().add(viewTableInfo.maxMonth, "M");
+
+        let diffMonth = endDate.diff(date, "months");
+
+        console.log(diffMonth);
+        for (let i = 0; i < diffMonth; i++) {
+            $("#year").append("<option value='" + date.format("YYYY-MM-DD")  + "'>" + date.format("YYYY-MM") + "월</option>");
+            date.add(1, "months")
+        }
+    }
+
+    function updateViewSetting() {
+        $('#modalDiv').empty();
+        $('#modalDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/settingModal.ejs'}).render());
+
+        ajaxUtil.makeAjax("get", '/view/setting/' + window.targetId, null,null).done(function (msg) {
+            viewSetting = msg;
+            if(!utils.isEmpty(msg)) {
+                $('#account').val(msg.account);
+                $('#memo').val(msg.memo);
+                $('#maxMonth').val(msg.maxMonth);
+            }
+            $('#settingModal').modal('show');
+        }).fail(function (xhr, textStatus) {
+            console.log(xhr);
+            console.log(textStatus);
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
+
+        $("#settingSaveBtn").off().on('click', function() {
+            let updateSetting = {};
+            updateSetting.memo = $('#memo').val();
+            updateSetting.id = viewSetting.id;
+            updateSetting.account = $('#account').val();
+            updateSetting.viewTableId = window.targetId;
+            updateSetting.maxMonth = $('#maxMonth').val();
+
+
+            ajaxUtil.makeAjax("put", '/view/setting/', JSON.stringify(updateSetting), null).done(function(msg){
+                console.log(msg);
+                $('#settingModal').modal('hide');
+                Swal.fire({title: 'success', text: '등록 요청에 성공하였습니다', icon: 'success'});
+            }).
+            fail(function(xhr, textStatus){
+                $('#settingModal').modal('hide');
+                console.log(xhr);
+                console.log(textStatus);
+                Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+            });
+        });
+
+
+
     }
 
     function cancel() {
@@ -147,8 +220,8 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             return;
         }
 
-        $('#donationChanceModalDiv').empty();
-        $('#donationChanceModalDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/donationChanceModal.ejs'}).render());
+        $('#modalDiv').empty();
+        $('#modalDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/donationChanceModal.ejs'}).render());
 
         let ownerId, ownerName;
 
@@ -170,7 +243,18 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             Swal.fire({title: 'INFO', text: '로그인 하지 않고 예약하였습니다. 오프라인으로 기부부탁증 발급하세요', icon: 'info'});
             return;
         }
-        
+
+        ajaxUtil.makeAjax("get", '/view/setting/' + window.targetId, null,null).done(function (msg) {
+            if(!utils.isEmpty(msg)) {
+                $('#account').val(msg.account);
+                $('#memo').val(msg.memo);
+            }
+        }).fail(function (xhr, textStatus) {
+            console.log(xhr);
+            console.log(textStatus);
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
+
         let donationModal = new bootstrap.Modal($('#donationChanceModal'));
         $('#issueBtn').click(function () {
 
@@ -293,63 +377,99 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
         $('#contentMainDiv').empty();
         $('#contentMainDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingTable.ejs'}).render());
 
-        ajaxUtil.makeAjax("get", '/view/booking/' + window.targetId, null,null).done(function (msg) {
+        let haed = '<th>비춰보기</th>';
+        let date = moment($('#year').val(), 'YYYY-MM-DD');
+        let endDate = moment($('#year').val(), 'YYYY-MM-DD').endOf("month");
 
-            $('#viewHead').append(msg.th);
-            isOwner = msg.isOwner;
-            viewTitle = msg.viewTitle;
+        if(moment().isBetween(date, endDate)) {
+            date = moment();
+        }
 
-            console.log(msg.isOwner);
-            if(isOwner === true) {
-                $('#donationChanceBtn').show();
-                $('#donationViewBtn').show();
-                $('#pointViewBtn').show();
+        date.locale();
 
-                $("#donationChanceBtn").off().on('click', function() {donationChanceModal();});
-                $("#donationViewBtn").off().on('click', function() {donationChance.donationChanceInit();});
-                $("#pointViewBtn").off().on('click', function() {pointView.pointViewInit();});
+        let diffDay = endDate.diff(date, "days");
+        let haedDate = moment(date.format('YYYY-MM-DD'));
+        for (let i = 0; i <= diffDay; i++) {
+            haed += '<th>' + haedDate.format('MMMM Do (dd)') + '</th>';
+            haedDate.add(1, "days");
+        }
+        $('#viewHead').append(haed);
+
+        let bodyDate = moment(date.format('YYYY-MM-DD'));
+        let body = '<tr>'+ '<th>대한민국 시간</th>';
+        for (let i = 0; i <= diffDay; i++) {
+            body += '<td class id  bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_대한민국 시간"> - </td>';
+            bodyDate.add(1, "days");
+        }
+        body += '</tr>';
+        $('#viewBody').append(body);
+
+        let time = moment("2022-09-01 09:00");
+        time.locale();
+
+        for (let i = 0; i < 29; i++) {
+            body ='<tr>';
+            body += '<th>' + time.format('HH:mm') + '</th>';
+            bodyDate = moment(date.format('YYYY-MM-DD'));
+            for (let j = 0; j < diffDay; j++) {
+                body += '<td class id bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_' + time.format('HH:mm') + '"> - </td>';
+                bodyDate.add(1, "days");
             }
 
-            for (let viewItem of msg.viewItemList) {
-                let body = '<tr>';
-                body += '<th>' + viewItem.title + '</th>';
+            body += '</tr>';
+            $('#viewBody').append(body);
+            time.add(30, "m")
+        }
 
-                for (let view of viewItem.viewList) {
-                    if(utils.isEmpty(view.title)) {
-                        body += new EJS({url: '/cportalJS/view/ejs/bookingTable/itemNull.ejs'}).render({ id : view.id,
-                            bookingTarget : view.viewDate + '_' + view.timezone});
-                    } else {
-                        let iclass;
-                        if(view.bookingState === 'BOOKING' && view.registerId === parseInt(window.id))
-                            iclass = 'my-select';
-                        else if(view.bookingState === 'BOOKING')
-                            iclass = 'booking';
-                        else if(view.bookingState === 'CONFLICT')
-                            iclass = 'booking-alert';
 
-                        body += new EJS({url: '/cportalJS/view/ejs/bookingTable/item.ejs'}).render(
-                            { id : view.id, itemClass : iclass, title : view.title,
-                                bookingInfo : view.bookingInfo, bookingTarget : view.viewDate + '_' + view.timezone,
-                                registerMember : view.registerMember, userId : view.registerId}
-                        );
-                    }
-                }
-                body += '</tr>';
-                $('#viewBody').append(body);
-            }
+        createTable();
 
-            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
-            var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-                return new bootstrap.Popover(popoverTriggerEl);
-            });
-
-            createTable();
-
-        }).fail(function (xhr, textStatus) {
-            console.log(xhr);
-            console.log(textStatus);
-            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
-        });
+        // ajaxUtil.makeAjax("get", '/view/booking/' + window.targetId, null,null).done(function (msg) {
+        //
+        //     $('#viewHead').append(msg.th);
+        //     viewTitle = msg.viewTitle;
+        //
+        //
+        //     for (let viewItem of msg.viewItemList) {
+        //         let body = '<tr>';
+        //         body += '<th>' + viewItem.title + '</th>';
+        //
+        //         for (let view of viewItem.viewList) {
+        //             if(utils.isEmpty(view.title)) {
+        //                 body += new EJS({url: '/cportalJS/view/ejs/bookingTable/itemNull.ejs'}).render({ id : view.id,
+        //                     bookingTarget : view.viewDate + '_' + view.timezone});
+        //             } else {
+        //                 let iclass;
+        //                 if(view.bookingState === 'BOOKING' && view.registerId === parseInt(window.id))
+        //                     iclass = 'my-select';
+        //                 else if(view.bookingState === 'BOOKING')
+        //                     iclass = 'booking';
+        //                 else if(view.bookingState === 'CONFLICT')
+        //                     iclass = 'booking-alert';
+        //
+        //                 body += new EJS({url: '/cportalJS/view/ejs/bookingTable/item.ejs'}).render(
+        //                     { id : view.id, itemClass : iclass, title : view.title,
+        //                         bookingInfo : view.bookingInfo, bookingTarget : view.viewDate + '_' + view.timezone,
+        //                         registerMember : view.registerMember, userId : view.registerId}
+        //                 );
+        //             }
+        //         }
+        //         body += '</tr>';
+        //         $('#viewBody').append(body);
+        //     }
+        //
+        //     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+        //     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        //         return new bootstrap.Popover(popoverTriggerEl);
+        //     });
+        //
+        //     createTable();
+        //
+        // }).fail(function (xhr, textStatus) {
+        //     console.log(xhr);
+        //     console.log(textStatus);
+        //     Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        // });
 
     }
 

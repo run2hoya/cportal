@@ -123,6 +123,10 @@
                                         <input class="form-control" id="nickName" type="text" name="register-username" placeholder="닉네임을 입력해 주세요" aria-describedby="register-username" autofocus="" maxlength='10' tabindex="4" />
                                     </div>
                                     <div class="mb-1">
+                                        <label class="form-label" for="registerName">실명</label>
+                                        <input class="form-control" id="registerName" type="text" name="registerName" placeholder="실명이 필요한 서비스 일때만 노출됩니다." aria-describedby="register-username" autofocus="" maxlength='10' tabindex="4" />
+                                    </div>
+                                    <div class="mb-1">
                                         <label class="form-label" for="email">Email</label>
                                         <input class="form-control" id="email" type="text" name="register-email" placeholder="메일 주소를 입력해 주세요." aria-describedby="register-email" tabindex="5" />
                                     </div>

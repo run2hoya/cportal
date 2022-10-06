@@ -8,8 +8,10 @@ import com.castis.cportal.dto.view.ViewGroupByType;
 import com.castis.cportal.dto.view.ViewItem;
 import com.castis.cportal.dto.view.ViewResponse;
 import com.castis.cportal.model.View;
+import com.castis.cportal.model.ViewSetting;
 import com.castis.cportal.model.ViewTable;
 import com.castis.cportal.repository.ViewRepository;
+import com.castis.cportal.repository.ViewSettingRepository;
 import com.castis.cportal.repository.ViewTableRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,10 +22,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -32,11 +31,32 @@ public class ViewService {
 
     private final ViewRepository viewRepository;
     private final ViewTableRepository viewTableRepository;
+    private final ViewSettingRepository viewSettingRepository;
 
     public ViewTable getViewTable(Long viewTableId) {
         return viewTableRepository.findOne(viewTableId);
     }
 
+    public ViewSetting getViewSetting(Long viewTableId) {
+        return viewSettingRepository.findOneByViewTableId(viewTableId);
+    }
+    @Transactional
+    public boolean updateViewSetting(ViewSetting viewSetting) {
+
+        ViewSetting currentView;
+        if(viewSetting.getId() != null) {
+            currentView  = viewSettingRepository.findOne(viewSetting.getId());
+        } else {
+            currentView = new ViewSetting();
+            currentView.setViewTableId(viewSetting.getViewTableId());
+        }
+
+        currentView.setAccount(viewSetting.getAccount());
+        currentView.setMemo(viewSetting.getMemo());
+        currentView.setMaxMonth(viewSetting.getMaxMonth());
+        viewSettingRepository.save(currentView);
+        return true;
+    }
 
 
     public ViewGroupByType getViewTitleDto() {
@@ -57,9 +77,9 @@ public class ViewService {
         sb.append("<th>비춰보기</th>");
         LocalDate date;
         for(date = start; date.isBefore(end); date = date.plusDays(1)) {
-            sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)")) + "</th>");
+            sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN)) + "</th>");
         }
-        sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)")) + "</th>");
+        sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN)) + "</th>");
 
         Map<String,List<View>> map = new LinkedHashMap<>();
         for(View view : viewList) {

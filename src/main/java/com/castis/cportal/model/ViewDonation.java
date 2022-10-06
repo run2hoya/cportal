@@ -58,6 +58,9 @@ public class ViewDonation implements Serializable {
 	@Column(name="multiply")
 	private Float multiply;
 
+	@Column(name="account")
+	private String account;
+
 	@Column(name="publishDate")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
 	@CreationTimestamp
