@@ -39,6 +39,8 @@
         <intercept-url pattern="/company/new/**" access="permitAll"/>
         <intercept-url pattern="/view/booking/**" access="permitAll"/>
         <intercept-url pattern="/view/booking/month/**" access="permitAll"/>
+        <intercept-url pattern="/view/booking/item/**" access="permitAll"/>
+        <intercept-url pattern="/view/table/info/**" access="permitAll"/>
         <intercept-url pattern="/popup/booking/**" access="permitAll"/>
 
 

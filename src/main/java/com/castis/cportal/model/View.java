@@ -8,10 +8,12 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.OptimisticLockType;
 import org.hibernate.annotations.OptimisticLocking;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name="tbl_view", indexes = { @Index(name = "IDX_VIEW_DATE", columnList = "viewDate, viewTableId") })
@@ -58,6 +60,11 @@ public class View implements Serializable {
 
 	@Version
 	private Integer version;
+
+	@Column(name="updateDate")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
+	@UpdateTimestamp
+	private LocalDateTime updateDate;
 
 	public View(Long viewTableId, LocalDate viewDate, String timezone) {
 		this.viewTableId = viewTableId;

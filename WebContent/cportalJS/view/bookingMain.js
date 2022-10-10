@@ -7,6 +7,7 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
 
     let viewTitle;
     let viewTableInfo;
+    let isMouseDown;
 
     function init() {
         $('#contentBody').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingMainView.ejs'}).render());
@@ -18,7 +19,7 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             viewTableInfo = msg;
             setDateBox();
             addEvent();
-            loadTable();
+            createTable();
         }).fail(function (xhr, textStatus) {
             Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
         });
@@ -28,7 +29,7 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
         $('#clear').click(function () {
             $('.highlighted').removeClass('highlighted');
         });
-        $('#home').click(function () {loadTable();});
+        $('#home').click(function () {createTable();});
         $('#cancelBtn').click(function () {cancel();});
 
         console.log(viewTableInfo.isOwner);
@@ -43,6 +44,10 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             $("#pointViewBtn").off().on('click', function() {pointView.pointViewInit();});
             $("#viewSettingBtn").off().on('click', function() {updateViewSetting();});
         }
+
+        $("#year").change(function () {
+            createTable();
+        });
 
         $('#registerBtn').click(function () {
             $('#modalDiv').empty();
@@ -116,10 +121,52 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             $('#saveBtn').click(function () {
                 registerBooking(modal);
             });
-
             modal.show();
         });
     }
+
+    function clickWeekend() {
+        $('.highlighted').removeClass('highlighted');
+
+        let date = moment($('#year').val(), 'YYYY-MM-DD');
+        let endDate = moment($('#year').val(), 'YYYY-MM-DD').endOf("month");
+        let diffDay = endDate.diff(date, "days");
+
+        let clickDate = moment(date.format('YYYY-MM-DD'));
+        for (let j = 0; j <= diffDay; j++) {
+            let time = moment("2022-09-01 09:00");
+            if(clickDate.day() === 0 || clickDate.day() === 6) {
+                for (let i = 0; i < 29; i++) {
+
+                    let select = clickDate.format('YYYY-MM-DD') + '_' + time.format('HH:mm');
+                    console.log(select);
+                    $("#" + select.split(':').join('\\:')).addClass('highlighted');
+                    time.add(30, "m");
+                }
+            }
+            clickDate.add(1, "days");
+        }
+        $('#settingModal').modal('hide');
+    }
+
+        function clickLunch() {
+            $('.highlighted').removeClass('highlighted');
+
+            let date = moment($('#year').val(), 'YYYY-MM-DD');
+            let endDate = moment($('#year').val(), 'YYYY-MM-DD').endOf("month");
+            let diffDay = endDate.diff(date, "days");
+
+            let clickDate = moment(date.format('YYYY-MM-DD'));
+            for (let j = 0; j <= diffDay; j++) {
+                let select = clickDate.format('YYYY-MM-DD') + '_12:00';
+                $("#" + select.split(':').join('\\:')).addClass('highlighted');
+                select = clickDate.format('YYYY-MM-DD') + '_12:30';
+                $("#" + select.split(':').join('\\:')).addClass('highlighted');
+                clickDate.add(1, "days");
+            }
+            $('#settingModal').modal('hide');
+        }
+
 
     function setDateBox()   {
 
@@ -133,7 +180,6 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
 
         let diffMonth = endDate.diff(date, "months");
 
-        console.log(diffMonth);
         for (let i = 0; i < diffMonth; i++) {
             $("#year").append("<option value='" + date.format("YYYY-MM-DD")  + "'>" + date.format("YYYY-MM") + "월</option>");
             date.add(1, "months")
@@ -157,6 +203,9 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             console.log(textStatus);
             Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
         });
+
+        $("#clickWeekend").off().on('click', function() {clickWeekend();});
+        $("#clickLunch").off().on('click', function() {clickLunch();});
 
         $("#settingSaveBtn").off().on('click', function() {
             let updateSetting = {};
@@ -187,30 +236,58 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
     function cancel() {
 
         let viewItem ={}, viewList =[];
+        let htmlValue = '';
         $('.highlighted').each(function (index, item) {
-            let view = {};
-            view.id = $(item).attr('id');
-            viewList.push(view);
+            if(!$(item).attr('id').includes('_')) {
+                let view = {};
+                view.id = $(item).attr('id');
+                viewList.push(view);
+            }
+            htmlValue += "<b>" + $(item).attr('bookingTarget') + "</b><br>";
         });
+
+        if(viewList.length === 0) {
+            Swal.fire({title: 'warning', text: "삭제할 정보가 없습니다", icon: 'warning'});
+            return;
+        }
 
         viewItem.viewTableId = window.targetId;
         viewItem.viewList = viewList;
 
-        ajaxUtil.makeAjax("delete", '/view/booking/item/', JSON.stringify(viewItem), null).done(function(msg){
-            console.log(msg);
-            let htmlValue = '';
-            for (let msgElement of msg) {
-                htmlValue += "<b>" + msgElement.targetDate + "</b> : "  + ((msgElement.success)? "삭제 성공" : "삭제 실패") + "<br>";
+        Swal.fire({
+            title: '삭제 할까요?',
+            html: htmlValue,
+            icon: 'warning',
+            showCancelButton: true,
+            customClass: {
+                confirmButton: 'btn btn-primary',
+                cancelButton: 'btn btn-danger ms-1'
+            },
+            confirmButtonText: '삭제'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                ajaxUtil.makeAjax("delete", '/view/booking/item/', JSON.stringify(viewItem), null).done(function(msg){
+                    console.log(msg);
+                    let htmlValue = '';
+                    for (let msgElement of msg) {
+                        htmlValue += "<b>" + msgElement.targetDate + "</b> : "  + ((msgElement.success)? "삭제 성공" : "삭제 실패") + "<br>";
+
+                        let bookingTarget = $("#" + msgElement.viewId).attr("bookingTarget");
+                        $("#" + msgElement.viewId).replaceWith(new EJS({url: '/cportalJS/view/ejs/bookingTable/itemNull.ejs'}).render({ id : bookingTarget,
+                            bookingTarget : bookingTarget}));
+                        let target = $("[bookingTarget=" + bookingTarget.split(':').join('\\:') +"]");
+                        addMouseDragListener(target);
+                    }
+                    Swal.fire({title: 'success', html: htmlValue, icon: 'success'});
+                }).
+                fail(function(xhr, textStatus){
+                    console.log(xhr);
+                    console.log(textStatus);
+                    Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+                });
             }
-            loadTable();
-            Swal.fire({title: 'success', html: htmlValue, icon: 'success'});
-        }).
-        fail(function(xhr, textStatus){
-            console.log(xhr);
-            console.log(textStatus);
-            loadTable();
-            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
-        });
+        })
+
     }
 
 
@@ -340,7 +417,13 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
         for ( let i in jbSplit ) {
             let view = {};
             view.title = $('#bookingTitle').val();
-            view.id = jbSplit[i];
+            if(!jbSplit[i].includes('_'))
+                view.id = jbSplit[i];
+            else {
+                let registerInfo = jbSplit[i].split('_');
+                view.viewDate = registerInfo[0];
+                view.timezone = registerInfo[1];
+            }
             view.memo = $('#bookingMemo').val();
             view.registerId = window.id;
             view.bookingInfo = bookingInfo;
@@ -374,55 +457,41 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
 
     function loadTable() {
 
-        $('#contentMainDiv').empty();
-        $('#contentMainDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingTable.ejs'}).render());
-
-        let haed = '<th>비춰보기</th>';
         let date = moment($('#year').val(), 'YYYY-MM-DD');
         let endDate = moment($('#year').val(), 'YYYY-MM-DD').endOf("month");
 
         if(moment().isBetween(date, endDate)) {
             date = moment();
         }
+        let url = '/view/booking/item/' + window.targetId + '?startDate=' + date.format('YYYY-MM-DD') + '&endDate=' + endDate.format('YYYY-MM-DD');
+        ajaxUtil.makeAjax("get", url, null,null).done(function (msg) {
+            for (let view of msg) {
 
-        date.locale();
+                let select = view.viewDate + '_' + view.timezone;
+                let target = $("[bookingTarget=" + select.split(':').join('\\:') +"]");
 
-        let diffDay = endDate.diff(date, "days");
-        let haedDate = moment(date.format('YYYY-MM-DD'));
-        for (let i = 0; i <= diffDay; i++) {
-            haed += '<th>' + haedDate.format('MMMM Do (dd)') + '</th>';
-            haedDate.add(1, "days");
-        }
-        $('#viewHead').append(haed);
+                let iclass;
+                if(view.bookingState === 'BOOKING' && view.registerId === parseInt(window.id))
+                    iclass = 'my-select';
+                else if(view.bookingState === 'BOOKING')
+                    iclass = 'booking';
+                else if(view.bookingState === 'CONFLICT')
+                    iclass = 'booking-alert';
 
-        let bodyDate = moment(date.format('YYYY-MM-DD'));
-        let body = '<tr>'+ '<th>대한민국 시간</th>';
-        for (let i = 0; i <= diffDay; i++) {
-            body += '<td class id  bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_대한민국 시간"> - </td>';
-            bodyDate.add(1, "days");
-        }
-        body += '</tr>';
-        $('#viewBody').append(body);
-
-        let time = moment("2022-09-01 09:00");
-        time.locale();
-
-        for (let i = 0; i < 29; i++) {
-            body ='<tr>';
-            body += '<th>' + time.format('HH:mm') + '</th>';
-            bodyDate = moment(date.format('YYYY-MM-DD'));
-            for (let j = 0; j < diffDay; j++) {
-                body += '<td class id bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_' + time.format('HH:mm') + '"> - </td>';
-                bodyDate.add(1, "days");
+                target.replaceWith(new EJS({url: '/cportalJS/view/ejs/bookingTable/item.ejs'}).render(
+                    { id : view.id, itemClass : iclass, title : view.title,
+                        bookingInfo : view.bookingInfo, bookingTarget : view.viewDate + '_' + view.timezone,
+                        registerMember : view.registerMember, userId : view.registerId}
+                ));
+                new bootstrap.Popover(document.getElementById(view.id));
+                addMouseDragListener($('#' + view.id));
             }
 
-            body += '</tr>';
-            $('#viewBody').append(body);
-            time.add(30, "m")
-        }
-
-
-        createTable();
+        }).fail(function (xhr, textStatus) {
+            console.log(xhr);
+            console.log(textStatus);
+            Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
+        });
 
         // ajaxUtil.makeAjax("get", '/view/booking/' + window.targetId, null,null).done(function (msg) {
         //
@@ -470,12 +539,92 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
         //     console.log(textStatus);
         //     Swal.fire({title: 'ERROR', text: '관리자에게 연락 부탁 드립니다.', icon: 'error'});
         // });
-
     }
 
     function createTable() {
 
-        var isMouseDown = false;
+        console.log($('#year').val() + ' Loading table');
+        $('#contentMainDiv').empty();
+        $('#contentMainDiv').append(new EJS({url: '/cportalJS/view/ejs/bookingTable/bookingTable.ejs'}).render());
+
+        let haed = '<th>비춰보기</th>';
+        let date = moment($('#year').val(), 'YYYY-MM-DD');
+        let endDate = moment($('#year').val(), 'YYYY-MM-DD').endOf("month");
+
+        if(moment().isBetween(date, endDate)) {
+            date = moment();
+        }
+
+        date.locale();
+
+        let diffDay = endDate.diff(date, "days");
+        let haedDate = moment(date.format('YYYY-MM-DD'));
+        for (let i = 0; i <= diffDay; i++) {
+            if(haedDate.day() === 0 || haedDate.day() === 6)
+                haed += '<th class="text-danger">' + haedDate.format('MMMM Do (dd)') + '</th>';
+            else
+                haed += '<th>' + haedDate.format('MMMM Do (dd)') + '</th>';
+            haedDate.add(1, "days");
+        }
+        $('#viewHead').append(haed);
+
+        let bodyDate = moment(date.format('YYYY-MM-DD'));
+        let body = '<tr>'+ '<th>대한민국 시간</th>';
+        for (let i = 0; i <= diffDay; i++) {
+            body += '<td class id="' + bodyDate.format('YYYY-MM-DD') + '_대한민국 시간"' +  ' bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_대한민국 시간"> - </td>';
+            bodyDate.add(1, "days");
+        }
+        body += '</tr>';
+        $('#viewBody').append(body);
+
+        let time = moment("2022-09-01 09:00");
+        time.locale();
+
+        for (let i = 0; i < 29; i++) {
+            body ='<tr>';
+            body += '<th>' + time.format('HH:mm') + '</th>';
+            bodyDate = moment(date.format('YYYY-MM-DD'));
+            for (let j = 0; j <= diffDay; j++) {
+                body += '<td class id="' + bodyDate.format('YYYY-MM-DD') + '_' + time.format('HH:mm') + '" bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_' + time.format('HH:mm') + '"> - </td>';
+                bodyDate.add(1, "days");
+            }
+            body += '</tr>';
+            $('#viewBody').append(body);
+            time.add(30, "m")
+        }
+
+        for (let i = 0; i < 5; i++) {
+            body ='<tr>';
+            body += '<th>예약대기' + (i+1) + '</th>';
+            bodyDate = moment(date.format('YYYY-MM-DD'));
+            for (let j = 0; j <= diffDay; j++) {
+                body += '<td class id="' + bodyDate.format('YYYY-MM-DD') + '_예약대기' + (i+1) + '" bookingtarget="' + bodyDate.format('YYYY-MM-DD') + '_예약대기' + (i+1) + '"> - </td>';
+                bodyDate.add(1, "days");
+            }
+            body += '</tr>';
+            $('#viewBody').append(body);
+        }
+
+        loadTable();
+        makeTable();
+
+    }
+
+    function addMouseDragListener(target) {
+        target
+            .mousedown(function () {
+                isMouseDown = true;
+                $(this).toggleClass("highlighted");
+                return false; // prevent text selection
+            })
+            .mouseover(function () {
+                if (isMouseDown) {
+                    $(this).toggleClass("highlighted");
+                }
+            });
+    }
+
+    function makeTable() {
         $("#viewTable td")
             .mousedown(function () {
                 isMouseDown = true;
@@ -489,8 +638,8 @@ require(['common/ajaxUtil', 'common/utils', 'view/donationChance', 'view/pointVi
             });
 
         $(document).mouseup(function () {
-                isMouseDown = false;
-            });
+            isMouseDown = false;
+        });
 
         $('table').each(function () {
             if ($(this).find('thead').length > 0 && $(this).find('th').length > 0) {

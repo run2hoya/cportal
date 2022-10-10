@@ -8,6 +8,7 @@ import com.castis.commonLib.util.JsonUtil;
 import com.castis.cportal.controller.common.AbstrctController;
 import com.castis.cportal.dto.UserDto;
 import com.castis.cportal.dto.view.*;
+import com.castis.cportal.model.View;
 import com.castis.cportal.model.ViewSetting;
 import com.castis.cportal.model.ViewTable;
 import com.castis.cportal.service.MailService;
@@ -187,8 +188,33 @@ public class ViewController extends AbstrctController {
         return result;
     }
 
+    @RequestMapping(value = "/view/booking/item/{viewTableId}", method = RequestMethod.GET, produces = "application/json; charset=utf8")
+    public ResponseEntity<?> getBookingItem(HttpServletRequest req, @RequestParam String startDate, @RequestParam String endDate
+            , @PathVariable("viewTableId") Long viewTableId, Principal user) {
+
+        long startTime = System.currentTimeMillis();
+        ResponseEntity<?> result = null;
+        TransactionID trId = null;
+
+        try {
+            trId = startLog(req, Constants.request.GET, user);
+            log.info(trId + "viewTableId = " + viewTableId + " startDate :" + startDate + " endDate :" + endDate);
+
+            List<View> res =  viewService.getViewItem(startDate, endDate, viewTableId);
+            result = new ResponseEntity<>(res, HttpStatus.OK);
+
+        } catch (Exception e) {
+            log.error(trId + "ERROR", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultDetail(ResultCode.INTERNAL_SERVER_ERROR, ResultCode.INTERNAL_SERVER_ERROR_NAME,
+                    "관리자에게 연락 부탁드립니다."));
+        } finally {
+            endLog(startTime, Constants.request.GET, trId, null);
+        }
+        return result;
+    }
+
     @RequestMapping(value = "/view/booking/item/", method = RequestMethod.PUT, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> updateCompanyContent(HttpServletRequest req,
+    public ResponseEntity<?> updateBookingItem(HttpServletRequest req,
                                                   @RequestBody final ViewItem viewItem, Principal user) {
 
         long startTime = System.currentTimeMillis();
@@ -216,12 +242,11 @@ public class ViewController extends AbstrctController {
         } finally {
             endLog(startTime, Constants.request.PUT, trId, null);
         }
-
         return result;
     }
 
     @RequestMapping(value = "/view/booking/item/", method = RequestMethod.DELETE, produces = "application/json; charset=utf8")
-    public ResponseEntity<?> deleteCompanyContent(HttpServletRequest req,
+    public ResponseEntity<?> deleteBookingItem(HttpServletRequest req,
                                                   @RequestBody final ViewItem viewItem, Principal user) {
 
         long startTime = System.currentTimeMillis();

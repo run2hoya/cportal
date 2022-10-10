@@ -12,8 +12,16 @@ public class ViewResponse {
     Boolean success;
     String description;
 
+    Long viewId;
+
     public ViewResponse(String targetDate, Boolean success) {
         this.targetDate = targetDate;
         this.success = success;
+    }
+
+    public ViewResponse(String targetDate, Boolean success, Long viewId) {
+        this.targetDate = targetDate;
+        this.success = success;
+        this.viewId = viewId;
     }
 }

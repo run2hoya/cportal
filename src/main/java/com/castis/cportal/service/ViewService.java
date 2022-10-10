@@ -101,6 +101,13 @@ public class ViewService {
             sb.append("<th>" + date.format(DateTimeFormatter.ofPattern("MM월 dd일(E)")) + "</th>");
     }
 
+    public List<View> getViewItem(String startDate, String endDate, long viewTableId) {
+        LocalDate start = LocalDate.parse(startDate);
+        LocalDate end = LocalDate.parse(endDate);
+
+        return viewRepository.findByViewTableIdAndViewDateBetween(viewTableId, start, end);
+    }
+
     public void createViewMonth(String startDate, long viewTableId) {
 
         View view;
@@ -132,8 +139,8 @@ public class ViewService {
     }
 
 
-    public void saveView(View view) {
-        viewRepository.save(view);
+    public View saveView(View view) {
+        return viewRepository.save(view);
     }
 
     @Transactional
@@ -167,9 +174,12 @@ public class ViewService {
             boolean isOwner = (userId == viewTable.getOwnerId());
             for(View view : viewItem.getViewList()) {
 
-                View currentView = viewRepository.findOne(view.getId());
+                View currentView;
+                if(view.getId() == null) {
+                    currentView = saveView(new View(viewItem.getViewTableId(), view.getViewDate(), view.getTimezone()));
+                } else
+                    currentView = viewRepository.findOne(view.getId());
                 try {
-
                     boolean result = updateView(currentView, view, isOwner, userId);
                     responseList.add(new ViewResponse(
                             currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
@@ -191,21 +201,14 @@ public class ViewService {
     }
 
     @Transactional
-    public boolean deleteView(View currentView, View view, boolean isOwner, int userId) {
+    public boolean deleteView(View currentView, boolean isOwner, int userId) {
 
         if(!isOwner && currentView.getRegisterId() != null) {
-            if(currentView.getRegisterId() != view.getRegisterId())
+            if(currentView.getRegisterId() != userId)
                 return false;
         }
 
-        currentView.setTitle(null);
-        currentView.setBookingInfo(null);
-        currentView.setIsOnline(null);
-        currentView.setRegisterId(null);
-        currentView.setBookingState(null);
-        currentView.setRegisterMember(null);
-
-        viewRepository.save(currentView);
+        viewRepository.delete(currentView.getId());
         return true;
     }
 
@@ -220,17 +223,17 @@ public class ViewService {
                 View currentView = viewRepository.findOne(view.getId());
                 try {
 
-                    boolean result = deleteView(currentView, view, isOwner, userId);
+                    boolean result = deleteView(currentView, isOwner, userId);
                     responseList.add(new ViewResponse(
                             currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
                                     + "_" + currentView.getTimezone(),
-                            result));
+                            result, currentView.getId()));
                 } catch (Exception e) {
                     log.error(trId + "" , e);
                     responseList.add(new ViewResponse(
                             currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
                                     + "_" + currentView.getTimezone(),
-                            false));
+                            false, currentView.getId()));
                 }
             }
 
