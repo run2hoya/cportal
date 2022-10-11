@@ -182,13 +182,13 @@ public class ViewService {
                 try {
                     boolean result = updateView(currentView, view, isOwner, userId);
                     responseList.add(new ViewResponse(
-                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN))
                                     + "_" + currentView.getTimezone(),
                             result));
                 } catch (Exception e) {
                     log.error(trId + "" , e);
                     responseList.add(new ViewResponse(
-                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN))
                                     + "_" + currentView.getTimezone(),
                             false));
                 }
@@ -225,13 +225,13 @@ public class ViewService {
 
                     boolean result = deleteView(currentView, isOwner, userId);
                     responseList.add(new ViewResponse(
-                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN))
                                     + "_" + currentView.getTimezone(),
                             result, currentView.getId()));
                 } catch (Exception e) {
                     log.error(trId + "" , e);
                     responseList.add(new ViewResponse(
-                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)"))
+                            currentView.getViewDate().format(DateTimeFormatter.ofPattern("MM월 dd일(E)", Locale.KOREAN))
                                     + "_" + currentView.getTimezone(),
                             false, currentView.getId()));
                 }
